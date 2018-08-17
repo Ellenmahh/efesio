@@ -5,9 +5,9 @@ package efesio.com.br.app.rest;
  */
 
 public enum Service {
-    ACCOUNT("http://localhost:8080/efesioapi/docs/?usuario=ellen&senha=123/",
-            "http://localhost:8080/efesioapi/docs/?usuario=ellen&senha=123/",
-            "http://localhost:8080/efesioapi/docs/?usuario=ellen&senha=123/");
+    ACCOUNT("http://efesioapi.azurewebsites.net/api/",
+            "http://efesioapi.azurewebsites.net/api/",
+            "http://efesioapi.azurewebsites.net/api/");
 
     String url;
     String urlDev;

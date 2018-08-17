@@ -84,9 +84,11 @@ public class VolleyRequest<T> extends JsonRequest<NixResponse<T>> {
 
             NixResponse<T> res = new NixResponse<>();
             res.setHeaders(response.headers);
-            if (!jsonString.isEmpty())
-                res.setEntity(Json.fromJson(jsonString, tClass));
-            res.setMessage(response.headers.get("nix_message"));
+            if (!jsonString.isEmpty()) {
+                if(res.getHeaders().get("x-executed").equals("true"))
+                    res.setEntity(Json.fromJson(jsonString, tClass));
+            }
+            res.setMessage(response.headers.get("x-message"));
             res.setStatus(response.statusCode);
             return Response.success(res,HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {

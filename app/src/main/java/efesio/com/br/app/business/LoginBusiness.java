@@ -27,13 +27,13 @@ public class LoginBusiness extends AbstractBusiness<Login> {
         return new TypeReference<Login>() {};
     }
 
-    public Request<Login> login(String email, String senha, String conta){
+    public Request<Login> login(String email, String senha){
         return new Request<>(new TypeReference<Login>() {}, getContext())
                 .setService(getService())
                 .setUri(getPath()+"/login")
                 .putParam("login", email)
                 .putParam("pass", senha)
-                .putParam("conta", conta)
+                .putParam("conta", 3)
                 .setMethod(Request.Method.POST);
     }
 
@@ -43,7 +43,7 @@ public class LoginBusiness extends AbstractBusiness<Login> {
                 .setUri(getPath()+"/login")
                 .putParam("login", email)
                 .putParam("pass", senha)
-                .putParam("conta", conta)
+               //.putParam("conta", conta)
                 .setMethod(Request.Method.GET);
     }
 
