@@ -118,7 +118,7 @@ public class VolleyRequest<T> extends JsonRequest<NixResponse<T>> {
         headers.put("versionNumber", String.valueOf(BuildConfig.VERSION_CODE));
         headers.put("versionName", BuildConfig.VERSION_NAME);
         headers.put("userAgent", "1");
-        headers.put("TOKEN", RuntimeValues.getToken());
+        headers.put("HASH", RuntimeValues.getToken());
         return headers;
     }
 

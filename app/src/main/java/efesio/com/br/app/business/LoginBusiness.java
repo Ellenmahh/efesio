@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import efesio.com.br.app.Login;
+import efesio.com.br.app.entities.Login;
 import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.rest.Service;
 
@@ -28,12 +28,12 @@ public class LoginBusiness extends AbstractBusiness<Login> {
     }
 
     public Request<Login> login(String email, String senha){
-        return new Request<>(new TypeReference<Login>() {}, getContext())
+        return new Request<>(getTypeReference(), getContext())
                 .setService(getService())
                 .setUri(getPath()+"/login")
                 .putParam("login", email)
                 .putParam("pass", senha)
-                .putParam("conta", 3)
+                .putParam("conta", 46)
                 .setMethod(Request.Method.POST);
     }
 

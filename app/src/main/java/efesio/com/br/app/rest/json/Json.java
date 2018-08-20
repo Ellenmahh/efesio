@@ -2,6 +2,7 @@ package efesio.com.br.app.rest.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -22,7 +23,8 @@ public class Json{
             instance.registerModule(new LocalDateTimeModule());
             instance.registerModule(new LocalDateModule());
             instance.registerModule(new JSONObjectModule());
-            instance.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+            instance.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            instance.configure (SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
         }
         return instance;
     }
@@ -44,6 +46,7 @@ public class Json{
     }
 
     public static <T> T fromJson(String object, TypeReference<T> tClass) throws IOException {
+
         return getInstance().readValue(object, tClass);
     }
 }

@@ -70,6 +70,7 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
     private OnStart onStart;
     private OnFinish onFinish;
     private HashMap<String, String> params;
+    private HashMap<String, String> headers;
     private String body;
     private VolleyRequest<T> request;
 
@@ -112,6 +113,8 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
     public Method getMethod() {
         return method;
     }
+
+
 
     public Request<T> setMethod(Method method) {
         this.method = method;
@@ -297,11 +300,13 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
     private String encodeParameters(Map<String, String> params) {
         StringBuilder encodedParams = new StringBuilder();
         encodedParams.append("?");
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            encodedParams.append(entry.getKey());
-            encodedParams.append('=');
-            encodedParams.append(entry.getValue());
-            encodedParams.append('&');
+        if (params != null){
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                encodedParams.append(entry.getKey());
+                encodedParams.append('=');
+                encodedParams.append(entry.getValue());
+                encodedParams.append('&');
+            }
         }
         return encodedParams.toString();
     }

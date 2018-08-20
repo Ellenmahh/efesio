@@ -1,4 +1,4 @@
-package efesio.com.br.app;
+package efesio.com.br.app.feed;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,22 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import efesio.com.br.app.R;
+
 public class FeedFragment extends Fragment {
     RecyclerView mRecycleView;
     RecyclerView.LayoutManager mLayoutManager;
-    PhotoAlbum mPhotoAlbum;
-    Adapter mAdapter;
+    FeedSet feedSet;
+    FeedAdapter feedAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_feed, parent, false);
-        mPhotoAlbum = new PhotoAlbum();
-        mAdapter = new Adapter(mPhotoAlbum);
+        feedSet = new FeedSet();
+        feedAdapter = new FeedAdapter(feedSet);
         mLayoutManager = new LinearLayoutManager(this.getContext());
 
         mRecycleView =  v.findViewById(R.id.recyclerView);
         mRecycleView.setLayoutManager(mLayoutManager);
-        mRecycleView.setAdapter(mAdapter);
+        mRecycleView.setAdapter(feedAdapter);
         return v;
+
     }
 }

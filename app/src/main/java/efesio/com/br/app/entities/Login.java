@@ -1,4 +1,4 @@
-package efesio.com.br.app;
+package efesio.com.br.app.entities;
 
 public class Login {
 
