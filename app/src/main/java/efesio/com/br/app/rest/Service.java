@@ -1,13 +1,17 @@
 package efesio.com.br.app.rest;
 
 /**
- * Created by otavi on 10/01/2017.
+ * Created by Ellen on 17/08/2018.
  */
 
 public enum Service {
-    ACCOUNT("http://efesioapi.azurewebsites.net/api/",
-            "http://efesioapi.azurewebsites.net/api/",
-            "http://efesioapi.azurewebsites.net/api/");
+//    ACCOUNT("http://efesioapi.azurewebsites.net/api/",
+//            "http://efesioapi.azurewebsites.net/api/",
+//            "http://efesioapi.azurewebsites.net/api/");
+//
+ ACCOUNT("http://192.168.0.118:8080/efesioapi/api/",
+            "http://192.168.0.118:8080/efesioapi/api/",
+            "http://192.168.0.118:8080/efesioapi/api/");
 
     String url;
     String urlDev;

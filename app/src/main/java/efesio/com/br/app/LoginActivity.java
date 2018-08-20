@@ -1,5 +1,6 @@
 package efesio.com.br.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -45,8 +46,7 @@ public class LoginActivity extends AppCompatActivity implements Request.OnResult
             return;
         }
         new LoginBusiness(this)
-                .login(login_user.getText().toString().replaceAll("\\D", ""),
-                        Util.toMD5(password_user.getText().toString()))
+                .login(login_user.getText().toString(), Util.toMD5(password_user.getText().toString()))
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
@@ -56,7 +56,18 @@ public class LoginActivity extends AppCompatActivity implements Request.OnResult
 
     @Override
     public void onResult(String tag, NixResponse<Login> res) {
-        Toast.makeText(this, res.getMessage(), Toast.LENGTH_LONG).show();
+        if (res.getStatus() != 201){
+            Toast.makeText(this, res.getMessage(), Toast.LENGTH_LONG).show();
+        }else{
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, "Logado com sucesso!", Toast.LENGTH_LONG).show();
+        }
+
+    }
+    @Override
+    public void onStart(String tag) {
+        Toast.makeText(this, "Fazendo o login", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -65,14 +76,11 @@ public class LoginActivity extends AppCompatActivity implements Request.OnResult
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public void onStart(String tag) {
-        Toast.makeText(this, "Fazendo o login", Toast.LENGTH_LONG).show();
-    }
+
 
     @Override
     public void onFinish(String tag) {
-//        Toast.makeText(this, "Terminao", Toast.LENGTH_LONG).show();
+
     }
 }
 

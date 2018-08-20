@@ -16,7 +16,7 @@ public class FeedFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_agenda, parent, false);
+        View v =  inflater.inflate(R.layout.fragment_feed, parent, false);
         mPhotoAlbum = new PhotoAlbum();
         mAdapter = new Adapter(mPhotoAlbum);
         mLayoutManager = new LinearLayoutManager(this.getContext());

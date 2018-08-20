@@ -17,7 +17,7 @@ public class Adapter extends RecyclerView.Adapter<PhotoAlbum.PhotoViewHolder> {
     @NonNull
     @Override
     public PhotoAlbum.PhotoViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_agenda_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_feed_item, parent, false);
         return new PhotoAlbum.PhotoViewHolder(v);
     }
 
