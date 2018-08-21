@@ -6,10 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import efesio.com.br.app.agenda.AgendaActivity;
 import efesio.com.br.app.R;
 import efesio.com.br.app.entities.FeedItem;
+import efesio.com.br.app.evento.EventoActivity;
 
 public class FeedViewHolder extends RecyclerView.ViewHolder {
 
@@ -68,7 +69,8 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                     image.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(image.getContext(), "Apenas na agenda", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(v.getContext(), AgendaActivity.class);
+                            v.getContext().startActivity(intent);
                         }
                     });
                     break;

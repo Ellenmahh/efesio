@@ -9,13 +9,35 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="NixTheme.NoActionBar.PinkTheme" parent="AppTheme">
+        <item name="colorAccent">@color/pink</item>
+        <item name="colorControlHighlight">@color/pink</item>
+        <item name="android:textColorHint">@color/pink</item>
+        <item name="editTextStyle">@style/NixPinkEditText</item>
+        <item name="buttonStyle">@style/NixPinkButton</item>
+        <item name="android:textViewStyle">@style/NixPinkTextView</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="alertDialogTheme">@style/NixAlertDialog</item>
+    </style>
 
+    <style name="NixPinkButton" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/nix_pink_button</item>
+        <item name="android:foreground">@drawable/nix_pink_riple</item>
+        <item name="android:textColor">@color/pink</item>
+    </style>
 
+    <style name="NixPinkEditText" parent="@android:style/Widget.EditText">
+        <item name="android:textColorHint">@color/pink</item>
+        <item name="android:backgroundTint">@color/pink</item>
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
+    <style name="NixAlertDialog" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:textColor">@color/pink</item>
+    </style>
+    <style name="NixPinkTextView" parent="@android:style/Widget.TextView">
+        <item name="android:textColor">@color/darkGray</item>
+    </style>
 </resources>

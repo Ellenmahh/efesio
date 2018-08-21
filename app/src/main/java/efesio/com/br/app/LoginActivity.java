@@ -1,14 +1,12 @@
 package efesio.com.br.app;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import efesio.com.br.app.base.ActivityBase;
 import efesio.com.br.app.business.LoginBusiness;
 import efesio.com.br.app.entities.Login;
 import efesio.com.br.app.rest.NixResponse;
@@ -16,7 +14,7 @@ import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.util.RuntimeValues;
 import efesio.com.br.app.util.Util;
 
-public class LoginActivity extends AppCompatActivity
+public class LoginActivity extends ActivityBase
         implements Request.OnResult<Login>, Request.OnError, Request.OnStart, Request.OnFinish {
 
     EditText login_user;
@@ -63,14 +61,15 @@ public class LoginActivity extends AppCompatActivity
 
     @Override
     public void onStart(String tag) {
-        Toast.makeText(this, "Fazendo o login", Toast.LENGTH_LONG).show();
-
+            loading(true);
+//        Toast.makeText(this, "Fazendo o login", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        alert("Ocorreu um erro que impediu seu login, tente novamente mais tarde.");
+//        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -78,17 +77,21 @@ public class LoginActivity extends AppCompatActivity
         String token = res.getHeaders().get("x-token");
         RuntimeValues.setToken(token);
         if (res.getStatus() != 201){
-            Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
+            alert(res.getMessage());
+//            Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }else{
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            Toast.makeText(this, "Logado com sucesso!"+token, Toast.LENGTH_LONG).show();
+            open(MainActivity.class);
+            finish();
+//            Intent intent = new Intent(this, MainActivity.class);
+//            startActivity(intent);
+//            Toast.makeText(this, "Logado com sucesso!"+token, Toast.LENGTH_LONG).show();
+
         }
     }
 
     @Override
     public void onFinish(String tag) {
-
+        loading(false);
     }
 }
 

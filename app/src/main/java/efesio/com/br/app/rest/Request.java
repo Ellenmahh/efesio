@@ -213,34 +213,42 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
         if (uri == null)
             throw new IllegalStateException("URL cannot be null");
 
-        String urlfinal = service == null ? uri : service+ uri;
+        try {
+            String urlfinal = service == null ? uri : service + uri;
 
-        if (method == Method.POST) {
-            if (getBody() != null) {
-                request = new VolleyRequest<>(com.android.volley.Request.Method.POST, urlfinal, getBody(), this, this, this, tClass);
-            } else if (getParams() != null) {
-                request = new VolleyRequest<>(com.android.volley.Request.Method.POST, urlfinal, getParams(), this, this, this, tClass);
+            Log.i("Requesting " + urlfinal, "Creating request");
+
+            if (method == Method.POST) {
+                if (getBody() != null) {
+                    request = new VolleyRequest<>(com.android.volley.Request.Method.POST, urlfinal, getBody(), this, this, this, tClass);
+                } else if (getParams() != null) {
+                    request = new VolleyRequest<>(com.android.volley.Request.Method.POST, urlfinal, getParams(), this, this, this, tClass);
+                }
+            } else {
+                urlfinal += encodeParameters(getParams());
+                request = new VolleyRequest<>(com.android.volley.Request.Method.GET, urlfinal, this, this, this, tClass);
             }
-        }else{
-            urlfinal += encodeParameters(getParams());
-            request = new VolleyRequest<>(com.android.volley.Request.Method.GET, urlfinal, this, this, this, tClass);
-        }
-        request.setTag(tag);
+            request.setTag(tag);
 
 
-        if (getOnStart()!= null)
-            getOnStart().onStart(tag);
+            if (getOnStart() != null)
+                getOnStart().onStart(tag);
 
-        if(BuildConfig.DEBUG) {
-            if(getBody()!= null) {
-                Log.i("Request ["+tag+"]", getBody());
-            }else if(getParams()!= null) {
-                Log.i("Request ["+tag+"]", getParams().toString());
+            if (BuildConfig.DEBUG) {
+                if (getBody() != null) {
+                    Log.i("Request [" + tag + "]", getBody());
+                } else if (getParams() != null) {
+                    Log.i("Request [" + tag + "]", getParams().toString());
+                }
             }
-        }
 
-        getQueue(context).add(request);
-        return this;
+            getQueue(context).add(request);
+            return this;
+        }catch (Exception e){
+            e.printStackTrace();
+            Log.e("Erro na requisição", "Erro", e);
+            return null;
+        }
     }
 
     public void cancel(){

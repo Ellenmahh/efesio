@@ -4,13 +4,15 @@ import android.content.Context;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import java.util.List;
+
 import efesio.com.br.app.entities.Agenda;
 import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.rest.Service;
 
 public class AgendaBusiness extends AbstractBusiness<Agenda> {
-    public AgendaBusiness(Service service, Context context) {
-        super(service, context);
+    public AgendaBusiness(Context context) {
+        super(Service.ACCOUNT, context);
     }
 
     @Override
@@ -23,11 +25,12 @@ public class AgendaBusiness extends AbstractBusiness<Agenda> {
         return new TypeReference<Agenda>() {};
     }
 
-    public Request<Agenda> agenda (String token){
-        return new Request<>(getTypeReference(), getContext())
+    public Request<List<Agenda>> agenda (String date){
+        return new Request<>(new TypeReference<List<Agenda>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath())
-                .putParam("HASH", token)
+                .putParam("dataIni", date)
+                .putParam("dataFim", date)
                 .setMethod(Request.Method.GET);
     }
 }
