@@ -29,19 +29,15 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
     public enum Method{
         POST, GET
     }
-
-    public interface OnResult<T> {
-        public void onResult(String tag, NixResponse<T> res);
-    }
-
-    public interface OnError {
-        public void onError(String tag, Exception e);
-    }
-
     public interface OnStart {
         public void onStart(String tag);
     }
-
+    public interface OnError {
+        public void onError(String tag, Exception e);
+    }
+    public interface OnResult<T> {
+        public void onResult(String tag, NixResponse<T> res);
+    }
     public interface OnFinish {
         public void onFinish(String tag);
     }

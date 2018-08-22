@@ -18,8 +18,7 @@ public class EventoAdapter extends RecyclerView.Adapter {
     private Context context;
 
 
-    public EventoAdapter(List<Evento> lstEventos, Context context) {
-        this.eventos = lstEventos;
+    public EventoAdapter(Context context) {
         this.context = context;
     }
 
@@ -66,5 +65,10 @@ public class EventoAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return eventos != null ? eventos.size() : 0;
 
+    }
+    public void setItems(List<Evento> items){
+        this.eventos.clear();
+        this.eventos.addAll(items);
+        this.notifyDataSetChanged();
     }
 }

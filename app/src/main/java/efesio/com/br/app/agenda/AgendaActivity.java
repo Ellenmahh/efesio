@@ -3,6 +3,7 @@ package efesio.com.br.app.agenda;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +30,13 @@ public class AgendaActivity  extends ActivityBase
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
+
+        Toolbar toolbar =  findViewById(R.id.toolbarAg);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         mRecyclerView = findViewById(R.id.recyclerViewAgenda);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
@@ -124,7 +132,7 @@ public class AgendaActivity  extends ActivityBase
     @Override
     public void onResult(String tag, NixResponse<List<Agenda>> res) {
         if (res.getStatus() != 200){
-            alert(res.getMessage());
+           // alert(res.getMessage());
             Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
 

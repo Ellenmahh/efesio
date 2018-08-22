@@ -40,8 +40,6 @@ public class AgendaAdapter extends RecyclerView.Adapter  {
         Agenda itemAgenda = agenda.get(position);
         holder.titulo_ag.setText(itemAgenda.getTitulo());
         holder.descricao_ag.setText(itemAgenda.getDescricao());
-
-
     }
 
     @Override

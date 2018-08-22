@@ -1,41 +1,47 @@
-package efesio.com.br.app.evento;
+package efesio.com.br.app.aniversariante;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.List;
 
 import efesio.com.br.app.MainActivity;
 import efesio.com.br.app.R;
 import efesio.com.br.app.base.ActivityBase;
-import efesio.com.br.app.business.EventoBusiness;
-import efesio.com.br.app.entities.Evento;
+import efesio.com.br.app.business.AniversarianteBusiness;
+import efesio.com.br.app.entities.Aniversariante;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
 
-public class EventoActivity extends ActivityBase
-        implements Request.OnResult<List<Evento>>, Request.OnError, Request.OnStart, Request.OnFinish {
+public class AniversariantesActivity extends ActivityBase
+        implements Request.OnResult<List<Aniversariante>>, Request.OnError, Request.OnStart, Request.OnFinish{
 
     private RecyclerView mRecyclerView;
-    private EventoAdapter adapter = new EventoAdapter(this );
+    private AniverAdapter adapter = new AniverAdapter(this );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_evento);
+        setContentView(R.layout.activity_aniversariantes);
+        Toolbar toolbar =  findViewById(R.id.toolbarAg);
+        setSupportActionBar(toolbar);
 
-        mRecyclerView = findViewById(R.id.recyclerViewEvento);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+
+        mRecyclerView = findViewById(R.id.recyclerView_an);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setHasFixedSize(true);
 
-        eventos();
+        aniversariantes();
     }
 
-    private void eventos(){
-        new EventoBusiness(this)
-                .eventos()
+    private void aniversariantes(){
+        new AniversarianteBusiness(this)
+                .aniversariantes()
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
@@ -58,7 +64,7 @@ public class EventoActivity extends ActivityBase
     }
 
     @Override
-    public void onResult(String tag, NixResponse<List<Evento>> res) {
+    public void onResult(String tag, NixResponse<List<Aniversariante>> res) {
         if (res.getEntity() == null || res.getEntity().size() == 0){
             open(MainActivity.class);
             alert("Nenhum evento encontrado");

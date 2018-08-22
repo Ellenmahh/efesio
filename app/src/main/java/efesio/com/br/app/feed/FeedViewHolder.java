@@ -15,7 +15,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import efesio.com.br.app.R;
-import efesio.com.br.app.ViewPageAdapter;
+import efesio.com.br.app.galeria.ViewPageAdapter;
 import efesio.com.br.app.agenda.AgendaActivity;
 import efesio.com.br.app.entities.FeedItem;
 import efesio.com.br.app.evento.EventoActivity;
@@ -113,31 +113,38 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                         sliderDots.addView(dots[i], params);
                     }
 
-                    dots[0].setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), R.drawable.active_dot));
-                    galeria.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                        @Override
-                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    if (dots.length > 0) {
 
-                        }
+                        dots[0].setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), R.drawable.active_dot));
+                        galeria.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                            @Override
+                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                        @Override
-                        public void onPageSelected(int position) {
-                            for(int i = 0; i <dotscount; i++) {
-
-                                dots[i].setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), R.drawable.nonactive_dot));
-                                dots[position].setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), R.drawable.active_dot));
                             }
-                        }
 
-                        @Override
-                        public void onPageScrollStateChanged(int state) {
+                            @Override
+                            public void onPageSelected(int position) {
+                                for (int i = 0; i < dotscount; i++) {
 
-                        }
-                    });
+                                    dots[i].setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), R.drawable.nonactive_dot));
+                                    dots[position].setImageDrawable(ContextCompat.getDrawable(itemView.getContext(), R.drawable.active_dot));
+                                }
+                            }
+
+                            @Override
+                            public void onPageScrollStateChanged(int state) {
+
+                            }
+                        });
+                    }
                     // definindo o tempo de passagem das imagens do slide_promocao
                     Timer timer = new Timer();
-                    timer.scheduleAtFixedRate(new MyTimeTask(), 6000, 4000);
+                    timer.scheduleAtFixedRate(new MyTimeTask(), 6000, 6000);
                     break;
+
+
+
+
                 }
                 case AGENDA: {
                     caption.setText(item.legenda);

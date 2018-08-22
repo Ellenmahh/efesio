@@ -12,13 +12,13 @@ import efesio.com.br.app.entities.Login;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.util.RuntimeValues;
-import efesio.com.br.app.util.Util;
 
 public class LoginActivity extends ActivityBase
         implements Request.OnResult<Login>, Request.OnError, Request.OnStart, Request.OnFinish {
 
     EditText login_user;
     EditText password_user;
+    String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +38,8 @@ public class LoginActivity extends ActivityBase
                 login();
             }
         });
-        login_user.setText("asd");
-        password_user.setText("asd");
+        login_user.setText("ellen@prompweb.com.br");
+        password_user.setText("123");
     }
 
     private void login() {
@@ -51,7 +51,7 @@ public class LoginActivity extends ActivityBase
             return;
         }
         new LoginBusiness(this)
-                .login(login_user.getText().toString(), Util.toMD5(password_user.getText().toString()))
+                .login(login_user.getText().toString(),(password_user.getText().toString()))
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
