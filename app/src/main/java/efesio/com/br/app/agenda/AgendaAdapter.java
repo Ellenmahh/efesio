@@ -1,30 +1,32 @@
 package efesio.com.br.app.agenda;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import efesio.com.br.app.R;
 import efesio.com.br.app.entities.Agenda;
 
 public class AgendaAdapter extends RecyclerView.Adapter  {
-    private List<Agenda> agenda;
+    private List<Agenda> agenda = new ArrayList<>();
     private Context context;
 
-    public AgendaAdapter(List<Agenda> lstAgenda, Context context) {
-        this.agenda = lstAgenda;
+    public AgendaAdapter(Context context) {
         this.context = context;
     }
 
     public AgendaAdapter() {
 
     }
+    @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        System.out.println("onCreateViewHolder");
         View view = LayoutInflater.from(context).inflate(R.layout.agenda_item,
                 parent, false);
 
@@ -32,17 +34,24 @@ public class AgendaAdapter extends RecyclerView.Adapter  {
     }
     @Override
     public void onBindViewHolder( RecyclerView.ViewHolder viewHolder,  int position) {
+        System.out.println("onBindViewHolder");
 
         AgendaViewHolder holder = (AgendaViewHolder) viewHolder;
         Agenda itemAgenda = agenda.get(position);
         holder.titulo_ag.setText(itemAgenda.getTitulo());
         holder.descricao_ag.setText(itemAgenda.getDescricao());
 
+
     }
 
     @Override
     public int getItemCount() {
         return agenda != null ? agenda.size() : 0;
+    }
 
+    public void setItems(List<Agenda> items){
+        this.agenda.clear();
+        this.agenda.addAll(items);
+        this.notifyDataSetChanged();
     }
 }

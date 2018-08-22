@@ -40,20 +40,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="10dp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="#333333"
-                android:text="Nenhuma tarefa"
-                android:id="@+id/vazio_ag"
-                android:textAlignment="center"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="10dp"
-                android:visibility="invisible"
-                />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

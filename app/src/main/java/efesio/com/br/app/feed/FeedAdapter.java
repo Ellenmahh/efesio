@@ -26,8 +26,10 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
             throw new IllegalArgumentException("View Type cannot be null");
         }
         switch (tipo){
+            case GALERIA:layout = R.layout.fragment_feed_item_galeria;break;
             case AGENDA:layout = R.layout.fragment_feed_item_agenda;break;
             case EVENTOS:layout = R.layout.fragment_feed_item_evento;break;
+
         }
 
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);

@@ -1,12 +1,9 @@
 package efesio.com.br.app.agenda;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shrikanthravi.collapsiblecalendarview.data.Day;
@@ -27,19 +24,17 @@ public class AgendaActivity  extends ActivityBase
         implements Request.OnResult<List<Agenda>>, Request.OnError, Request.OnStart, Request.OnFinish {
     private String data;
     private RecyclerView mRecyclerView;
-    TextView vazio_ag;
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private AgendaAdapter adapter = new AgendaAdapter(this );
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
         mRecyclerView = findViewById(R.id.recyclerViewAgenda);
-        vazio_ag = findViewById(R.id.vazio_ag);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(adapter);
 
-        getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
         final CollapsibleCalendar collapsibleCalendar = findViewById(R.id.collapsibleCalendarView);
         Calendar today=new GregorianCalendar();
         collapsibleCalendar.addEventTag(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
@@ -117,7 +112,8 @@ public class AgendaActivity  extends ActivityBase
     }
     @Override
     public void onStart(String tag) {
-        loading(true);
+      //  loading(true);
+        Toast.makeText(this, "Pesquisando ", Toast.LENGTH_LONG).show();
 
     }
     @Override
@@ -128,22 +124,22 @@ public class AgendaActivity  extends ActivityBase
     @Override
     public void onResult(String tag, NixResponse<List<Agenda>> res) {
         if (res.getStatus() != 200){
-//            alert(res.getMessage());
+            alert(res.getMessage());
             Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
-        AgendaAdapter adapter = new AgendaAdapter(res.getEntity(),this );
-        mRecyclerView.setAdapter(adapter);
+
+        adapter.setItems(res.getEntity());
 
         System.out.println("getMessage ============= "+res.getMessage());
         System.out.println("HEADERS ============= "+res.getHeaders());
         System.out.println("ENTITY ============= "+res.getEntity().size());
 
-        if (res.getEntity().size() == 0){
-            vazio_ag.setVisibility(View.VISIBLE);
-        }
+//        if (res.getEntity().size() == 0){
+//            vazio_ag.setVisibility(View.VISIBLE);
+//        }
     }
     @Override
     public void onFinish(String tag) {
-        loading(false);
+       // loading(false);
     }
 }
