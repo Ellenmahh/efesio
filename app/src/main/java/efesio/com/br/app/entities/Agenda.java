@@ -1,9 +1,11 @@
 package efesio.com.br.app.entities;
 
+import org.joda.time.LocalDate;
+
 public class Agenda {
 
     private String titulo;
-    private String data;
+    private LocalDate data;
     private String descricao;
 
     public String getTitulo() {
@@ -14,11 +16,11 @@ public class Agenda {
         this.titulo = titulo;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 

@@ -10,8 +10,8 @@ import android.widget.Toast;
 import com.shrikanthravi.collapsiblecalendarview.data.Day;
 import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import org.joda.time.LocalDate;
+
 import java.util.List;
 
 import efesio.com.br.app.R;
@@ -23,66 +23,36 @@ import efesio.com.br.app.rest.Request;
 
 public class AgendaActivity  extends ActivityBase
         implements Request.OnResult<List<Agenda>>, Request.OnError, Request.OnStart, Request.OnFinish {
-    private String data;
     private RecyclerView mRecyclerView;
+    private LinearLayoutManager manager;
     private AgendaAdapter adapter = new AgendaAdapter(this );
+    private CollapsibleCalendar collapsibleCalendar;
+    private Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda);
-
-        Toolbar toolbar =  findViewById(R.id.toolbarAg);
+        toolbar =  findViewById(R.id.toolbarAg);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        manager = new LinearLayoutManager(this);
+
         mRecyclerView = findViewById(R.id.recyclerViewAgenda);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(adapter);
 
-        final CollapsibleCalendar collapsibleCalendar = findViewById(R.id.collapsibleCalendarView);
-        Calendar today=new GregorianCalendar();
-        collapsibleCalendar.addEventTag(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH));
-        today.add(Calendar.DATE,1);
-//        collapsibleCalendar.addEventTag(today.get(Calendar.YEAR),today.get(Calendar.MONTH),today.get(Calendar.DAY_OF_MONTH), Color.BLUE);
-        if (data == null){
-            if (collapsibleCalendar.getSelectedDay().getMonth() < 10 && collapsibleCalendar.getSelectedDay().getDay() < 10 ){
-                data =  collapsibleCalendar.getSelectedDay().getYear()+"-0"+
-                        collapsibleCalendar.getSelectedDay().getMonth()+"-0"+
-                        collapsibleCalendar.getSelectedDay().getDay();
-            }
-            if (collapsibleCalendar.getSelectedDay().getMonth() < 10 ){
-                data =  collapsibleCalendar.getSelectedDay().getYear()+"-0"+
-                        collapsibleCalendar.getSelectedDay().getMonth()+"-"+
-                        collapsibleCalendar.getSelectedDay().getDay();
-            }
-            if (collapsibleCalendar.getSelectedDay().getDay() < 10 ){
-                data =  collapsibleCalendar.getSelectedDay().getYear()+"-"+
-                        collapsibleCalendar.getSelectedDay().getMonth()+"-0"+
-                        collapsibleCalendar.getSelectedDay().getDay();
-            }
-        }
+        collapsibleCalendar = findViewById(R.id.collapsibleCalendarView);
         collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {
             @Override
             public void onDaySelect() {
-                String dia = null, mes = null;
                 Day day = collapsibleCalendar.getSelectedDay();
-                if (day.getMonth() < 10) {
-                    mes = "0"+(day.getMonth()+1);
-                }
-                if (day.getDay() < 10){
-                    dia = "0"+day.getDay();
-                    data = day.getYear()+"-"+mes+"-"+dia;
-                }else{
-                    data = day.getYear()+"-"+mes+"-"+day.getDay();
-                }
-
-                 Toast.makeText(AgendaActivity.this, "clicouu "+data, Toast.LENGTH_SHORT).show();
-
-                agenda();
+                LocalDate d = new LocalDate(day.getYear(), day.getMonth(), day.getDay());
+                Toast.makeText(AgendaActivity.this, "clicouu "+d, Toast.LENGTH_SHORT).show();
+                agenda(d);
             }
 
             @Override
@@ -102,16 +72,16 @@ public class AgendaActivity  extends ActivityBase
 
             @Override
             public void onWeekChange(int position) {
-
             }
         });
-        agenda();
+        agenda(null);
     }
 
-    private void agenda(){
-        System.out.println("daata " + data);
+
+    private void agenda(LocalDate data){
         new AgendaBusiness(this)
                 .agenda(data)
+                .setTag(data == null ? "CARREGAR_BOLINHAS" : "LISTAR")
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
@@ -132,19 +102,17 @@ public class AgendaActivity  extends ActivityBase
     @Override
     public void onResult(String tag, NixResponse<List<Agenda>> res) {
         if (res.getStatus() != 200){
-           // alert(res.getMessage());
             Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
-
         adapter.setItems(res.getEntity());
+        if(tag.equals("CARREGAR_BOLINHAS")){
+            for(Agenda a : res.getEntity()) {
+                LocalDate data = a.getData();
+                collapsibleCalendar.addEventTag(data.getYear(), data.getMonthOfYear()-1, data.getDayOfMonth());
+                System.out.println(data.getYear()+" - "+ data.getMonthOfYear()+" - "+data.getDayOfMonth());
 
-        System.out.println("getMessage ============= "+res.getMessage());
-        System.out.println("HEADERS ============= "+res.getHeaders());
-        System.out.println("ENTITY ============= "+res.getEntity().size());
-
-//        if (res.getEntity().size() == 0){
-//            vazio_ag.setVisibility(View.VISIBLE);
-//        }
+            }
+        }
     }
     @Override
     public void onFinish(String tag) {

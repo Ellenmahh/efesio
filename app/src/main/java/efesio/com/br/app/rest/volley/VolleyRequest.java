@@ -163,6 +163,8 @@ public class VolleyRequest<T> extends JsonRequest<NixResponse<T>> {
         StringBuilder encodedParams = new StringBuilder();
         try {
             for (Map.Entry<String, String> entry : params.entrySet()) {
+                if(entry.getValue() == null)
+                    continue;
                 encodedParams.append(URLEncoder.encode(entry.getKey(), paramsEncoding));
                 encodedParams.append('=');
                 encodedParams.append(URLEncoder.encode(entry.getValue(), paramsEncoding));

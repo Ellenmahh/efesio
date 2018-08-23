@@ -142,9 +142,6 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                     timer.scheduleAtFixedRate(new MyTimeTask(), 6000, 6000);
                     break;
 
-
-
-
                 }
                 case AGENDA: {
                     caption.setText(item.legenda);

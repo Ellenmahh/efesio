@@ -17,12 +17,12 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             >
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/thor"
+            <com.android.volley.toolbox.NetworkImageView
                 android:id="@+id/img_membro"
-                />
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="#333333"
                 android:text="Data"
-                android:id="@+id/dtNasc_membro"
+                android:id="@+id/dtNasc"
                 android:textAlignment="center"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="4dp"

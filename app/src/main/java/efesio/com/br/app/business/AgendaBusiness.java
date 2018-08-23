@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import org.joda.time.LocalDate;
+
 import java.util.List;
 
 import efesio.com.br.app.entities.Agenda;
@@ -25,12 +27,12 @@ public class AgendaBusiness extends AbstractBusiness<Agenda> {
         return new TypeReference<Agenda>() {};
     }
 
-    public Request<List<Agenda>> agenda (String date){
+    public Request<List<Agenda>> agenda (LocalDate date){
         return new Request<>(new TypeReference<List<Agenda>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath())
-                .putParam("dataIni", date)
-                .putParam("dataFim", date)
+                .putParam("dataIni", date == null ? null : date.toString("yyyy-MM-dd"))
+                .putParam("dataFim", date == null ? null : date.toString("yyyy-MM-dd"))
                 .setMethod(Request.Method.GET);
     }
 }

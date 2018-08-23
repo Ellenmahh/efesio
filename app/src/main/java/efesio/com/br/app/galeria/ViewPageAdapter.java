@@ -91,6 +91,7 @@ public class ViewPageAdapter extends PagerAdapter
          * carrega a imagem da url e mostra na imageview*/
         String imagem = images.get(position);
         imageView.setImageUrl(imagem, mImageLoader);
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,11 +108,9 @@ public class ViewPageAdapter extends PagerAdapter
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-
         ViewPager vp = (ViewPager) container;
         View view = (View) object;
         vp.removeView(view);
-
     }
 
     @Override

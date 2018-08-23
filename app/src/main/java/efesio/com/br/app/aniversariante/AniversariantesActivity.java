@@ -5,6 +5,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import efesio.com.br.app.MainActivity;
@@ -19,29 +22,35 @@ public class AniversariantesActivity extends ActivityBase
         implements Request.OnResult<List<Aniversariante>>, Request.OnError, Request.OnStart, Request.OnFinish{
 
     private RecyclerView mRecyclerView;
-    private AniverAdapter adapter = new AniverAdapter(this );
+    AniverAdapter adapter;
+    String mes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aniversariantes);
-        Toolbar toolbar =  findViewById(R.id.toolbarAg);
+
+        Toolbar toolbar =  findViewById(R.id.toolbarAn);
         setSupportActionBar(toolbar);
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         mRecyclerView = findViewById(R.id.recyclerView_an);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setHasFixedSize(true);
 
+        DateFormat dateFormat = new SimpleDateFormat("MM");
+        Date date = new Date();
+        mes = dateFormat.format(date);
+
         aniversariantes();
     }
 
     private void aniversariantes(){
         new AniversarianteBusiness(this)
-                .aniversariantes()
+                .aniversariantes(mes)
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
@@ -53,32 +62,26 @@ public class AniversariantesActivity extends ActivityBase
     @Override
     public void onStart(String tag) {
         loading(true);
-        //Toast.makeText(this, "Pesquisando eventos", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Erro ao procurar eventos, tente novamente mais tarde.");
-//        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        alert("Erro ao procurar aniversariantes, tente novamente mais tarde.");
     }
 
     @Override
     public void onResult(String tag, NixResponse<List<Aniversariante>> res) {
         if (res.getEntity() == null || res.getEntity().size() == 0){
             open(MainActivity.class);
-            alert("Nenhum evento encontrado");
+            alert("Nenhum aniversariante encontrado");
         }
         if (res.getStatus() != 200){
             alert(res.getMessage());
-//            Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
-        adapter.setItems(res.getEntity());
 
-        System.out.println("getMessage ============= "+res.getMessage());
-        System.out.println("HEADERS ============= "+res.getHeaders());
-        System.out.println("ENTITY ============= "+res.getEntity());
-
+        adapter = new AniverAdapter(res.getEntity(),this);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override

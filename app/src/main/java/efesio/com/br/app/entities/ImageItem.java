@@ -1,22 +1,20 @@
 package efesio.com.br.app.entities;
 
-import android.graphics.Bitmap;
-
 public class ImageItem {
-	private Bitmap image;
+	private String image;
 	private String title;
 
-	public ImageItem(Bitmap image, String title) {
+	public ImageItem(String image, String title) {
 		super();
 		this.image = image;
 		this.title = title;
 	}
 
-	public Bitmap getImage() {
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(Bitmap image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
 

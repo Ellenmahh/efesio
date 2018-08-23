@@ -2,24 +2,24 @@ package efesio.com.br.app.entities;
 
 public class Aniversariante {
 
-    private String foto;
-    private String dtNasc;
+    private String urlFoto;
+    private String dataNascimento;
     private String nome;
 
-    public String getFoto() {
-        return foto;
+    public String getUrlFoto() {
+        return urlFoto;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 
-    public String getDtNasc() {
-        return dtNasc;
+    public String getDataNascimento() {
+        return dataNascimento;
     }
 
-    public void setDtNasc(String dtNasc) {
-        this.dtNasc = dtNasc;
+    public void setDataNascimento(String dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public String getNome() {

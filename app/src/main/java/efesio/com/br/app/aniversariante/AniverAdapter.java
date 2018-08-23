@@ -1,13 +1,21 @@
 package efesio.com.br.app.aniversariante;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.squareup.picasso.Picasso;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import efesio.com.br.app.R;
@@ -15,11 +23,28 @@ import efesio.com.br.app.entities.Aniversariante;
 
 public class AniverAdapter extends RecyclerView.Adapter {
     private List<Aniversariante> aniver;
+    private List<String> images = new ArrayList<>();
+
     private Context context;
+    private RequestQueue mRequestQueue;
+    private ImageLoader mImageLoader;
 
-
-    public AniverAdapter(Context context) {
+    public AniverAdapter(List<Aniversariante> lstAniver, Context context) {
+        this.aniver = lstAniver;
         this.context = context;
+
+        /**
+         * inicia a fila de requisições da voley*/
+            mRequestQueue = Volley.newRequestQueue(context);
+            mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
+                private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
+                public void putBitmap(String url, Bitmap bitmap) {
+                    mCache.put(url, bitmap);
+                }
+                public Bitmap getBitmap(String url) {
+                    return mCache.get(url);
+                }
+            });
     }
 
     public AniverAdapter() {
@@ -28,7 +53,7 @@ public class AniverAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        System.out.println("onCreateViewHolder");
         View view = LayoutInflater.from(context).inflate(R.layout.aniver_item,
                 parent, false);
 
@@ -36,31 +61,30 @@ public class AniverAdapter extends RecyclerView.Adapter {
     }
     @Override
     public void onBindViewHolder( RecyclerView.ViewHolder viewHolder,  int position) {
+        System.out.println("onBindViewHolder");
+        Aniversariante item = aniver.get(position);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String date =sdf.format(new Date());
 
         AniverViewHolder holder = (AniverViewHolder) viewHolder;
-        Aniversariante item = aniver.get(position);
 
         holder.nome_membro.setText(item.getNome());
-        holder.dtNasc_membro.setText(item.getDtNasc());
+        holder.dtNasc_membro.setText(date);
+        images.addAll(Collections.singleton(item.getUrlFoto()));
+//        holder.img_membro.setImageUrl(item.getUrlFoto(),mImageLoader);
 
+        /**
+         * carrega a imagem da url e mostra na imageview*/
+        String imagem = String.valueOf(images.get(position));
+        holder.img_membro.setImageUrl(imagem, mImageLoader);
 
-        if (item.getFoto() == null || item.getFoto().trim().isEmpty()) {
-            Picasso.with(context.getApplicationContext())
-                    .load(item.getFoto())
-                    .resize(300, 280)
-                    .into(holder.img_membro);
-        }
+        System.out.println("imagem--- " + imagem );
+
     }
 
     @Override
     public int getItemCount() {
         return aniver != null ? aniver.size() : 0;
-
     }
 
-    public void setItems(List<Aniversariante> items){
-        this.aniver.clear();
-        this.aniver.addAll(items);
-        this.notifyDataSetChanged();
-    }
 }

@@ -156,6 +156,9 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
         if (getBody() != null)
             throw new IllegalStateException("Body already present. You can only inform a body object, a set of body params or a set of post params.");
 
+        if(value == null)
+            return this;
+
         if (getParams() == null)
             this.params = new HashMap<>();
         getParams().put(name, value);
