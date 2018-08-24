@@ -31,6 +31,7 @@ public class GaleriaActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getWindow().getAttributes().windowAnimations = R.style.AppTheme_Gal;
 
         imageItems = new ArrayList<>();
         gridView = findViewById(R.id.gridView);

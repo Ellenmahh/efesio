@@ -65,13 +65,9 @@ public class EventoActivity extends ActivityBase
         }
         if (res.getStatus() != 200){
             alert(res.getMessage());
-//            Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
         adapter.setItems(res.getEntity());
 
-        System.out.println("getMessage ============= "+res.getMessage());
-        System.out.println("HEADERS ============= "+res.getHeaders());
-        System.out.println("ENTITY ============= "+res.getEntity());
 
     }
 

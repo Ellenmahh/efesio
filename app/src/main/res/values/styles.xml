@@ -49,4 +49,14 @@
         <item>@drawable/thor</item>
         <item>@drawable/thanos</item>
     </string-array>
+    <style name="AppTheme.Gal">
+            <item name="android:windowEnterAnimation">@transition/fadein</item>
+            <item name="android:windowExitAnimation">@transition/fadeout</item>
+    </style>
+
+    <style name="AppTheme.Detail">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowEnterTransition">@transition/detail_enter</item>
+    </style>
 </resources>

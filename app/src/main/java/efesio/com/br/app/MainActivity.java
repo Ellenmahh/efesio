@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import efesio.com.br.app.agenda.AgendaActivity;
 import efesio.com.br.app.aniversariante.AniversariantesActivity;
+import efesio.com.br.app.evento.EventoActivity;
 import efesio.com.br.app.galeria.GaleriaActivity;
 
 public class MainActivity extends AppCompatActivity
@@ -55,6 +57,12 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             Intent intent = new Intent(MainActivity.this, GaleriaActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.agenda) {
+            Intent intent = new Intent(MainActivity.this, AgendaActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.eventos) {
+            Intent intent = new Intent(MainActivity.this, EventoActivity.class);
             startActivity(intent);
 
         }else if (id == R.id.logout) {

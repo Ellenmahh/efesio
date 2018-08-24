@@ -17,7 +17,6 @@ public class EventoAdapter extends RecyclerView.Adapter {
     private List<Evento> eventos;
     private Context context;
 
-
     public EventoAdapter(Context context) {
         this.context = context;
     }

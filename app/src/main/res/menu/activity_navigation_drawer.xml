@@ -11,23 +11,23 @@
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <!--<item-->
-            <!--android:id="@+id/nav_slideshow"-->
-            <!--android:icon="@drawable/ic_menu_slideshow"-->
-            <!--android:title="Slideshow" />-->
-        <!--<item-->
-            <!--android:id="@+id/nav_manage"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="Tools" />-->
+            android:title="Galeria" />
+        <item
+            android:id="@+id/agenda"
+            android:icon="@drawable/schedule"
+            android:title="Agenda" />
+        <item
+            android:id="@+id/eventos"
+            android:icon="@drawable/events"
+            android:title="Eventos" />
     </group>
 
     <item android:title="Usuário">
         <menu>
-            <item
-                android:id="@+id/menu_user"
-                android:icon="@drawable/user"
-                android:title="Meu Perfil" />
+            <!--<item-->
+                <!--android:id="@+id/menu_user"-->
+                <!--android:icon="@drawable/user"-->
+                <!--android:title="Meu Perfil" />-->
             <item
                 android:id="@+id/logout"
                 android:icon="@drawable/logout"

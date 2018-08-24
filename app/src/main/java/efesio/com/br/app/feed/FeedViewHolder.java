@@ -145,7 +145,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                 }
                 case AGENDA: {
                     caption.setText(item.legenda);
-                    subAgenda.setText("Agenda teste bla bla bla");
+//                    subAgenda.setText("Agenda teste bla bla bla");
                     Drawable myIcon = itemView.getResources().getDrawable(item.photoId);
                     image.setImageDrawable(myIcon);
                     image.setOnClickListener(new View.OnClickListener() {

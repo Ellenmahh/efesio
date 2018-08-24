@@ -20,6 +20,8 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        getWindow().getAttributes().windowAnimations = R.style.AppTheme_Detail;
+
         /**
          * inicia a fila de requisições da voley*/
         mRequestQueue = Volley.newRequestQueue(DetailsActivity.this);
@@ -33,14 +35,8 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-//        String title = getIntent().getStringExtra("title");
         String imagem = getIntent().getStringExtra("image");
-
-//        TextView titleTextView = findViewById(R.id.title);
-//        titleTextView.setText(title);
-
         NetworkImageView imageView = findViewById(R.id.image_details);
         imageView.setImageUrl(String.valueOf(imagem), mImageLoader);
-        System.out.println("imagem detail -- " +imagem);
     }
 }
