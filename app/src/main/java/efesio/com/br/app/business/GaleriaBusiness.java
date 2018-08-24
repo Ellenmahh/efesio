@@ -24,7 +24,7 @@ public TypeReference<String> getTypeReference() {
         return new TypeReference<String>(){};
         }
 
-        public Request<List<String>> getGaleria (){
+        public Request<List<String>> galeria (){
         return new Request<>(new TypeReference<List<String>>(){}, getContext())
         .setService(getService())
         .setUri(getPath())

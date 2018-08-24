@@ -54,7 +54,7 @@ public class ViewPageAdapter extends PagerAdapter
 /** inicia o carregador de imagens, chama a business*/
 
         new GaleriaBusiness(context)
-                .getGaleria()
+                .galeria()
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)

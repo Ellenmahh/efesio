@@ -7,15 +7,21 @@
         android:orientation="vertical"
         android:padding="5dp">
     <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/imageg"
+        android:id="@+id/image_galeria"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:layout_marginTop="60dp"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
 
+    <!--<ImageView-->
+        <!--android:id="@+id/imageg"-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:layout_marginTop="60dp"/>-->
+
         <TextView
-            android:id="@+id/textg"
+            android:id="@+id/text_galeria"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

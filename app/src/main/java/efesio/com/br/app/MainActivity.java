@@ -8,7 +8,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import efesio.com.br.app.aniversariante.AniversariantesActivity;
@@ -45,30 +44,6 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.navigation, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.login){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-        if (id == R.id.logout){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

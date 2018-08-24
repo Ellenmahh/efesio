@@ -35,16 +35,7 @@ public class LoginBusiness extends AbstractBusiness<Login> {
                 .putParam("pass", senha)
                 .putParam("conta", 3)
                 .setMethod(Request.Method.POST);
-    }
 
-    public Request<Boolean> verificar(String email, String senha, String conta){
-        return new Request<>(new TypeReference<Boolean>() {}, getContext())
-                .setService(getService())
-                .setUri(getPath()+"/login")
-                .putParam("login", email)
-                .putParam("pass", senha)
-               //.putParam("conta", conta)
-                .setMethod(Request.Method.GET);
     }
 
 }

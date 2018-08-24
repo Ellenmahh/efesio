@@ -18,16 +18,11 @@ public class LoginActivity extends ActivityBase
 
     EditText login_user;
     EditText password_user;
-    String pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
-//        StrictMode.ThreadPolicy policy = new
-//                StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
 
         Button btn_login = findViewById(R.id.btn_login);
         login_user = findViewById(R.id.login_user);
@@ -62,14 +57,12 @@ public class LoginActivity extends ActivityBase
     @Override
     public void onStart(String tag) {
             loading(true);
-//        Toast.makeText(this, "Fazendo o login", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Ocorreu um erro que impediu seu login, tente novamente mais tarde.");
-//        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        alert("Ocorreu um erro que impediu seu login, tente novamente mais tarde."+e.getMessage());
     }
 
     @Override
@@ -78,14 +71,9 @@ public class LoginActivity extends ActivityBase
         RuntimeValues.setToken(token);
         if (res.getStatus() != 201){
             alert(res.getMessage());
-//            Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }else{
             open(MainActivity.class);
             finish();
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//            Toast.makeText(this, "Logado com sucesso!"+token, Toast.LENGTH_LONG).show();
-
         }
     }
 

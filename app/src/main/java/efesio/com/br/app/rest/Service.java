@@ -8,7 +8,7 @@ public enum Service {
 //    ACCOUNT("http://efesioapi.azurewebsites.net/api/",
 //            "http://efesioapi.azurewebsites.net/api/",
 //            "http://efesioapi.azurewebsites.net/api/");
-//
+
  ACCOUNT("http://192.168.0.118:8080/efesioapi/api/",
             "http://192.168.0.118:8080/efesioapi/api/",
             "http://192.168.0.118:8080/efesioapi/api/");
