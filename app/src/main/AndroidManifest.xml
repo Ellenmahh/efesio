@@ -53,10 +53,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity
-            android:name=".galeria.DetailsActivity"
-            android:theme="@style/AppTheme.Detail">
-        </activity>
     </application>
 
 </manifest>

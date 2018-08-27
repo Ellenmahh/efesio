@@ -1,7 +1,7 @@
 package efesio.com.br.app.galeria;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -37,6 +37,14 @@ public class GaleriaActivity extends AppCompatActivity
         gridView = findViewById(R.id.gridView);
 
         galeria();
+
+
+    }
+
+    private void showEditDialog(String s) {
+        FragmentManager fm = getSupportFragmentManager();
+        GaleriaDialogFragment editNameDialogFragment = new GaleriaDialogFragment();
+        editNameDialogFragment.show(fm, s);
     }
 
 
@@ -76,16 +84,18 @@ public class GaleriaActivity extends AppCompatActivity
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent intent = new Intent(GaleriaActivity.this, DetailsActivity.class);
-                intent.putExtra("image", imageItems.get(position));
-                System.out.println("imageItems"+imageItems.get(position));
-                startActivity(intent);
+//                Intent intent = new Intent(GaleriaActivity.this, DetailsActivity.class);
+//                intent.putExtra("image", imageItems.get(position));
+//                System.out.println("imageItems"+imageItems.get(position));
+//                startActivity(intent);
+
+                String x = String.valueOf(getIntent().putExtra("image", imageItems.get(position)));
+                System.out.println(x + "imagem galeria ");
+                showEditDialog(x);
             }
         });
-
-
-
     }
+
 
     @Override
     public void onFinish(String tag) {
