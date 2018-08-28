@@ -1,6 +1,7 @@
 package efesio.com.br.app.business;
 
 import android.content.Context;
+import android.widget.Spinner;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -27,13 +28,13 @@ public class LoginBusiness extends AbstractBusiness<Login> {
         return new TypeReference<Login>() {};
     }
 
-    public Request<Login> login(String email, String senha){
+    public Request<Login> login(String email, String senha, Spinner conta){
         return new Request<>(getTypeReference(), getContext())
                 .setService(getService())
                 .setUri(getPath()+"/login")
                 .putParam("login", email)
                 .putParam("pass", senha)
-                .putParam("conta", 3)
+                .putParam("conta", String.valueOf(conta))
                 .setMethod(Request.Method.POST);
 
     }

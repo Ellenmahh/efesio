@@ -1,0 +1,70 @@
+package efesio.com.br.app.entities;
+
+import java.util.ArrayList;
+
+public class IgrejaMembro {
+
+    private String nome;
+    private String email;
+    private String cpf;
+    private String foto;
+    private String nomeIgreja;
+    private Endereco enderecoIgreja;
+    private ArrayList id;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public ArrayList getId() {
+        return id;
+    }
+
+    public void setId(ArrayList id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public String getNomeIgreja() {
+        return nomeIgreja;
+    }
+
+    public void setNomeIgreja(String nomeIgreja) {
+        this.nomeIgreja = nomeIgreja;
+    }
+
+    public Endereco getEnderecoIgreja() {
+        return enderecoIgreja;
+    }
+
+    public void setEnderecoIgreja(Endereco enderecoIgreja) {
+        this.enderecoIgreja = enderecoIgreja;
+    }
+}

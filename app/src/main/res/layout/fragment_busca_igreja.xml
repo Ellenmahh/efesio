@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CadastroActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        tools:context=".CadastroActivity">
+
+
+      <EditText
+          android:layout_width="250dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:id="@+id/cpf_membro"
+          />
+
+      <Button
+          android:layout_margin="10dp"
+          android:id="@+id/buscar"
+          android:background="@android:drawable/ic_search_category_default"
+          android:layout_width="10dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          />
+    </LinearLayout>
+
+</LinearLayout>

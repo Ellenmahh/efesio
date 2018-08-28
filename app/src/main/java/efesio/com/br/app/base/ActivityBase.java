@@ -34,6 +34,15 @@ public abstract class ActivityBase extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openFragment(){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        DialogFragment prev = (DialogFragment)getSupportFragmentManager().findFragmentByTag("loading_fragment");
+        if (prev != null) {
+            prev.dismiss();
+            ft.remove(prev);
+        }
+    }
+
 //    public void setToolbar(Toolbar toolbar) {
 //        setToolbar(toolbar, getString(R.string.app_name));
 //    }
@@ -69,7 +78,7 @@ public abstract class ActivityBase extends AppCompatActivity {
     }
 
     public void alert(String message) {
-       alert("Atenção", message);
+        alert("Atenção", message);
     }
 
     public void alert(String title, String message) {

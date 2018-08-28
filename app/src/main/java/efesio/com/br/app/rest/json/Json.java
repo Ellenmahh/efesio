@@ -25,6 +25,7 @@ public class Json{
             instance.registerModule(new JSONObjectModule());
             instance.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
             instance.configure (SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+            instance.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
         }
         return instance;
     }
@@ -46,7 +47,8 @@ public class Json{
     }
 
     public static <T> T fromJson(String object, TypeReference<T> tClass) throws IOException {
-
+        System.out.println("object "+object);
+        System.out.println("tClass "+tClass);
         return getInstance().readValue(object, tClass);
     }
 }
