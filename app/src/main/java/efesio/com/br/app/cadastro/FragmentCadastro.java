@@ -13,6 +13,7 @@ import android.widget.Toast;
 import efesio.com.br.app.R;
 import efesio.com.br.app.business.MembroLoginBusiness;
 import efesio.com.br.app.entities.IgrejaMembro;
+import efesio.com.br.app.entities.Membro;
 import efesio.com.br.app.entities.MembroLogin;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
@@ -50,6 +51,7 @@ public class FragmentCadastro extends Fragment
         criar_email.setText(item.getEmail());
         txt_igreja.setText(item.getNomeIgreja());
 
+
         btn_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +67,9 @@ public class FragmentCadastro extends Fragment
         MembroLogin i = new MembroLogin();
         i.setId(item.getId());
         i.setEmail(criar_email.getText().toString());
-        i.setMembro(item.getPk());
+        Membro m = new Membro();
+        m.setPrimaryKey(item.getPk());
+        i.setMembro(m);
         i.setSenha(Util.toMD5(criar_senha.getText().toString()));
 
         System.out.println("email dg"+i.getEmail());
