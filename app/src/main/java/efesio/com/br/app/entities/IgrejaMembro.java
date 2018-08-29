@@ -1,16 +1,15 @@
 package efesio.com.br.app.entities;
 
-import java.util.ArrayList;
-
 public class IgrejaMembro {
 
+    private String pk;
     private String nome;
     private String email;
     private String cpf;
     private String foto;
     private String nomeIgreja;
     private Endereco enderecoIgreja;
-    private ArrayList id;
+    private int id;
 
     public String getCpf() {
         return cpf;
@@ -20,11 +19,11 @@ public class IgrejaMembro {
         this.cpf = cpf;
     }
 
-    public ArrayList getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(ArrayList id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -67,4 +66,13 @@ public class IgrejaMembro {
     public void setEnderecoIgreja(Endereco enderecoIgreja) {
         this.enderecoIgreja = enderecoIgreja;
     }
+
+    public String getPk() {
+        return pk;
+    }
+
+    public void setPk(String pk) {
+        this.pk = pk;
+    }
+
 }

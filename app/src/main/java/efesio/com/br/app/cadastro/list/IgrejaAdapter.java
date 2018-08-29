@@ -13,10 +13,11 @@ import efesio.com.br.app.R;
 import efesio.com.br.app.entities.IgrejaMembro;
 
 public class IgrejaAdapter extends RecyclerView.Adapter {
-    private List<IgrejaMembro> igreja = new ArrayList<>();
+    private List<IgrejaMembro> itens = new ArrayList<>();
     private Context context;
-    public IgrejaAdapter(Context context) {
+    public IgrejaAdapter(Context context, List<IgrejaMembro> itens) {
         this.context = context;
+        this.itens = itens;
     }
 
 
@@ -29,7 +30,7 @@ public class IgrejaAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder( RecyclerView.ViewHolder viewHolder,  int position) {
         System.out.println("onBindViewHolder");
-        IgrejaMembro item = igreja.get(position);
+        IgrejaMembro item = getItem(position);
         IgrejaViewHolder holder = (IgrejaViewHolder) viewHolder;
 
         holder.nome_igreja.setText(item.getNomeIgreja());
@@ -37,12 +38,16 @@ public class IgrejaAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return igreja != null ? igreja.size() : 0;
+        return itens != null ? itens.size() : 0;
     }
 
     public void setItems(List<IgrejaMembro> items){
-        this.igreja.clear();
-        this.igreja.addAll(items);
+        this.itens.clear();
+        this.itens.addAll(items);
         this.notifyDataSetChanged();
+    }
+
+    public IgrejaMembro getItem(int position) {
+        return itens.get(position);
     }
 }

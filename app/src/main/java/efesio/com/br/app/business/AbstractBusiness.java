@@ -50,7 +50,7 @@ public abstract class AbstractBusiness<T> {
                 .setMethod(Request.Method.POST)
                 .setTag(TAG_CADASTRAR)
                 .setService(service)
-                .setUri(getPath()+"/cadastrar")
+                .setUri(getPath())
                 .setBody(input);
     }
 

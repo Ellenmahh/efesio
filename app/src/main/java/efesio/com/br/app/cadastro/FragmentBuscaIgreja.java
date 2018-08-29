@@ -62,7 +62,7 @@ public class FragmentBuscaIgreja extends Fragment implements Request.OnResult<Li
 
     @Override
     public void onStart(String tag) {
-        Toast.makeText(getContext(),"Buscando",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Buscando igreja . . .",Toast.LENGTH_SHORT).show();
     }
 
     @Override

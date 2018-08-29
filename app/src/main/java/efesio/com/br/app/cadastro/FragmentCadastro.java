@@ -1,57 +1,78 @@
 package efesio.com.br.app.cadastro;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import efesio.com.br.app.R;
-import efesio.com.br.app.business.MembroBusiness;
+import efesio.com.br.app.business.MembroLoginBusiness;
 import efesio.com.br.app.entities.IgrejaMembro;
+import efesio.com.br.app.entities.MembroLogin;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
+import efesio.com.br.app.util.RuntimeValues;
+import efesio.com.br.app.util.Util;
 
 public class FragmentCadastro extends Fragment
-        implements Request.OnResult<IgrejaMembro>, Request.OnError, Request.OnStart, Request.OnFinish{
+        implements Request.OnResult<MembroLogin>, Request.OnError, Request.OnStart, Request.OnFinish{
 
     public interface OnCadastro {
-        void onCadastro(IgrejaMembro itens);
+        void onCadastro(MembroLogin itens);
     }
 
-    private EditText cpf_membro;
-    private Button cadastrar;
     private OnCadastro onCadastro;
+    private IgrejaMembro item;
+    private EditText criar_email,criar_senha;
+    private TextView txt_igreja;
+    private FloatingActionButton btn_cadastrar;
 
-    public static FragmentCadastro getInstance(OnCadastro onCadastro){
+    public static FragmentCadastro getInstance(IgrejaMembro item, OnCadastro onCadastro){
         FragmentCadastro f = new FragmentCadastro();
         f.onCadastro = onCadastro;
+        f.item = item;
         return f;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_cadastro, parent, false);
-        cpf_membro = v.findViewById(R.id.cpf_membro);
-        cadastrar = v.findViewById(R.id.buscar);
-        cadastrar.setOnClickListener(new View.OnClickListener() {
+        criar_email = v.findViewById(R.id.criar_email);
+        criar_senha = v.findViewById(R.id.criar_senha);
+        txt_igreja = v.findViewById(R.id.txt_igreja);
+        btn_cadastrar = v.findViewById(R.id.btn_cadastrar);
+
+        criar_email.setText(item.getEmail());
+        txt_igreja.setText(item.getNomeIgreja());
+
+        btn_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cadastrar();
             }
         });
 
-        cpf_membro.setText("123");
         return v;
     }
 
     private void cadastrar(){
-        IgrejaMembro i = new IgrejaMembro();
 
-        new MembroBusiness(getContext())
+        MembroLogin i = new MembroLogin();
+        i.setId(item.getId());
+        i.setEmail(criar_email.getText().toString());
+        i.setMembro(item.getPk());
+        i.setSenha(Util.toMD5(criar_senha.getText().toString()));
+
+        System.out.println("email dg"+i.getEmail());
+        System.out.println("senha dg "+i.getSenha());
+        System.out.println("id dg "+i.getId());
+        System.out.println("membro dg "+i.getMembro());
+        new MembroLoginBusiness(getContext())
                 .cadastrar(i)
                 .setOnStart(this)
                 .setOnError(this)
@@ -63,7 +84,7 @@ public class FragmentCadastro extends Fragment
 
     @Override
     public void onStart(String tag) {
-        Toast.makeText(getContext(),"Buscando",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Cadastrando. . .",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -73,13 +94,16 @@ public class FragmentCadastro extends Fragment
     }
 
     @Override
-    public void onResult(String tag, NixResponse<IgrejaMembro> res) {
+    public void onResult(String tag, NixResponse<MembroLogin> res) {
+        String token = res.getHeaders().get("x-token");
+        RuntimeValues.setToken(token);
         if (res.getStatus() != 201){
             Toast.makeText(getContext(),"Erro ao cadastrar",Toast.LENGTH_SHORT).show();
             return;
         }
-        IgrejaMembro m =  res.getEntity();
+        MembroLogin m =  res.getEntity();
         this.onCadastro.onCadastro(m);
+
     }
 
     @Override

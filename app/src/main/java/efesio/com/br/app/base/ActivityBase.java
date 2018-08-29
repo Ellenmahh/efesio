@@ -5,9 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 
 /**
@@ -34,12 +36,23 @@ public abstract class ActivityBase extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openFragment(){
+    public void addFragment(int viewId, Fragment f, String tag){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        DialogFragment prev = (DialogFragment)getSupportFragmentManager().findFragmentByTag("loading_fragment");
-        if (prev != null) {
-            prev.dismiss();
-            ft.remove(prev);
+        ft.add(viewId, f, tag);
+        ft.commit();
+    }
+
+    public void showFragment(String tag){
+        Fragment prev = getSupportFragmentManager().findFragmentByTag(tag);
+        if(prev != null) {
+            prev.getView().setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void hideFragment(String tag){
+        Fragment prev = getSupportFragmentManager().findFragmentByTag(tag);
+        if(prev != null) {
+            prev.getView().setVisibility(View.GONE);
         }
     }
 
