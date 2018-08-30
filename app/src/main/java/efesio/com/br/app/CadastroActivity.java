@@ -2,7 +2,6 @@ package efesio.com.br.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -45,11 +44,10 @@ public class CadastroActivity extends ActivityBase implements FragmentBuscaIgrej
 
     @Override
     public void onCadastro(MembroLogin item) {
-        Toast.makeText(this,"item" + item.getEmail() , Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("email", item.getEmail());
+        intent.putExtra("senha", item.getSenha());
         startActivity(intent);
-
-
     }
 }
 

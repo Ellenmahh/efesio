@@ -188,6 +188,7 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
             throw new IllegalStateException("Post Params already present. You can only inform a body object, a set of body params or a set of post params.");
         try {
             this.body = Json.toJson(body);
+            System.out.println("JSON "+this.body);
         }catch (Exception e){
             if (getOnError()!= null)
                 getOnError().onError(tag, e);

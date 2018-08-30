@@ -17,7 +17,7 @@ public class AniversarianteBusiness extends AbstractBusiness<Aniversariante> {
 
     @Override
     protected String getPath() {
-        return "membro";
+        return "app/aniversariantes";
     }
 
     @Override
@@ -25,10 +25,11 @@ public class AniversarianteBusiness extends AbstractBusiness<Aniversariante> {
         return new TypeReference<Aniversariante>(){};
     }
 
-    public Request<List<Aniversariante>> aniversariantes (String mesNascimento){
+    public Request<List<Aniversariante>> aniversariantes (String mesNascimento, int id ){
         return new Request<>(new TypeReference<List<Aniversariante>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath())
+                .putParam("_idEmpresa",id)
                 .putParam("mesNascimento", mesNascimento)
                 .setMethod(Request.Method.GET);
     }

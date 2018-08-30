@@ -10,24 +10,25 @@ import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.rest.Service;
 
 public class GaleriaBusiness extends AbstractBusiness<String> {
-public GaleriaBusiness(Context context) {
-        super(Service.ACCOUNT, context);
+        public GaleriaBusiness(Context context) {
+                super(Service.ACCOUNT, context);
         }
 
-@Override
-protected String getPath() {
-        return "empresa/galeria";
+        @Override
+        protected String getPath() {
+                return "app/igreja/galeria";
         }
 
-@Override
-public TypeReference<String> getTypeReference() {
-        return new TypeReference<String>(){};
+        @Override
+        public TypeReference<String> getTypeReference() {
+                return new TypeReference<String>(){};
         }
 
-        public Request<List<String>> galeria (){
-        return new Request<>(new TypeReference<List<String>>(){}, getContext())
-        .setService(getService())
-        .setUri(getPath())
-        .setMethod(Request.Method.GET);
+        public Request<List<String>> galeria (int id){
+                return new Request<>(new TypeReference<List<String>>(){}, getContext())
+                        .setService(getService())
+                        .setUri(getPath())
+                        .putParam("id", id)
+                        .setMethod(Request.Method.GET);
         }
 }

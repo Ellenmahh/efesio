@@ -16,6 +16,7 @@ import efesio.com.br.app.R;
 import efesio.com.br.app.business.GaleriaBusiness;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
+import efesio.com.br.app.util.RuntimeValues;
 
 public class GaleriaActivity extends AppCompatActivity
         implements Request.OnResult<List<String>>, Request.OnError, Request.OnStart, Request.OnFinish{
@@ -38,7 +39,6 @@ public class GaleriaActivity extends AppCompatActivity
 
         galeria();
 
-
     }
 
     private void showEditDialog(String s) {
@@ -50,7 +50,7 @@ public class GaleriaActivity extends AppCompatActivity
 
     private void galeria(){
         new GaleriaBusiness(this)
-                .galeria()
+                .galeria(RuntimeValues.getIdEmpresa())
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
@@ -84,13 +84,7 @@ public class GaleriaActivity extends AppCompatActivity
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-//                Intent intent = new Intent(GaleriaActivity.this, DetailsActivity.class);
-//                intent.putExtra("image", imageItems.get(position));
-//                System.out.println("imageItems"+imageItems.get(position));
-//                startActivity(intent);
-
                 String x = String.valueOf(getIntent().putExtra("image", imageItems.get(position)));
-                System.out.println(x + "imagem galeria ");
                 showEditDialog(x);
             }
         });

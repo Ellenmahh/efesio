@@ -20,6 +20,7 @@ import efesio.com.br.app.business.AgendaBusiness;
 import efesio.com.br.app.entities.Agenda;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
+import efesio.com.br.app.util.RuntimeValues;
 
 public class AgendaActivity  extends ActivityBase
         implements Request.OnResult<List<Agenda>>, Request.OnError, Request.OnStart, Request.OnFinish {
@@ -80,7 +81,7 @@ public class AgendaActivity  extends ActivityBase
 
     private void agenda(LocalDate data){
         new AgendaBusiness(this)
-                .agenda(data)
+                .agenda(data, RuntimeValues.getIdEmpresa())
                 .setTag(data == null ? "CARREGAR_BOLINHAS" : "LISTAR")
                 .setOnStart(this)
                 .setOnError(this)
@@ -90,18 +91,18 @@ public class AgendaActivity  extends ActivityBase
     }
     @Override
     public void onStart(String tag) {
-      //  loading(true);
-        Toast.makeText(this, "Pesquisando ", Toast.LENGTH_LONG).show();
+        loading(true);
+//        Toast.makeText(this, "Pesquisando ", Toast.LENGTH_LONG).show();
 
     }
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Erro ao procurar eventos, tente novamente mais tarde.");
+        alert("Erro ao procurar agenda, tente novamente mais tarde."+e.getMessage());
     }
     @Override
     public void onResult(String tag, NixResponse<List<Agenda>> res) {
-        if (res.getStatus() != 200){
+        if (res.getStatus() != 201){
             Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
         adapter.setItems(res.getEntity());
@@ -110,12 +111,11 @@ public class AgendaActivity  extends ActivityBase
                 LocalDate data = a.getData();
                 collapsibleCalendar.addEventTag(data.getYear(), data.getMonthOfYear()-1, data.getDayOfMonth());
                 System.out.println(data.getYear()+" - "+ data.getMonthOfYear()+" - "+data.getDayOfMonth());
-
             }
         }
     }
     @Override
     public void onFinish(String tag) {
-       // loading(false);
+        loading(false);
     }
 }

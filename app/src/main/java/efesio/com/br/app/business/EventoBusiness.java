@@ -17,7 +17,7 @@ public class EventoBusiness extends AbstractBusiness<Evento> {
 
     @Override
     protected String getPath() {
-        return "evento";
+        return "app/evento";
     }
 
     @Override
@@ -25,10 +25,11 @@ public class EventoBusiness extends AbstractBusiness<Evento> {
         return new TypeReference<Evento>(){};
     }
 
-    public Request<List<Evento>> eventos (){
+    public Request<List<Evento>> eventos (int id){
         return new Request<>(new TypeReference<List<Evento>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath())
+                .putParam("_idEmpresa",id)
                 .setMethod(Request.Method.GET);
     }
 }

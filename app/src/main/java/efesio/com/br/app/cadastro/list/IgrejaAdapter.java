@@ -1,6 +1,7 @@
 package efesio.com.br.app.cadastro.list;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,9 @@ public class IgrejaAdapter extends RecyclerView.Adapter {
         IgrejaViewHolder holder = (IgrejaViewHolder) viewHolder;
 
         holder.nome_igreja.setText(item.getNomeIgreja());
+        holder.nome_membro.setText(item.getNome());
+        holder.cpf_membro.setText(item.getCpf());
+        holder.img_membro.setImageDrawable(Drawable.createFromPath(item.getFoto()));
     }
 
     @Override

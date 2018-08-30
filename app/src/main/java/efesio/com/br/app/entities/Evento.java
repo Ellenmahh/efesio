@@ -2,15 +2,16 @@ package efesio.com.br.app.entities;
 
 public class Evento {
 
+    private String nome;
+    private String local;
+    private String descricao;
     private String urlBanner;
     private String urlFoto;
     private String dataInicio;
     private String dataTermino;
     private String privacidade;
     private String classificacao;
-    private String nome;
-    private String local;
-    private String descricao;
+
 
     public String getUrlBanner() {
         return urlBanner;

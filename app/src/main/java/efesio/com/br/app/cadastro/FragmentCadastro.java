@@ -51,7 +51,6 @@ public class FragmentCadastro extends Fragment
         criar_email.setText(item.getEmail());
         txt_igreja.setText(item.getNomeIgreja());
 
-
         btn_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,19 +62,14 @@ public class FragmentCadastro extends Fragment
     }
 
     private void cadastrar(){
-
+        RuntimeValues.setToken("null");
         MembroLogin i = new MembroLogin();
-        i.setId(item.getId());
+        i.setIdEmpresa(item.getId());
         i.setEmail(criar_email.getText().toString());
+        i.setSenha(Util.toMD5(criar_senha.getText().toString()));
         Membro m = new Membro();
         m.setPrimaryKey(item.getPk());
         i.setMembro(m);
-        i.setSenha(Util.toMD5(criar_senha.getText().toString()));
-
-        System.out.println("email dg"+i.getEmail());
-        System.out.println("senha dg "+i.getSenha());
-        System.out.println("id dg "+i.getId());
-        System.out.println("membro dg "+i.getMembro());
         new MembroLoginBusiness(getContext())
                 .cadastrar(i)
                 .setOnStart(this)
@@ -99,14 +93,13 @@ public class FragmentCadastro extends Fragment
 
     @Override
     public void onResult(String tag, NixResponse<MembroLogin> res) {
-        String token = res.getHeaders().get("x-token");
-        RuntimeValues.setToken(token);
         if (res.getStatus() != 201){
             Toast.makeText(getContext(),"Erro ao cadastrar",Toast.LENGTH_SHORT).show();
             return;
         }
         MembroLogin m =  res.getEntity();
         this.onCadastro.onCadastro(m);
+        Toast.makeText(getContext(),"Cadastrado com sucesso",Toast.LENGTH_LONG).show();
 
     }
 

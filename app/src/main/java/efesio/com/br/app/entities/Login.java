@@ -2,31 +2,31 @@ package efesio.com.br.app.entities;
 
 public class Login {
 
-    private String login;
-    private String pass;
-    private int conta;
+    private String email;
+    private String senha;
+    private int idEmpresa;
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPass() {
-        return pass;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
-    public int getConta() {
-        return conta;
+    public int getIdEmpresa() {
+        return idEmpresa;
     }
 
-    public void setConta(int conta) {
-        this.conta = conta;
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 }

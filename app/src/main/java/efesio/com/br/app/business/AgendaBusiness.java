@@ -19,7 +19,7 @@ public class AgendaBusiness extends AbstractBusiness<Agenda> {
 
     @Override
     protected String getPath() {
-        return "agenda";
+        return "app/agenda";
     }
 
     @Override
@@ -27,10 +27,11 @@ public class AgendaBusiness extends AbstractBusiness<Agenda> {
         return new TypeReference<Agenda>() {};
     }
 
-    public Request<List<Agenda>> agenda (LocalDate date){
+    public Request<List<Agenda>> agenda (LocalDate date, int id){
         return new Request<>(new TypeReference<List<Agenda>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath())
+                .putParam("_idEmpresa",id)
                 .putParam("dataIni", date == null ? null : date.toString("yyyy-MM-dd"))
                 .putParam("dataFim", date == null ? null : date.toString("yyyy-MM-dd"))
                 .setMethod(Request.Method.GET);

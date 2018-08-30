@@ -23,6 +23,7 @@ import efesio.com.br.app.R;
 import efesio.com.br.app.business.GaleriaBusiness;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
+import efesio.com.br.app.util.RuntimeValues;
 
 public class ViewPageAdapter extends PagerAdapter
         implements Request.OnResult<List<String>>, Request.OnError, Request.OnStart, Request.OnFinish {
@@ -54,7 +55,7 @@ public class ViewPageAdapter extends PagerAdapter
 /** inicia o carregador de imagens, chama a business*/
 
         new GaleriaBusiness(context)
-                .galeria()
+                .galeria(RuntimeValues.getIdEmpresa())
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)

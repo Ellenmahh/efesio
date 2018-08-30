@@ -11,7 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import efesio.com.br.app.agenda.AgendaActivity;
-import efesio.com.br.app.aniversariante.AniversariantesActivity;
+import efesio.com.br.app.aniversariante.AniversarianteActivity;
 import efesio.com.br.app.evento.EventoActivity;
 import efesio.com.br.app.galeria.GaleriaActivity;
 
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.aniversariantes) {
-            Intent intent = new Intent(MainActivity.this, AniversariantesActivity.class);
+            Intent intent = new Intent(MainActivity.this, AniversarianteActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             Intent intent = new Intent(MainActivity.this, GaleriaActivity.class);

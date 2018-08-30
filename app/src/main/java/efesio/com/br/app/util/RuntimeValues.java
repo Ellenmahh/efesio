@@ -10,6 +10,7 @@ import efesio.com.br.app.entities.NixPerfil;
 public class RuntimeValues {
     private static NixPerfil perfil;
     private static String token;
+    private static int idEmpresa;
 
     public static NixPerfil getPerfil() {
         return perfil;
@@ -25,5 +26,13 @@ public class RuntimeValues {
 
     public static void setToken(String token) {
         RuntimeValues.token = token;
+    }
+
+    public static int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public static void setIdEmpresa(int idEmpresa) {
+        RuntimeValues.idEmpresa = idEmpresa;
     }
 }

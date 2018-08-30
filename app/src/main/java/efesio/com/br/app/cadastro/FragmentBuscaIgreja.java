@@ -12,7 +12,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import efesio.com.br.app.R;
-import efesio.com.br.app.business.MembroBusiness;
+import efesio.com.br.app.business.MembroLoginBusiness;
 import efesio.com.br.app.entities.IgrejaMembro;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
@@ -50,7 +50,7 @@ public class FragmentBuscaIgreja extends Fragment implements Request.OnResult<Li
     }
 
     private void buscarIgreja(){
-        new MembroBusiness(getContext())
+        new MembroLoginBusiness(getContext())
                 .buscarIgreja(cpf_membro.getText().toString())
                 .setOnStart(this)
                 .setOnError(this)

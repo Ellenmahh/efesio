@@ -17,8 +17,9 @@ import efesio.com.br.app.business.AniversarianteBusiness;
 import efesio.com.br.app.entities.Aniversariante;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
+import efesio.com.br.app.util.RuntimeValues;
 
-public class AniversariantesActivity extends ActivityBase
+public class AniversarianteActivity extends ActivityBase
         implements Request.OnResult<List<Aniversariante>>, Request.OnError, Request.OnStart, Request.OnFinish{
 
     private RecyclerView mRecyclerView;
@@ -50,7 +51,7 @@ public class AniversariantesActivity extends ActivityBase
 
     private void aniversariantes(){
         new AniversarianteBusiness(this)
-                .aniversariantes(mes)
+                .aniversariantes(mes, RuntimeValues.getIdEmpresa())
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
@@ -76,7 +77,7 @@ public class AniversariantesActivity extends ActivityBase
             open(MainActivity.class);
             alert("Nenhum aniversariante encontrado");
         }
-        if (res.getStatus() != 200){
+        if (res.getStatus() != 201){
             alert(res.getMessage());
         }
 

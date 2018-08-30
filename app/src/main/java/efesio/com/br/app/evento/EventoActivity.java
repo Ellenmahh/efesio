@@ -13,6 +13,7 @@ import efesio.com.br.app.business.EventoBusiness;
 import efesio.com.br.app.entities.Evento;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
+import efesio.com.br.app.util.RuntimeValues;
 
 public class EventoActivity extends ActivityBase
         implements Request.OnResult<List<Evento>>, Request.OnError, Request.OnStart, Request.OnFinish {
@@ -35,7 +36,7 @@ public class EventoActivity extends ActivityBase
 
     private void eventos(){
         new EventoBusiness(this)
-                .eventos()
+                .eventos(RuntimeValues.getIdEmpresa())
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
@@ -60,15 +61,14 @@ public class EventoActivity extends ActivityBase
     @Override
     public void onResult(String tag, NixResponse<List<Evento>> res) {
         if (res.getEntity() == null || res.getEntity().size() == 0){
-            open(MainActivity.class);
             alert("Nenhum evento encontrado");
+            open(MainActivity.class);
         }
-        if (res.getStatus() != 200){
+        if (res.getStatus() != 201){
             alert(res.getMessage());
         }
         adapter.setItems(res.getEntity());
-
-
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override

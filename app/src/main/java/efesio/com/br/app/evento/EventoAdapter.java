@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import efesio.com.br.app.R;
 import efesio.com.br.app.entities.Evento;
 
 public class EventoAdapter extends RecyclerView.Adapter {
-    private List<Evento> eventos;
+    private List<Evento> eventos = new ArrayList<>();
     private Context context;
 
     public EventoAdapter(Context context) {
@@ -27,7 +28,7 @@ public class EventoAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        System.out.println("onCreateViewHolder");
         View view = LayoutInflater.from(context).inflate(R.layout.evento_item,
                 parent, false);
 
@@ -35,7 +36,7 @@ public class EventoAdapter extends RecyclerView.Adapter {
     }
     @Override
     public void onBindViewHolder( RecyclerView.ViewHolder viewHolder,  int position) {
-
+        System.out.println("onBindViewHolder");
         EventoViewHolder holder = (EventoViewHolder) viewHolder;
         Evento itemEvento = eventos.get(position);
 
