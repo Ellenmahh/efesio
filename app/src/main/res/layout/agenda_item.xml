@@ -75,7 +75,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
                             android:textColor="@color/colorPrimaryDark"
                             android:text="00:00"
                             android:id="@+id/hora_agenda"
@@ -86,15 +86,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
                         android:text="Titulo"
                         android:id="@+id/titulo_ag"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Descrição"
                         android:id="@+id/descricao_ag"
                         />
