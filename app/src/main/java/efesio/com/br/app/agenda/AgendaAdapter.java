@@ -30,16 +30,20 @@ public class AgendaAdapter extends RecyclerView.Adapter  {
         View view = LayoutInflater.from(context).inflate(R.layout.agenda_item,
                 parent, false);
 
+
+
         return new AgendaViewHolder(view);
     }
     @Override
     public void onBindViewHolder( RecyclerView.ViewHolder viewHolder,  int position) {
         System.out.println("onBindViewHolder");
-
         AgendaViewHolder holder = (AgendaViewHolder) viewHolder;
         Agenda itemAgenda = agenda.get(position);
         holder.titulo_ag.setText(itemAgenda.getTitulo());
         holder.descricao_ag.setText(itemAgenda.getDescricao());
+        holder.dia_agenda.setText(itemAgenda.getData().toString("dd"));
+        holder.mes_agenda.setText(itemAgenda.getData().toString("MMM").toUpperCase());
+        holder.hora_agenda.setText(itemAgenda.getHora_inicial() +" - " + itemAgenda.getHora_termino());
     }
 
     @Override

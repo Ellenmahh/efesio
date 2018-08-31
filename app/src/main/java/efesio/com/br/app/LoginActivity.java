@@ -38,7 +38,7 @@ public class LoginActivity extends ActivityBase
         }else{
             login_user.setText("estevao@email.com");
         }
-            password_user.setText("202cb962ac59075b964b07152d234b70");
+            password_user.setText("123");
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override

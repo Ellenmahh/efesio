@@ -25,8 +25,6 @@ public class GaleriaDialogFragment extends DialogFragment {
     NetworkImageView imageView;
     Button btn_fechar;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -54,7 +52,6 @@ public class GaleriaDialogFragment extends DialogFragment {
         imageView = view.findViewById(R.id.image_details);
         btn_fechar = view.findViewById(R.id.btn_fechar);
         imageView.setImageUrl(imagem, mImageLoader);
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,9 +71,5 @@ public class GaleriaDialogFragment extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
-
-
     }
-
 }

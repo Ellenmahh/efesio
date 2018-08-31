@@ -1,6 +1,7 @@
 package efesio.com.br.app.agenda;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar;
 
 import org.joda.time.LocalDate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import efesio.com.br.app.R;
@@ -21,6 +23,7 @@ import efesio.com.br.app.entities.Agenda;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.util.RuntimeValues;
+import efesio.com.br.app.widgets.lists.support.ListClickListener;
 
 public class AgendaActivity  extends ActivityBase
         implements Request.OnResult<List<Agenda>>, Request.OnError, Request.OnStart, Request.OnFinish {
@@ -29,6 +32,7 @@ public class AgendaActivity  extends ActivityBase
     private AgendaAdapter adapter = new AgendaAdapter(this );
     private CollapsibleCalendar collapsibleCalendar;
     private Toolbar toolbar;
+    private ListClickListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,8 @@ public class AgendaActivity  extends ActivityBase
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(adapter);
+
+        listener = ListClickListener.addTo(mRecyclerView);
 
         collapsibleCalendar = findViewById(R.id.collapsibleCalendarView);
         collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {
@@ -78,6 +84,11 @@ public class AgendaActivity  extends ActivityBase
         agenda(null);
     }
 
+    private void showEditDialog(List<String> s) {
+        FragmentManager fm = getSupportFragmentManager();
+        AgendaDialogFragment editNameDialogFragment = new AgendaDialogFragment();
+        editNameDialogFragment.show(fm, String.valueOf(s));
+    }
 
     private void agenda(LocalDate data){
         new AgendaBusiness(this)
@@ -101,7 +112,7 @@ public class AgendaActivity  extends ActivityBase
         alert("Erro ao procurar agenda, tente novamente mais tarde."+e.getMessage());
     }
     @Override
-    public void onResult(String tag, NixResponse<List<Agenda>> res) {
+    public void onResult(String tag, final NixResponse<List<Agenda>> res) {
         if (res.getStatus() != 201){
             Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
@@ -110,9 +121,24 @@ public class AgendaActivity  extends ActivityBase
             for(Agenda a : res.getEntity()) {
                 LocalDate data = a.getData();
                 collapsibleCalendar.addEventTag(data.getYear(), data.getMonthOfYear()-1, data.getDayOfMonth());
-                System.out.println(data.getYear()+" - "+ data.getMonthOfYear()+" - "+data.getDayOfMonth());
+                System.out.println(data.getYear()+" - "+ data.toString("MMM")+" - "+data.getDayOfMonth());
             }
         }
+        listener.setOnItemClickListener(new ListClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                System.out.println("clicado -- "+res.getEntity().get(position));
+                List <String> x = new ArrayList<>();
+                x.add(String.valueOf(getIntent().putExtra("dia", String.valueOf(res.getEntity().get(position).getData().getDayOfMonth()))));
+                x.add(String.valueOf(getIntent().putExtra("mes", String.valueOf(res.getEntity().get(position).getData().toString("MMM").toUpperCase()))));
+                x.add(String.valueOf(getIntent().putExtra("titulo", String.valueOf(res.getEntity().get(position).getTitulo()))));
+                x.add(String.valueOf(getIntent().putExtra("horaInicio", String.valueOf(res.getEntity().get(position).getHora_inicial()))));
+                x.add(String.valueOf(getIntent().putExtra("horaFim", String.valueOf(res.getEntity().get(position).getHora_termino()))));
+                x.add(String.valueOf(getIntent().putExtra("descricao", String.valueOf(res.getEntity().get(position).getDescricao()))));
+                System.out.println("clicado -- "+x);
+                showEditDialog(x);
+            }
+        });
     }
     @Override
     public void onFinish(String tag) {
