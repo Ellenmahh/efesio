@@ -33,11 +33,13 @@ public class FragmentCadastro extends Fragment
     private TextView txt_igreja;
     private FloatingActionButton btn_cadastrar;
 
+
     public static FragmentCadastro getInstance(IgrejaMembro item, OnCadastro onCadastro){
         FragmentCadastro f = new FragmentCadastro();
         f.onCadastro = onCadastro;
         f.item = item;
         return f;
+
     }
 
     @Override

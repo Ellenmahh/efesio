@@ -12,7 +12,7 @@ import efesio.com.br.app.rest.Service;
 
 public class AniversarianteBusiness extends AbstractBusiness<Aniversariante> {
     public AniversarianteBusiness(Context context) {
-        super(Service.ACCOUNT, context);
+        super(Service.EFESIO, context);
     }
 
     @Override

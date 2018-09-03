@@ -11,7 +11,7 @@ import efesio.com.br.app.rest.Service;
 
 public class GaleriaBusiness extends AbstractBusiness<String> {
         public GaleriaBusiness(Context context) {
-                super(Service.ACCOUNT, context);
+                super(Service.EFESIO, context);
         }
 
         @Override

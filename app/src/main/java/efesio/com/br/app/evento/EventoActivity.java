@@ -1,8 +1,15 @@
 package efesio.com.br.app.evento;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -14,23 +21,46 @@ import efesio.com.br.app.entities.Evento;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.util.RuntimeValues;
+import efesio.com.br.app.widgets.lists.support.ListClickListener;
 
 public class EventoActivity extends ActivityBase
         implements Request.OnResult<List<Evento>>, Request.OnError, Request.OnStart, Request.OnFinish {
-
     private RecyclerView mRecyclerView;
-    private EventoAdapter adapter = new EventoAdapter(this );
+    private Toolbar toolbarEvento;
+    private ListClickListener listener;
+    private EventoAdapter adapter ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evento);
+        toolbarEvento = findViewById(R.id.toolbarEvento);
+        setSupportActionBar(toolbarEvento);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         mRecyclerView = findViewById(R.id.recyclerViewEvento);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setHasFixedSize(true);
+        adapter = new EventoAdapter(this);
+        mRecyclerView.setAdapter(adapter);
 
+        listener = ListClickListener.addTo(mRecyclerView);
+        listener.setOnItemClickListener(new ListClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Evento e = adapter.getItem(position);
+                Toast.makeText(getApplicationContext(), "clicou evento" , Toast.LENGTH_SHORT).show();
+
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frameEvento, EventoFragment.getInstance(e));
+                ft.addToBackStack("detalhe");
+                ft.commit();
+            }
+        });
         eventos();
     }
 
@@ -42,24 +72,24 @@ public class EventoActivity extends ActivityBase
                 .setOnResult(this)
                 .setOnFinish(this)
                 .fire();
-
     }
 
     @Override
     public void onStart(String tag) {
-        loading(true);
-        //Toast.makeText(this, "Pesquisando eventos", Toast.LENGTH_LONG).show();
+//        loading(true);
+        Toast.makeText(this, "Pesquisando eventos", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Erro ao procurar eventos, tente novamente mais tarde.");
-//        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+//        alert("Erro ao procurar eventos, tente novamente mais tarde.");
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        System.out.println("error -- " + e.getMessage());
     }
 
     @Override
-    public void onResult(String tag, NixResponse<List<Evento>> res) {
+    public void onResult(String tag, final NixResponse<List<Evento>> res) {
         if (res.getEntity() == null || res.getEntity().size() == 0){
             alert("Nenhum evento encontrado");
             open(MainActivity.class);
@@ -68,7 +98,6 @@ public class EventoActivity extends ActivityBase
             alert(res.getMessage());
         }
         adapter.setItems(res.getEntity());
-        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -76,5 +105,24 @@ public class EventoActivity extends ActivityBase
         loading(false);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0){
+            // remove a ultima transação
+            getSupportFragmentManager().popBackStack();
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    public void site(View view) {
+        Toast.makeText(this,"SITE",Toast.LENGTH_SHORT).show();
+
+        String url = "https://efesio.com.br";
+
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
+    }
 
 }

@@ -5,27 +5,28 @@ package efesio.com.br.app.rest;
  */
 
 public enum Service {
-//    ACCOUNT("http://efesioapi.azurewebsites.net/api/",
-//            "http://efesioapi.azurewebsites.net/api/",
-//            "http://efesioapi.azurewebsites.net/api/");
 
- ACCOUNT("http://192.168.0.118:8080/efesioapi/api/",
-            "http://192.168.0.118:8080/efesioapi/api/",
-            "http://192.168.0.118:8080/efesioapi/api/");
+ EFESIO("http://192.168.0.118:8080/efesioapi/api/",
+            "https://prompwebsa.blob.core.windows.net/efesio/");
 
     String url;
-    String urlDev;
-    String urlLocalDev;
+    String storage;
 
-    Service(String url, String urlDev, String urlLocalDev){
+    Service(String url, String urlDev){
         this.url = url;
-        this.urlDev = urlDev;
-        this.urlLocalDev = urlLocalDev;
+        this.storage = urlDev;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override
     public String toString() {
-        return urlDev;
+        return url;
     }
 
+    public String getStorage() {
+        return storage;
+    }
 }

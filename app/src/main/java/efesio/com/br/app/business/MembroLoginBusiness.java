@@ -13,7 +13,7 @@ import efesio.com.br.app.rest.Service;
 
 public class MembroLoginBusiness extends AbstractBusiness<MembroLogin> {
     public MembroLoginBusiness(Context context) {
-        super(Service.ACCOUNT, context);
+        super(Service.EFESIO, context);
     }
 
     @Override

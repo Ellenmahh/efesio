@@ -14,7 +14,7 @@ import efesio.com.br.app.rest.Service;
 
 public class AgendaBusiness extends AbstractBusiness<Agenda> {
     public AgendaBusiness(Context context) {
-        super(Service.ACCOUNT, context);
+        super(Service.EFESIO, context);
     }
 
     @Override

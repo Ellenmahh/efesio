@@ -6,8 +6,8 @@ import efesio.com.br.app.entities.FeedItem;
 public class FeedSet {
     private final static FeedItem[] sfeedItems ={
             new FeedItem( R.drawable.eventos,  "Galeria", FeedItem.Tipo.GALERIA),
-            new FeedItem( R.drawable.agenda, "Agenda da Igreja", FeedItem.Tipo.AGENDA),
-            new FeedItem( R.drawable.eventos,  "Eventos", FeedItem.Tipo.EVENTOS)
+            new FeedItem( R.drawable.schedule, "Veja a agenda da igreja para este mês", FeedItem.Tipo.AGENDA),
+            new FeedItem( R.drawable.events,  "Veja todos os eventos que estão agendados, e inscreva-se!", FeedItem.Tipo.EVENTOS)
 
     };
 

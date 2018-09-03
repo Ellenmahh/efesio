@@ -14,7 +14,7 @@ import efesio.com.br.app.rest.Service;
  */
 public class LoginBusiness extends AbstractBusiness<Login> {
     public LoginBusiness(Context context) {
-        super(Service.ACCOUNT, context);
+        super(Service.EFESIO, context);
     }
 
     @Override

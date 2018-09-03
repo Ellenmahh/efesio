@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import org.joda.time.LocalDate;
+
 import java.util.List;
 
 import efesio.com.br.app.entities.Evento;
@@ -12,7 +14,7 @@ import efesio.com.br.app.rest.Service;
 
 public class EventoBusiness extends AbstractBusiness<Evento> {
     public EventoBusiness(Context context) {
-        super(Service.ACCOUNT, context);
+        super(Service.EFESIO, context);
     }
 
     @Override
@@ -30,6 +32,8 @@ public class EventoBusiness extends AbstractBusiness<Evento> {
                 .setService(getService())
                 .setUri(getPath())
                 .putParam("_idEmpresa",id)
+                .putParam("dataIni", LocalDate.now().getYear() + LocalDate.now().getMonthOfYear() + LocalDate.now().getDayOfMonth())
+                .putParam("dataFim", LocalDate.now().getYear() + LocalDate.now().getMonthOfYear() + LocalDate.now().getDayOfMonth())
                 .setMethod(Request.Method.GET);
     }
 }

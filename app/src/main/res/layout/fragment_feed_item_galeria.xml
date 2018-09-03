@@ -4,10 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:orientation="vertical">
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="GALERIA"
+  />
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:alpha="0.5"
+        android:scaleType="centerCrop"
         android:id="@+id/galeria">
     </android.support.v4.view.ViewPager>
 

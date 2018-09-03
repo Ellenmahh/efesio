@@ -1,5 +1,7 @@
 package efesio.com.br.app.entities;
 
+import org.joda.time.LocalDate;
+
 public class Evento {
 
     private String nome;
@@ -7,11 +9,11 @@ public class Evento {
     private String descricao;
     private String urlBanner;
     private String urlFoto;
-    private String dataInicio;
-    private String dataTermino;
-    private String privacidade;
-    private String classificacao;
-
+    private LocalDate dataInicio;
+    private LocalDate dataTermino;
+    private String horaInicio;
+    private String horaTermino;
+    private String tipo;
 
     public String getUrlBanner() {
         return urlBanner;
@@ -29,36 +31,29 @@ public class Evento {
         this.urlFoto = urlFoto;
     }
 
-    public String getDataInicio() {
+
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(String dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public String getDataTermino() {
+    public LocalDate getDataTermino() {
         return dataTermino;
     }
 
-    public void setDataTermino(String dataTermino) {
+    public void setDataTermino(LocalDate dataTermino) {
         this.dataTermino = dataTermino;
     }
 
-    public String getPrivacidade() {
-        return privacidade;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setPrivacidade(String privacidade) {
-        this.privacidade = privacidade;
-    }
-
-    public String getClassificacao() {
-        return classificacao;
-    }
-
-    public void setClassificacao(String classificacao) {
-        this.classificacao = classificacao;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getNome() {
@@ -83,5 +78,21 @@ public class Evento {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public String getHoraInicio() {
+        return horaInicio;
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraTermino() {
+        return horaTermino;
+    }
+
+    public void setHoraTermino(String horaTermino) {
+        this.horaTermino = horaTermino;
     }
 }

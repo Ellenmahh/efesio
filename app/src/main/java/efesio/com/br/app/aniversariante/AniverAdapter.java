@@ -13,18 +13,15 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import efesio.com.br.app.R;
 import efesio.com.br.app.entities.Aniversariante;
+import efesio.com.br.app.rest.Service;
 
 public class AniverAdapter extends RecyclerView.Adapter {
     private List<Aniversariante> aniver;
-    private List<String> images = new ArrayList<>();
-
     private Context context;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
@@ -62,23 +59,19 @@ public class AniverAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder( RecyclerView.ViewHolder viewHolder,  int position) {
         System.out.println("onBindViewHolder");
+
         Aniversariante item = aniver.get(position);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String date =sdf.format(new Date());
-
         AniverViewHolder holder = (AniverViewHolder) viewHolder;
 
         holder.nome_membro.setText(item.getNome());
         holder.dtNasc_membro.setText(date);
-        images.addAll(Collections.singleton(item.getUrlFoto()));
-//        holder.img_membro.setImageUrl(item.getUrlFoto(),mImageLoader);
 
         /**
          * carrega a imagem da url e mostra na imageview*/
-        String imagem = String.valueOf(images.get(position));
-        holder.img_membro.setImageUrl(imagem, mImageLoader);
+        holder.img_membro.setImageUrl( Service.EFESIO.getStorage()+"efesio-bucket-membro/"+item.getUrlFoto(), mImageLoader);
 
-        System.out.println("imagem--- " + imagem );
 
     }
 

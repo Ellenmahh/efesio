@@ -27,6 +27,7 @@ public class FragmentBuscaIgreja extends Fragment implements Request.OnResult<Li
     private Button buscar;
 
     private BuscaIgrejaCallback callback;
+
     public static FragmentBuscaIgreja getInstance(BuscaIgrejaCallback callback){
         FragmentBuscaIgreja f = new FragmentBuscaIgreja();
         f.callback = callback;

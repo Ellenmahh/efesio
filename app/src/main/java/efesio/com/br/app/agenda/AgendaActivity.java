@@ -58,7 +58,6 @@ public class AgendaActivity  extends ActivityBase
             public void onDaySelect() {
                 Day day = collapsibleCalendar.getSelectedDay();
                 LocalDate d = new LocalDate(day.getYear(), day.getMonth(), day.getDay());
-                Toast.makeText(AgendaActivity.this, "clicouu "+d, Toast.LENGTH_SHORT).show();
                 agenda(d);
             }
 
@@ -135,7 +134,6 @@ public class AgendaActivity  extends ActivityBase
                 x.add(String.valueOf(getIntent().putExtra("horaInicio", String.valueOf(res.getEntity().get(position).getHora_inicial()))));
                 x.add(String.valueOf(getIntent().putExtra("horaFim", String.valueOf(res.getEntity().get(position).getHora_termino()))));
                 x.add(String.valueOf(getIntent().putExtra("descricao", String.valueOf(res.getEntity().get(position).getDescricao()))));
-                System.out.println("clicado -- "+x);
                 showEditDialog(x);
             }
         });
