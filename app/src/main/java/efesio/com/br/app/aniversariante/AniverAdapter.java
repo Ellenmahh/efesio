@@ -68,10 +68,13 @@ public class AniverAdapter extends RecyclerView.Adapter {
         holder.nome_membro.setText(item.getNome());
         holder.dtNasc_membro.setText(date);
 
+        if (item.getUrlFoto() == null || item.getUrlFoto().isEmpty()){
+            holder.img_membro.setDefaultImageResId(R.drawable.semfoto);
+
+        }
         /**
          * carrega a imagem da url e mostra na imageview*/
         holder.img_membro.setImageUrl( Service.EFESIO.getStorage()+"efesio-bucket-membro/"+item.getUrlFoto(), mImageLoader);
-
 
     }
 

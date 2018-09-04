@@ -123,6 +123,9 @@ public class AgendaActivity  extends ActivityBase
                 System.out.println(data.getYear()+" - "+ data.toString("MMM")+" - "+data.getDayOfMonth());
             }
         }
+        if (res.getEntity().size() == 0 ){
+            alert("opsss... ", "Não há agenda para este mês.");
+        }
         listener.setOnItemClickListener(new ListClickListener.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {

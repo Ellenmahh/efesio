@@ -28,13 +28,12 @@
                 app:title="Galeria"
                 app:navigationIcon="?attr/homeAsUpIndicator"/>
 
-
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
     <GridView
         android:id="@+id/gridView"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:columnWidth="100dp"

@@ -48,7 +48,7 @@ public class FragmentBuscaIgrejaLista extends Fragment {
         listener.setOnItemClickListener(new ListClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                    System.out.println("Item clicado");
+//                    System.out.println("Item clicado");
                     onSelect.onSelect(adapter.getItem(position));
                 }
             });

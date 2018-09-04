@@ -1,31 +1,30 @@
 package efesio.com.br.app.cadastro;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.List;
 
 import efesio.com.br.app.R;
+import efesio.com.br.app.base.FragmentBase;
 import efesio.com.br.app.business.MembroLoginBusiness;
 import efesio.com.br.app.entities.IgrejaMembro;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
 
-public class FragmentBuscaIgreja extends Fragment implements Request.OnResult<List<IgrejaMembro>>, Request.OnError, Request.OnStart, Request.OnFinish{
+public class FragmentBuscaIgreja extends
+        FragmentBase implements Request.OnResult<List<IgrejaMembro>>, Request.OnError, Request.OnStart, Request.OnFinish{
 
     public interface BuscaIgrejaCallback{
-       void callback(List<IgrejaMembro> itens);
+        void callback(List<IgrejaMembro> itens);
     }
 
     private EditText cpf_membro;
-    private Button buscar;
-
+    private TextView buscar;
     private BuscaIgrejaCallback callback;
 
     public static FragmentBuscaIgreja getInstance(BuscaIgrejaCallback callback){
@@ -63,23 +62,27 @@ public class FragmentBuscaIgreja extends Fragment implements Request.OnResult<Li
 
     @Override
     public void onStart(String tag) {
-        Toast.makeText(getContext(),"Buscando igreja . . .",Toast.LENGTH_SHORT).show();
+        loading(true);
+//        Toast.makeText(getContext(),"Buscando igreja . . .",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
+        alert("Erro ao buscar igreja, por favor tente mais tarde.");
+//        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResult(String tag, NixResponse<List<IgrejaMembro>> res) {
         if (res.getEntity() == null || res.getEntity().size() == 0){
-            Toast.makeText(getContext(),"Nenhuma igreja encontrada",Toast.LENGTH_SHORT).show();
+            alert("Nenhuma igreja encontrada com o CPF informado.");
+//            Toast.makeText(getContext(),"Nenhuma igreja encontrada",Toast.LENGTH_SHORT).show();
             return;
         }
         if (res.getStatus() != 200){
-            Toast.makeText(getContext(),"Erro ao buscar",Toast.LENGTH_SHORT).show();
+            alert("Erro ao buscar igreja, por favor tentar mais tarde.");
+//            Toast.makeText(getContext(),"Erro ao buscar",Toast.LENGTH_SHORT).show();
             return;
         }
         List<IgrejaMembro> m =  res.getEntity();
@@ -88,5 +91,8 @@ public class FragmentBuscaIgreja extends Fragment implements Request.OnResult<Li
 
     @Override
     public void onFinish(String tag) {
+        loading(false);
     }
+
+
 }

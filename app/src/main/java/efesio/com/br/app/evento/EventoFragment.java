@@ -3,7 +3,6 @@ package efesio.com.br.app.evento;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +15,14 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 
 import efesio.com.br.app.R;
+import efesio.com.br.app.base.FragmentBase;
 import efesio.com.br.app.entities.Evento;
+import efesio.com.br.app.rest.NixResponse;
+import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.rest.Service;
 
-public class EventoFragment extends Fragment {
+public class EventoFragment extends FragmentBase
+        implements Request.OnStart, Request.OnFinish, Request.OnError, Request.OnResult<Evento> {
 
     private NetworkImageView img_evento;
     private TextView titulo_evento,descricao_evento, tipo_evento, data_ini, data_fim,hora_ini ,hora_fim;
@@ -49,7 +52,6 @@ public class EventoFragment extends Fragment {
                 return mCache.get(url);
             }
         });
-
         descricao_evento = rootView.findViewById(R.id.descricao_evento);
         titulo_evento = rootView.findViewById(R.id.titulo_evento);
         img_evento = rootView.findViewById(R.id.img_evento);
@@ -59,7 +61,12 @@ public class EventoFragment extends Fragment {
         hora_ini = rootView.findViewById(R.id.hora_ini);
         hora_fim = rootView.findViewById(R.id.hora_fim);
 
-        img_evento.setImageUrl(Service.EFESIO.getStorage()+"efesio-bucket-evento-banner/"+evento.getUrlBanner(), mImageLoader);
+        if (evento.getUrlBanner() == null){
+            img_evento.setVisibility(View.GONE);
+        }
+        if (evento.getUrlBanner() != null){
+            img_evento.setImageUrl(Service.EFESIO.getStorage()+"efesio-bucket-evento-banner/"+evento.getUrlBanner(), mImageLoader);
+        }
         tipo_evento.setText(evento.getTipo());
         titulo_evento.setText(evento.getNome());
         descricao_evento.setText(evento.getDescricao());
@@ -68,8 +75,33 @@ public class EventoFragment extends Fragment {
         hora_ini.setText(evento.getHoraInicio());
         hora_fim.setText(evento.getHoraTermino());
 
+
         return rootView;
+
     }
+    @Override
+    public void onResult(String tag, NixResponse<Evento> res) {
+        if(res.getStatus() != 201){
+            alert(res.getMessage());
+        }
+    }
+    @Override
+    public void onError(String tag, Exception e) {
+        e.printStackTrace();
+        alert("Não foi possivel abrir detalhes do evento, por favor tente mais tarde.", e.getMessage());
+
+    }
+    @Override
+    public void onStart(String tag) {
+        loading(true);
+    }
+
+    @Override
+    public void onFinish(String tag) {
+        loading(false);
+
+    }
+
 
 //    public interface OnItemSelectedListener {
 //        void onItemSelected(String link);

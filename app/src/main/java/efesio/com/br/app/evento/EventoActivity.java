@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -52,8 +51,6 @@ public class EventoActivity extends ActivityBase
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Evento e = adapter.getItem(position);
-                Toast.makeText(getApplicationContext(), "clicou evento" , Toast.LENGTH_SHORT).show();
-
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.frameEvento, EventoFragment.getInstance(e));
@@ -76,16 +73,14 @@ public class EventoActivity extends ActivityBase
 
     @Override
     public void onStart(String tag) {
-//        loading(true);
-        Toast.makeText(this, "Pesquisando eventos", Toast.LENGTH_LONG).show();
+        loading(true);
+//        Toast.makeText(this, "Pesquisando eventos", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-//        alert("Erro ao procurar eventos, tente novamente mais tarde.");
-        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        System.out.println("error -- " + e.getMessage());
+        alert("Erro ao procurar eventos, tente novamente mais tarde.");
     }
 
     @Override
@@ -96,6 +91,9 @@ public class EventoActivity extends ActivityBase
         }
         if (res.getStatus() != 201){
             alert(res.getMessage());
+        }
+        if (res.getEntity().size() == 0){
+            alert("opssss... ","hão há eventos.");
         }
         adapter.setItems(res.getEntity());
     }
@@ -116,13 +114,13 @@ public class EventoActivity extends ActivityBase
     }
 
     public void site(View view) {
-        Toast.makeText(this,"SITE",Toast.LENGTH_SHORT).show();
-
+//        Toast.makeText(this,"SITE",Toast.LENGTH_SHORT).show();
         String url = "https://efesio.com.br";
-
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);
     }
 
+    public void verMais(View view) {
+    }
 }

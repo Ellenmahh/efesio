@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import efesio.com.br.app.agenda.AgendaActivity;
 import efesio.com.br.app.aniversariante.AniversarianteActivity;
@@ -17,7 +19,8 @@ import efesio.com.br.app.galeria.GaleriaActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    ImageView imageView_nav;
+    TextView title_nav,textView_nav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +36,16 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView =  findViewById(R.id.nav_view);
+//        View v = navigationView.inflateHeaderView(R.layout.nav_header_navigation);
+//        imageView_nav = v.findViewById(R.id.imageView_nav);
+//        title_nav = v.findViewById(R.id.title_nav);
+//        textView_nav = v.findViewById(R.id.textView_nav);
+//
+//        System.out.println("id -- " + RuntimeValues.getIdEmpresa());
+//        System.out.println("email -- " + RuntimeValues.getEmail());
+//        title_nav.setText(RuntimeValues.getIdEmpresa());
+//        textView_nav.setText(RuntimeValues.getEmail());
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -52,10 +63,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.aniversariantes) {
-            Intent intent = new Intent(MainActivity.this, AniversarianteActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_gallery) {
             Intent intent = new Intent(MainActivity.this, GaleriaActivity.class);
             startActivity(intent);
         } else if (id == R.id.agenda) {
@@ -69,6 +77,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish() ; // This call is missing.
+        } else if (id == R.id.aniversariantes) {
+            Intent intent = new Intent(MainActivity.this, AniversarianteActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout_nav);

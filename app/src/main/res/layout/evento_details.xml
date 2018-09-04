@@ -53,7 +53,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    >
 
                     <TextView
                         android:layout_width="0dp"
@@ -78,6 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:paddingBottom="5dp"
                     >
 
                     <TextView
@@ -100,6 +103,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -126,7 +130,6 @@
                     android:text="Descrição"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textStyle="bold"
-                    android:padding="10dp"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -157,6 +160,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/holo_green_dark"
                     android:text="GRATUITO"
+                    android:layout_gravity="center"
                     android:id="@+id/tipo_evento"
                     android:layout_marginStart="4dp"
                     />

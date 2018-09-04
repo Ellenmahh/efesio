@@ -37,7 +37,9 @@ public class IgrejaAdapter extends RecyclerView.Adapter {
         holder.nome_igreja.setText(item.getNomeIgreja());
         holder.nome_membro.setText(item.getNome());
         holder.cpf_membro.setText(item.getCpf());
-        holder.img_membro.setImageDrawable(Drawable.createFromPath(item.getFoto()));
+        if (item.getFoto() != null){
+            holder.img_membro.setImageDrawable(Drawable.createFromPath(item.getFoto()));
+        }
     }
 
     @Override

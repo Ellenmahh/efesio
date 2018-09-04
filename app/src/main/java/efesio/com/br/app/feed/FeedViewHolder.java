@@ -7,16 +7,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import efesio.com.br.app.R;
 import efesio.com.br.app.agenda.AgendaActivity;
+import efesio.com.br.app.aniversariante.AniversarianteActivity;
 import efesio.com.br.app.entities.FeedItem;
 import efesio.com.br.app.evento.EventoActivity;
 import efesio.com.br.app.galeria.ViewPageAdapter;
@@ -51,16 +52,19 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
 
     // agenda
     private TextView subAgenda ;
-    private Button visualizar_agenda;
+    private TextView visualizar_agenda;
 
     // galeria
     private ViewPager galeria;
     private LinearLayout sliderDots;
     private int dotscount;
     private ImageView[] dots;
+    private TextView visualizar_galeria;
 
     // evento
-    private Button visualizar_evento;
+    private TextView visualizar_evento;
+    // aniver
+    private TextView visualizar_aniver;
 
     public FeedViewHolder(final View itemview, FeedItem.Tipo tipo) {
         super(itemview);
@@ -73,18 +77,31 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
             case GALERIA: {
                 galeria = itemView.findViewById(R.id.galeria);
                 sliderDots = itemView.findViewById(R.id.sliderDots);
+                this.visualizar_galeria = itemView.findViewById(R.id.visualizar_galeria);
+                this.galeria.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(v.getContext(), " adasd a", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                this.sliderDots.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(v.getContext(), " adasd a", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 break;
             }
             case AGENDA: {
                 this.image = itemView.findViewById(R.id.image);
                 this.caption = itemView.findViewById(R.id.headerAgenda);
-//                    this.subAgenda = itemView.findViewById(R.id.subAgenda);
                 this.visualizar_agenda = itemView.findViewById(R.id.visualizar_agenda);
-                itemView.setOnClickListener(new View.OnClickListener() {
+                this.visualizar_agenda.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), AgendaActivity.class);
-                        v.getContext().startActivity(intent);
+                        Intent i = new Intent(v.getContext(), AgendaActivity.class);
+                        v.getContext().startActivity(i);
                     }
                 });
                 break;
@@ -93,19 +110,31 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                 this.image = itemView.findViewById(R.id.imageEvento);
                 this.caption = itemView.findViewById(R.id.captionEvento);
                 this.visualizar_evento = itemView.findViewById(R.id.visualizar_evento);
-                itemView.setOnClickListener(new View.OnClickListener() {
+                this.visualizar_evento.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), EventoActivity.class);
-                        v.getContext().startActivity(intent);
+                        Intent i = new Intent(v.getContext(), EventoActivity.class);
+                        v.getContext().startActivity(i);
+                    }
+                });
+
+                break;
+            }
+            case ANIVERSARIANTE: {
+                this.image = itemView.findViewById(R.id.imageAniver);
+                this.caption = itemView.findViewById(R.id.captionAniver);
+                this.visualizar_aniver = itemView.findViewById(R.id.visualizar_aniver);
+                this.visualizar_aniver.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(v.getContext(), AniversarianteActivity.class);
+                        v.getContext().startActivity(i);
                     }
                 });
                 break;
             }
-
         }
     }
-
 
     public void fill(FeedItem item){
         switch (item.getTipo()) {
@@ -122,6 +151,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     params.setMargins(8, 0, 8, 0);
                     sliderDots.addView(dots[i], params);
+                } if (dots.length > 0) {
                 }
 
                 if (dots.length > 0) {
@@ -156,13 +186,18 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
             }
             case AGENDA: {
                 caption.setText(item.legenda);
-//                    subAgenda.setText("Agenda teste bla bla bla");
                 Drawable myIcon = itemView.getResources().getDrawable(item.photoId);
                 image.setImageDrawable(myIcon);
 
                 break;
             }
             case EVENTOS: {
+                caption.setText(item.getLegenda());
+                Drawable myIcon = itemView.getResources().getDrawable(item.photoId);
+                image.setImageDrawable(myIcon);
+                break;
+            }
+            case ANIVERSARIANTE: {
                 caption.setText(item.getLegenda());
                 Drawable myIcon = itemView.getResources().getDrawable(item.photoId);
                 image.setImageDrawable(myIcon);

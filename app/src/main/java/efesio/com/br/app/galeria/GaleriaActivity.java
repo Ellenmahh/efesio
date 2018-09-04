@@ -2,7 +2,6 @@ package efesio.com.br.app.galeria;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,12 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import efesio.com.br.app.R;
+import efesio.com.br.app.base.ActivityBase;
 import efesio.com.br.app.business.GaleriaBusiness;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.util.RuntimeValues;
 
-public class GaleriaActivity extends AppCompatActivity
+public class GaleriaActivity extends ActivityBase
         implements Request.OnResult<List<String>>, Request.OnError, Request.OnStart, Request.OnFinish{
     private GridView gridView;
     private GridViewAdapter gridAdapter;
@@ -61,13 +61,15 @@ public class GaleriaActivity extends AppCompatActivity
 
     @Override
     public void onStart(String tag) {
-        Toast.makeText(this,"Carregando imagens",Toast.LENGTH_SHORT).show();
+        loading(true);
+//        Toast.makeText(this,"Carregando imagens",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
+        alert("Erro ao carregar imagens "+ e.getMessage());
+//        Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -76,7 +78,6 @@ public class GaleriaActivity extends AppCompatActivity
         if (res.getStatus() != 200){
             Toast.makeText(this,res.getMessage(),Toast.LENGTH_SHORT).show();
         }
-
 //       gridAdapter.setItems(res.getEntity());
         gridAdapter = new GridViewAdapter(this,R.layout.galeria_item, (ArrayList<String>) res.getEntity());
         gridView.setAdapter(gridAdapter);
@@ -93,7 +94,7 @@ public class GaleriaActivity extends AppCompatActivity
 
     @Override
     public void onFinish(String tag) {
-
+        loading(false);
 
     }
 }

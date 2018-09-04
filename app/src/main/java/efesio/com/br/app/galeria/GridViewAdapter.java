@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -71,7 +70,6 @@ public class GridViewAdapter extends ArrayAdapter {
 
 		row = LayoutInflater.from(context).inflate(R.layout.galeria_item, parent, false);
 		holder = new ViewHolder();
-		holder.imageTitle = row.findViewById(R.id.text_galeria);
 		imageView= row.findViewById(R.id.image_galeria);
 		holder.image =  imageView;
 		row.setTag(holder);
@@ -84,7 +82,6 @@ public class GridViewAdapter extends ArrayAdapter {
 	}
 
 	static class ViewHolder {
-		TextView imageTitle;
 		NetworkImageView image;
 	}
 }

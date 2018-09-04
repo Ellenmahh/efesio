@@ -3,7 +3,7 @@ package efesio.com.br.app.entities;
 public class FeedItem {
 
     public enum Tipo{
-        AGENDA(1), EVENTOS(2), GALERIA(3);
+        AGENDA(1), EVENTOS(2), GALERIA(3), ANIVERSARIANTE(4);
 
         int type;
         Tipo(int type){

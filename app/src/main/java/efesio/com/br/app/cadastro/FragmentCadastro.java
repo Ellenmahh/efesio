@@ -2,15 +2,14 @@ package efesio.com.br.app.cadastro;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import efesio.com.br.app.R;
+import efesio.com.br.app.base.FragmentBase;
 import efesio.com.br.app.business.MembroLoginBusiness;
 import efesio.com.br.app.entities.IgrejaMembro;
 import efesio.com.br.app.entities.Membro;
@@ -20,7 +19,7 @@ import efesio.com.br.app.rest.Request;
 import efesio.com.br.app.util.RuntimeValues;
 import efesio.com.br.app.util.Util;
 
-public class FragmentCadastro extends Fragment
+public class FragmentCadastro extends FragmentBase
         implements Request.OnResult<MembroLogin>, Request.OnError, Request.OnStart, Request.OnFinish{
 
     public interface OnCadastro {
@@ -84,28 +83,33 @@ public class FragmentCadastro extends Fragment
 
     @Override
     public void onStart(String tag) {
-        Toast.makeText(getContext(),"Cadastrando. . .",Toast.LENGTH_SHORT).show();
+        loading(true);
+//        Toast.makeText(getContext(),"Cadastrando. . .",Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
+        alert("Erro ao cadastrar usuário, por favor tente mais tarde.");
+//        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResult(String tag, NixResponse<MembroLogin> res) {
         if (res.getStatus() != 201){
-            Toast.makeText(getContext(),"Erro ao cadastrar",Toast.LENGTH_SHORT).show();
+            alert("Erro ao cadastrar usuário, por favor tente mais tarde.");
+//            Toast.makeText(getContext(),"Erro ao cadastrar",Toast.LENGTH_SHORT).show();
             return;
         }
         MembroLogin m =  res.getEntity();
         this.onCadastro.onCadastro(m);
-        Toast.makeText(getContext(),"Cadastrado com sucesso",Toast.LENGTH_LONG).show();
+        alert("Cadastrado com sucesso.");
+//        Toast.makeText(getContext(),"Cadastrado com sucesso",Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     public void onFinish(String tag) {
+        loading(false);
     }
 }

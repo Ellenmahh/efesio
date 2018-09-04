@@ -20,7 +20,6 @@ public class LoginActivity extends ActivityBase
     private EditText login_user,password_user;
     String login;
     Button btn_login,btn_cadastrar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +37,7 @@ public class LoginActivity extends ActivityBase
         }else{
             login_user.setText("estevao@email.com");
         }
-            password_user.setText("123");
+        password_user.setText("123");
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +90,7 @@ public class LoginActivity extends ActivityBase
             alert(res.getMessage());
         }else{
             RuntimeValues.setIdEmpresa(res.getEntity().getIdEmpresa());
+            RuntimeValues.setEmail(res.getEntity().getEmail());
             open(MainActivity.class);
             finish();
         }

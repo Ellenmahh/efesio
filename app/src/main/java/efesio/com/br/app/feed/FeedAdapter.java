@@ -29,6 +29,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
             case GALERIA:layout = R.layout.fragment_feed_item_galeria;break;
             case AGENDA:layout = R.layout.fragment_feed_item_agenda;break;
             case EVENTOS:layout = R.layout.fragment_feed_item_evento;break;
+            case ANIVERSARIANTE:layout = R.layout.fragment_feed_item_aniver;break;
 
         }
 

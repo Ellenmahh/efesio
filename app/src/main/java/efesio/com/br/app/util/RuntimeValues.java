@@ -1,23 +1,30 @@
 package efesio.com.br.app.util;
 
 
-import efesio.com.br.app.entities.NixPerfil;
-
 /**
  * Created by otavi on 14/07/2017.
  */
 
 public class RuntimeValues {
-    private static NixPerfil perfil;
+    private static String email;
+    private static String imagem ;
     private static String token;
     private static int idEmpresa;
 
-    public static NixPerfil getPerfil() {
-        return perfil;
+    public static String getEmail() {
+        return email;
     }
 
-    public static void setPerfil(NixPerfil perfil) {
-        RuntimeValues.perfil = perfil;
+    public static void setEmail(String email) {
+        RuntimeValues.email = email;
+    }
+
+    public static String getImagem() {
+        return imagem;
+    }
+
+    public static void setImagem(String imagem) {
+        RuntimeValues.imagem = imagem;
     }
 
     public static String getToken() {

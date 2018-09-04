@@ -70,6 +70,9 @@ public class EventoAdapter extends RecyclerView.Adapter {
         if (itemEvento.getUrlFoto() != null){
             holder.imagem_evento.setImageUrl(Service.EFESIO.getStorage()+"efesio-bucket-evento-foto/"+itemEvento.getUrlFoto(), mImageLoader);
         }
+        if (itemEvento.getUrlFoto() == null || itemEvento.getUrlFoto().isEmpty()){
+            holder.imagem_evento.setDefaultImageResId(R.drawable.semfoto);
+        }
 
     }
 

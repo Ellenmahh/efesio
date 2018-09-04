@@ -30,8 +30,6 @@ public class AgendaAdapter extends RecyclerView.Adapter  {
         View view = LayoutInflater.from(context).inflate(R.layout.agenda_item,
                 parent, false);
 
-
-
         return new AgendaViewHolder(view);
     }
     @Override

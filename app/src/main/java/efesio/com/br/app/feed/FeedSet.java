@@ -7,7 +7,8 @@ public class FeedSet {
     private final static FeedItem[] sfeedItems ={
             new FeedItem( R.drawable.eventos,  "Galeria", FeedItem.Tipo.GALERIA),
             new FeedItem( R.drawable.schedule, "Veja a agenda da igreja para este mês", FeedItem.Tipo.AGENDA),
-            new FeedItem( R.drawable.events,  "Veja todos os eventos que estão agendados, e inscreva-se!", FeedItem.Tipo.EVENTOS)
+            new FeedItem( R.drawable.events,  "Veja os eventos da sua igreja", FeedItem.Tipo.EVENTOS),
+            new FeedItem( R.drawable.aniver,  "Veja os aniversariantes do mês !", FeedItem.Tipo.ANIVERSARIANTE)
 
     };
 
