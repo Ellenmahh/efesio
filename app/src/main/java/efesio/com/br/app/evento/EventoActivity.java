@@ -29,7 +29,6 @@ public class EventoActivity extends ActivityBase
     private ListClickListener listener;
     private EventoAdapter adapter ;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +37,7 @@ public class EventoActivity extends ActivityBase
         setSupportActionBar(toolbarEvento);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getActivity().getSupportFragmentManager().addOnBackStackChangedListener(this);
 
         mRecyclerView = findViewById(R.id.recyclerViewEvento);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -60,7 +60,12 @@ public class EventoActivity extends ActivityBase
         });
         eventos();
     }
-
+    public void onBackStackChanged() {
+        // enable Up button only  if there are entries on the backstack
+        if(getActivity().getSupportFragmentManager().getBackStackEntryCount() < 1) {
+            ((MainActivity)getActivity()).hideUpButton();
+        }
+    }
     private void eventos(){
         new EventoBusiness(this)
                 .eventos(RuntimeValues.getIdEmpresa())

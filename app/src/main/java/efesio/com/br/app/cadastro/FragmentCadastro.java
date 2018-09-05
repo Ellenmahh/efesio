@@ -1,10 +1,10 @@
 package efesio.com.br.app.cadastro;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -30,7 +30,7 @@ public class FragmentCadastro extends FragmentBase
     private IgrejaMembro item;
     private EditText criar_email,criar_senha;
     private TextView txt_igreja;
-    private FloatingActionButton btn_cadastrar;
+    private Button btn_cadastrar;
 
 
     public static FragmentCadastro getInstance(IgrejaMembro item, OnCadastro onCadastro){
@@ -51,6 +51,7 @@ public class FragmentCadastro extends FragmentBase
 
         criar_email.setText(item.getEmail());
         txt_igreja.setText(item.getNomeIgreja());
+
 
         btn_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override

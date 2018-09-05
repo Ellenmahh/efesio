@@ -28,8 +28,8 @@ public class LoginBusiness extends AbstractBusiness<Login> {
     }
 
     public Request<Login> login(String email, String senha){
-        System.out.println("login_user --- "+email);
-        System.out.println("password_user "+senha);
+//        System.out.println("login_user --- "+email);
+//        System.out.println("password_user "+senha);
         return new Request<>(getTypeReference(), getContext())
                 .setService(getService())
                 .setUri(getPath())

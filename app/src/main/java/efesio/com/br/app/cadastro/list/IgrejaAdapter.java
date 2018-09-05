@@ -7,20 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import efesio.com.br.app.R;
 import efesio.com.br.app.entities.IgrejaMembro;
 
 public class IgrejaAdapter extends RecyclerView.Adapter {
-    private List<IgrejaMembro> itens = new ArrayList<>();
+    private List<IgrejaMembro> itens ;
     private Context context;
+
     public IgrejaAdapter(Context context, List<IgrejaMembro> itens) {
         this.context = context;
         this.itens = itens;
     }
-
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -1,4 +1,4 @@
-package efesio.com.br.app.aniversariante;
+package efesio.com.br.app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,7 +27,7 @@ public class CircularNetworkImageView extends NetworkImageView {
 	}
 
 	public CircularNetworkImageView(Context context, AttributeSet attrs,
-			int defStyle) {
+                                    int defStyle) {
 		super(context, attrs, defStyle);
 		mContext = context;
 	}

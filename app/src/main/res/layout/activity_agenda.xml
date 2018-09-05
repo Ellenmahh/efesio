@@ -1,65 +1,52 @@
 
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".MainActivity">
-
-<android.support.design.widget.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay"
-    app:expanded="false">
-
-    <android.support.design.widget.CollapsingToolbarLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:contentScrim="?attr/colorPrimary"
-        app:titleEnabled="false"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-    <com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:primaryColor="@color/colorPrimary"
-        app:textColor="@android:color/white"
-        app:selectedItem_textColor="@color/colorAccent"
-        android:id="@+id/collapsibleCalendarView"
-        app:todayItem_textColor="@android:color/white"
-        app:todayItem_background="@drawable/circle_white_stroke_background"
-        app:selectedItem_background="@drawable/circle_white_solid_background"
-        app:buttonLeft_drawableTintColor="@android:color/white"
-        app:buttonRight_drawableTintColor="@android:color/white"
-        app:expandIconColor="@android:color/white"
-        app:layout_collapseMode="parallax"
-        android:layout_marginTop="52dp"
-
-        />
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarAg"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:layout_collapseMode="pin"
-        app:title="Agenda"
-        app:navigationIcon="?attr/homeAsUpIndicator"/>
-
-
-    </android.support.design.widget.CollapsingToolbarLayout>
-</android.support.design.widget.AppBarLayout>
-
-
-<android.support.v7.widget.RecyclerView
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:id="@+id/recyclerViewAgenda"
-    android:scrollbars="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-</android.support.v7.widget.RecyclerView>
+    tools:context=".MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:titleEnabled="false"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+            <CalendarView
+                android:id="@+id/calendario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="?attr/actionBarSize"
+                app:layout_collapseMode="parallax"/>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbarAg"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:layout_collapseMode="pin"
+                app:title="Agenda"
+                app:navigationIcon="?attr/homeAsUpIndicator"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.RecyclerView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/recyclerViewAgenda"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.design.widget.CoordinatorLayout>

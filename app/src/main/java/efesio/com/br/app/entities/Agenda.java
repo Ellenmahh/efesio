@@ -7,8 +7,8 @@ public class Agenda {
     private String titulo;
     private LocalDate data;
     private String descricao;
-    private String hora_inicial;
-    private String hora_termino;
+    private String horaInicio;
+    private String horaTermino;
     private String Tipo;
 
     public String getTitulo() {
@@ -36,20 +36,20 @@ public class Agenda {
     }
 
 
-    public String getHora_inicial() {
-        return hora_inicial;
+    public String getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setHora_inicial(String hora_inicial) {
-        this.hora_inicial = hora_inicial;
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
-    public String getHora_termino() {
-        return hora_termino;
+    public String getHoraTermino() {
+        return horaTermino;
     }
 
-    public void setHora_termino(String hora_termino) {
-        this.hora_termino = hora_termino;
+    public void setHoraTermino(String horaTermino) {
+        this.horaTermino = horaTermino;
     }
 
     public String getTipo() {

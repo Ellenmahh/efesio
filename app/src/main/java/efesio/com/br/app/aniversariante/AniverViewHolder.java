@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import efesio.com.br.app.CircularNetworkImageView;
 import efesio.com.br.app.R;
 
 public class AniverViewHolder extends RecyclerView.ViewHolder   {

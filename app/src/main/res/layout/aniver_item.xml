@@ -3,7 +3,6 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
     xmlns:app="http://schemas.android.com/tools"
     app:ignore="NamespaceTypo">
     <android.support.v7.widget.CardView
@@ -16,14 +15,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="10dp"
+                android:gravity="center"
+                android:padding="20dp"
                 >
-                <com.android.volley.toolbox.NetworkImageView
+                <efesio.com.br.app.CircularNetworkImageView
                     android:id="@+id/img_membro"
                     android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"/>
+                    android:layout_height="100dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@mipmap/ic_launcher_round" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -31,9 +32,9 @@
                     android:layout_gravity="center"
                     >
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#333333"
                         android:text="Nome"
                         android:id="@+id/nome_membro"
@@ -46,12 +47,13 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textStyle="bold"
                         android:textColor="#333333"
                         android:text="Data"
-                        android:drawableRight="@drawable/birthday"
+                        android:drawableRight="@drawable/happybirthday"
                         android:id="@+id/dtNasc"
                         android:textAlignment="textStart"
                         android:layout_gravity="center_horizontal"

@@ -18,7 +18,7 @@ public class MembroLoginBusiness extends AbstractBusiness<MembroLogin> {
 
     @Override
     protected String getPath() {
-        return "membro/login";
+        return " membro/login";
     }
 
     @Override
@@ -35,11 +35,11 @@ public class MembroLoginBusiness extends AbstractBusiness<MembroLogin> {
                 .setMethod(Request.Method.POST);
     }
 
-    public Request<List<IgrejaMembro>> buscarIgreja (String mesNascimento){
+    public Request<List<IgrejaMembro>> buscarIgreja (String cpf){
         return new Request<>(new TypeReference<List<IgrejaMembro>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath()+"/buscarIgreja")
-                .putParam("cpf", mesNascimento)
+                .putParam("cpf", cpf)
                 .setMethod(Request.Method.GET);
     }
 }

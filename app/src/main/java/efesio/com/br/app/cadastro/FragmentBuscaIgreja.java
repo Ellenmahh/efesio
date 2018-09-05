@@ -70,6 +70,7 @@ public class FragmentBuscaIgreja extends
     public void onError(String tag, Exception e) {
         e.printStackTrace();
         alert("Erro ao buscar igreja, por favor tente mais tarde.");
+        System.out.println(e.getMessage());
 //        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
     }
 

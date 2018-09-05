@@ -29,7 +29,6 @@ public class EventoFragment extends FragmentBase
     private Context context;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-
     private Evento evento;
 
     public static EventoFragment getInstance(Evento evento){
@@ -42,6 +41,7 @@ public class EventoFragment extends FragmentBase
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.evento_details, container, false);
         this.context= getActivity();
+        ((EventoActivity)getActivity()).showUpButton();
         mRequestQueue = Volley.newRequestQueue(context);
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);

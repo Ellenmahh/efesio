@@ -2,6 +2,8 @@ package efesio.com.br.app.evento;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.LruCache;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,7 +57,7 @@ public class EventoAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder( RecyclerView.ViewHolder viewHolder,  int position) {
         System.out.println("onBindViewHolder");
-        Evento itemEvento = eventos.get(position);
+        final Evento itemEvento = eventos.get(position);
         EventoViewHolder holder = (EventoViewHolder) viewHolder;
 
         holder.titulo_evento.setText(itemEvento.getNome());
@@ -73,6 +75,18 @@ public class EventoAdapter extends RecyclerView.Adapter {
         if (itemEvento.getUrlFoto() == null || itemEvento.getUrlFoto().isEmpty()){
             holder.imagem_evento.setDefaultImageResId(R.drawable.semfoto);
         }
+
+        holder.verMais.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Evento e = itemEvento;
+                FragmentManager fm = ((EventoActivity) v.getContext()).getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.frameEvento, EventoFragment.getInstance(e));
+                ft.addToBackStack("detalhe");
+                ft.commit();
+            }
+        });
 
     }
 

@@ -6,7 +6,7 @@ package efesio.com.br.app.rest;
 
 public enum Service {
 
- EFESIO("http://192.168.0.118:8080/efesioapi/api/",
+ EFESIO("http://192.168.0.121:8080/efesioapi/api/",
             "https://prompwebsa.blob.core.windows.net/efesio/");
 
     String url;

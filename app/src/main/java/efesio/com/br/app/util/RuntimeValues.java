@@ -9,6 +9,8 @@ public class RuntimeValues {
     private static String email;
     private static String imagem ;
     private static String token;
+    private static String nomeIgreja;
+    private static String fotoIgreja;
     private static int idEmpresa;
 
     public static String getEmail() {
@@ -41,5 +43,21 @@ public class RuntimeValues {
 
     public static void setIdEmpresa(int idEmpresa) {
         RuntimeValues.idEmpresa = idEmpresa;
+    }
+
+    public static String getNomeIgreja() {
+        return nomeIgreja;
+    }
+
+    public static void setNomeIgreja(String nomeIgreja) {
+        RuntimeValues.nomeIgreja = nomeIgreja;
+    }
+
+    public static String getFotoIgreja() {
+        return fotoIgreja;
+    }
+
+    public static void setFotoIgreja(String fotoIgreja) {
+        RuntimeValues.fotoIgreja = fotoIgreja;
     }
 }

@@ -13,6 +13,7 @@ import java.util.List;
 import efesio.com.br.app.R;
 import efesio.com.br.app.cadastro.list.IgrejaAdapter;
 import efesio.com.br.app.entities.IgrejaMembro;
+import efesio.com.br.app.util.RuntimeValues;
 import efesio.com.br.app.widgets.lists.support.ListClickListener;
 
 public class FragmentBuscaIgrejaLista extends Fragment {
@@ -50,8 +51,12 @@ public class FragmentBuscaIgrejaLista extends Fragment {
                 public void onItemClicked(RecyclerView recyclerView, int position, View v) {
 //                    System.out.println("Item clicado");
                     onSelect.onSelect(adapter.getItem(position));
+
+                    RuntimeValues.setNomeIgreja(adapter.getItem(position).getNomeIgreja());
+                    RuntimeValues.setFotoIgreja(adapter.getItem(position).getFoto());
                 }
             });
+
         return v;
 
     }

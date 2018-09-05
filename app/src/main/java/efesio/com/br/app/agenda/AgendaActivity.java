@@ -1,15 +1,13 @@
 package efesio.com.br.app.agenda;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
-
-import com.shrikanthravi.collapsiblecalendarview.data.Day;
-import com.shrikanthravi.collapsiblecalendarview.widget.CollapsibleCalendar;
+import android.widget.CalendarView;
 
 import org.joda.time.LocalDate;
 
@@ -30,7 +28,7 @@ public class AgendaActivity  extends ActivityBase
     private RecyclerView mRecyclerView;
     private LinearLayoutManager manager;
     private AgendaAdapter adapter = new AgendaAdapter(this );
-    private CollapsibleCalendar collapsibleCalendar;
+    private CalendarView calendario;
     private Toolbar toolbar;
     private ListClickListener listener;
 
@@ -52,32 +50,12 @@ public class AgendaActivity  extends ActivityBase
 
         listener = ListClickListener.addTo(mRecyclerView);
 
-        collapsibleCalendar = findViewById(R.id.collapsibleCalendarView);
-        collapsibleCalendar.setCalendarListener(new CollapsibleCalendar.CalendarListener() {
+        calendario = findViewById(R.id.calendario);
+        calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onDaySelect() {
-                Day day = collapsibleCalendar.getSelectedDay();
-                LocalDate d = new LocalDate(day.getYear(), day.getMonth(), day.getDay());
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                LocalDate d = new LocalDate(year, month, dayOfMonth);
                 agenda(d);
-            }
-
-            @Override
-            public void onItemClick(View v) {
-
-            }
-
-            @Override
-            public void onDataUpdate() {
-
-            }
-
-            @Override
-            public void onMonthChange() {
-
-            }
-
-            @Override
-            public void onWeekChange(int position) {
             }
         });
         agenda(null);
@@ -108,20 +86,21 @@ public class AgendaActivity  extends ActivityBase
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Erro ao procurar agenda, tente novamente mais tarde."+e.getMessage());
+        alert("Erro ao procurar agenda, tente novamente mais tarde.");
     }
     @Override
     public void onResult(String tag, final NixResponse<List<Agenda>> res) {
         if (res.getStatus() != 201){
-            Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
+            alert(res.getMessage());
+//            Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
         adapter.setItems(res.getEntity());
         if(tag.equals("CARREGAR_BOLINHAS")){
-            for(Agenda a : res.getEntity()) {
-                LocalDate data = a.getData();
-                collapsibleCalendar.addEventTag(data.getYear(), data.getMonthOfYear()-1, data.getDayOfMonth());
-                System.out.println(data.getYear()+" - "+ data.toString("MMM")+" - "+data.getDayOfMonth());
-            }
+//            for(Agenda a : res.getEntity()) {
+//                LocalDate data = a.getData();
+//                collapsibleCalendar.addEventTag(data.getYear(), data.getMonthOfYear()-1, data.getDayOfMonth());
+////                System.out.println(data.getYear()+" - "+ data.toString("MMM")+" - "+data.getDayOfMonth());
+//            }
         }
         if (res.getEntity().size() == 0 ){
             alert("opsss... ", "Não há agenda para este mês.");
@@ -134,8 +113,8 @@ public class AgendaActivity  extends ActivityBase
                 x.add(String.valueOf(getIntent().putExtra("dia", String.valueOf(res.getEntity().get(position).getData().getDayOfMonth()))));
                 x.add(String.valueOf(getIntent().putExtra("mes", String.valueOf(res.getEntity().get(position).getData().toString("MMM").toUpperCase()))));
                 x.add(String.valueOf(getIntent().putExtra("titulo", String.valueOf(res.getEntity().get(position).getTitulo()))));
-                x.add(String.valueOf(getIntent().putExtra("horaInicio", String.valueOf(res.getEntity().get(position).getHora_inicial()))));
-                x.add(String.valueOf(getIntent().putExtra("horaFim", String.valueOf(res.getEntity().get(position).getHora_termino()))));
+                x.add(String.valueOf(getIntent().putExtra("horaInicio", String.valueOf(res.getEntity().get(position).getHoraInicio()))));
+                x.add(String.valueOf(getIntent().putExtra("horaFim", String.valueOf(res.getEntity().get(position).getHoraTermino()))));
                 x.add(String.valueOf(getIntent().putExtra("descricao", String.valueOf(res.getEntity().get(position).getDescricao()))));
                 showEditDialog(x);
             }

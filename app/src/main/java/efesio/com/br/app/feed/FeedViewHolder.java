@@ -7,10 +7,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,19 +52,18 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
 
     // agenda
     private TextView subAgenda ;
-    private TextView visualizar_agenda;
+    private Button visualizar_agenda;
 
     // galeria
     private ViewPager galeria;
     private LinearLayout sliderDots;
     private int dotscount;
     private ImageView[] dots;
-    private TextView visualizar_galeria;
 
     // evento
-    private TextView visualizar_evento;
+    private Button visualizar_evento;
     // aniver
-    private TextView visualizar_aniver;
+    private Button visualizar_aniver;
 
     public FeedViewHolder(final View itemview, FeedItem.Tipo tipo) {
         super(itemview);
@@ -77,17 +76,14 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
             case GALERIA: {
                 galeria = itemView.findViewById(R.id.galeria);
                 sliderDots = itemView.findViewById(R.id.sliderDots);
-                this.visualizar_galeria = itemView.findViewById(R.id.visualizar_galeria);
                 this.galeria.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(v.getContext(), " adasd a", Toast.LENGTH_SHORT).show();
                     }
                 });
                 this.sliderDots.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(v.getContext(), " adasd a", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -180,7 +176,7 @@ public class FeedViewHolder extends RecyclerView.ViewHolder {
                 }
                 // definindo o tempo de passagem das imagens do slide_promocao
                 Timer timer = new Timer();
-                timer.scheduleAtFixedRate(new MyTimeTask(), 6000, 6000);
+                timer.scheduleAtFixedRate(new MyTimeTask(), 8000, 6000);
                 break;
 
             }
