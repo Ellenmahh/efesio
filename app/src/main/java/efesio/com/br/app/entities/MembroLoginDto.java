@@ -1,15 +1,14 @@
 package efesio.com.br.app.entities;
 
-public class Login {
-
+public class MembroLoginDto {
     private String pk;
-    private String email;
-    private String senha;
     private int id;
     private int idAssinante;
+    private Membro membro;
+    private String email;
+    private String senha;
     private String nomeIgreja;
     private String fotoIgreja;
-    private String nomeUser;
 
     public String getEmail() {
         return email;
@@ -17,6 +16,14 @@ public class Login {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Membro getMembro() {
+        return membro;
+    }
+
+    public void setMembro(Membro membro) {
+        this.membro = membro;
     }
 
     public String getSenha() {
@@ -35,12 +42,12 @@ public class Login {
         this.id = id;
     }
 
-    public int getIdAssinante() {
-        return idAssinante;
+    public String getPk() {
+        return pk;
     }
 
-    public void setIdAssinante(int idAssinante) {
-        this.idAssinante = idAssinante;
+    public void setPk(String pk) {
+        this.pk = pk;
     }
 
     public String getNomeIgreja() {
@@ -59,19 +66,21 @@ public class Login {
         this.fotoIgreja = fotoIgreja;
     }
 
-    public String getPk() {
-        return pk;
+    public int getIdAssinante() {
+        return idAssinante;
     }
 
-    public void setPk(String pk) {
-        this.pk = pk;
+    public void setIdAssinante(int idAssinante) {
+        this.idAssinante = idAssinante;
     }
 
-    public String getNomeUser() {
-        return nomeUser;
-    }
-
-    public void setNomeUser(String nomeUser) {
-        this.nomeUser = nomeUser;
+    @Override
+    public String toString() {
+        return "MembroLoginDto{" +
+                "email='" + email + '\'' +
+                ", membro=" + membro +
+                ", senha='" + senha + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

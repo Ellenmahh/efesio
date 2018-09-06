@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,15 +67,18 @@ public class GaleriaActivity extends ActivityBase
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Erro ao carregar imagens "+ e.getMessage());
+        alert("Erro ao carregar imagens");
+        System.out.println(e.getMessage());
 //        Toast.makeText(this,e.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResult(String tag, NixResponse<List<String>> res) {
 
-        if (res.getStatus() != 200){
-            Toast.makeText(this,res.getMessage(),Toast.LENGTH_SHORT).show();
+        if (res.getStatus() != 201){
+            alert("Erro ao carregar imagens");
+            System.out.println(res.getMessage());
+            return;
         }
 //       gridAdapter.setItems(res.getEntity());
         gridAdapter = new GridViewAdapter(this,R.layout.galeria_item, (ArrayList<String>) res.getEntity());

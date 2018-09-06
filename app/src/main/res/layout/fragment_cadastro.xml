@@ -6,6 +6,7 @@
     android:id="@+id/relative_login"
     android:background="#000"
     android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:clickable="true"
     android:orientation="vertical">
     <ImageView
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="30dp"
+        android:paddingTop="60dp"
         android:orientation="vertical">
         <ImageView
             android:layout_width="wrap_content"
@@ -31,41 +32,56 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="22dp"
             android:gravity="center"
-            android:text="Faça o seu cadastro e acesse a área de membros
-        para ter acesso a tudo que o Efésio pode oferecer"
+            android:text="Faça o seu cadastro e acesse a área de membros para ter acesso a tudo que o Efésio pode oferecer"
             android:textColor="#fff"
             android:textStyle="bold" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:id="@+id/txt_nome_user"
+            android:text="seja bem vindo"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Crie sua conta na igreja"
             android:textAlignment="center"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/white"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:id="@+id/txt_igreja"
+            android:textColor="@color/white"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
             />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/login_title"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="40dp"
             android:elevation="4dp"
             android:orientation="vertical"
-            android:padding="20dp">
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="30dp">
+                >
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -83,7 +99,9 @@
                 </android.support.design.widget.TextInputLayout>
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:passwordToggleDrawable="@drawable/show"
+                    app:passwordToggleEnabled="true">
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -29,7 +29,7 @@ public class AniversarianteBusiness extends AbstractBusiness<Aniversariante> {
         return new Request<>(new TypeReference<List<Aniversariante>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath())
-                .putParam("_idEmpresa",id)
+                .putParam("_idIgreja",id)
                 .putParam("mesNascimento", mesNascimento)
                 .setMethod(Request.Method.GET);
     }

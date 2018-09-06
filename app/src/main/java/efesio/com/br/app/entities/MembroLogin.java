@@ -3,33 +3,18 @@ package efesio.com.br.app.entities;
 public class MembroLogin {
     private String primaryKey;
     private int idEmpresa;
+    private int idAssinante;
     private Membro membro;
     private String email;
     private String senha;
+    private String nomeUser;
 
-
-    public String getEmail() {
-        return email;
+    public String getPrimaryKey() {
+        return primaryKey;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Membro getMembro() {
-        return membro;
-    }
-
-    public void setMembro(Membro membro) {
-        this.membro = membro;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
     }
 
     public int getIdEmpresa() {
@@ -40,21 +25,43 @@ public class MembroLogin {
         this.idEmpresa = idEmpresa;
     }
 
-    public String getPrimaryKey() {
-        return primaryKey;
+    public int getIdAssinante() {
+        return idAssinante;
     }
 
-    public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
+    public void setIdAssinante(int idAssinante) {
+        this.idAssinante = idAssinante;
     }
 
-    @Override
-    public String toString() {
-        return "MembroLogin{" +
-                "email='" + email + '\'' +
-                ", membro=" + membro +
-                ", senha='" + senha + '\'' +
-                ", idEmpresa=" + idEmpresa +
-                '}';
+    public Membro getMembro() {
+        return membro;
+    }
+
+    public void setMembro(Membro membro) {
+        this.membro = membro;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getNomeUser() {
+        return nomeUser;
+    }
+
+    public void setNomeUser(String nomeUser) {
+        this.nomeUser = nomeUser;
     }
 }

@@ -1,5 +1,6 @@
 package efesio.com.br.app.cadastro;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +31,7 @@ public class FragmentCadastro extends FragmentBase
     private OnCadastro onCadastro;
     private IgrejaMembro item;
     private EditText criar_email,criar_senha;
-    private TextView txt_igreja;
+    private TextView txt_igreja, txt_nome_user;
     private Button btn_cadastrar;
 
 
@@ -48,11 +49,16 @@ public class FragmentCadastro extends FragmentBase
         criar_email = v.findViewById(R.id.criar_email);
         criar_senha = v.findViewById(R.id.criar_senha);
         txt_igreja = v.findViewById(R.id.txt_igreja);
+        txt_nome_user = v.findViewById(R.id.txt_nome_user);
         btn_cadastrar = v.findViewById(R.id.btn_cadastrar);
 
-        criar_email.setText(item.getEmail());
+        if (RuntimeValues.getEmail() != null){
+            criar_senha.setText(item.getEmail());
+        }else {
+            criar_email.setText(item.getEmail());
+        }
         txt_igreja.setText(item.getNomeIgreja());
-
+        txt_nome_user.setText("Seja Bem vindo(a),\n "+item.getNome()+"!");
 
         btn_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +74,7 @@ public class FragmentCadastro extends FragmentBase
         RuntimeValues.setToken("null");
         MembroLogin i = new MembroLogin();
         i.setIdEmpresa(item.getId());
+        i.setIdAssinante(item.getIdAssinante());
         i.setEmail(criar_email.getText().toString());
         i.setSenha(Util.toMD5(criar_senha.getText().toString()));
         Membro m = new Membro();
@@ -93,6 +100,7 @@ public class FragmentCadastro extends FragmentBase
     public void onError(String tag, Exception e) {
         e.printStackTrace();
         alert("Erro ao cadastrar usuário, por favor tente mais tarde.");
+        System.out.println(e.getMessage());
 //        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
@@ -100,12 +108,17 @@ public class FragmentCadastro extends FragmentBase
     public void onResult(String tag, NixResponse<MembroLogin> res) {
         if (res.getStatus() != 201){
             alert("Erro ao cadastrar usuário, por favor tente mais tarde.");
+            System.out.println(res.getMessage());
 //            Toast.makeText(getContext(),"Erro ao cadastrar",Toast.LENGTH_SHORT).show();
             return;
         }
-        MembroLogin m =  res.getEntity();
-        this.onCadastro.onCadastro(m);
-        alert("Cadastrado com sucesso.");
+        final MembroLogin m =  res.getEntity();
+        alert("Parabéns!", "Você agora pode acessar o app e ficar por dentro das novidades sobre a sua igreja!", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                FragmentCadastro.this.onCadastro.onCadastro(m);
+            }
+        });
 //        Toast.makeText(getContext(),"Cadastrado com sucesso",Toast.LENGTH_LONG).show();
 
     }

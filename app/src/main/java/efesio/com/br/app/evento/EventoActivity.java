@@ -35,7 +35,6 @@ public class EventoActivity extends ActivityBase
         setContentView(R.layout.activity_evento);
         toolbarEvento = findViewById(R.id.toolbarEvento);
         setSupportActionBar(toolbarEvento);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mRecyclerView = findViewById(R.id.recyclerViewEvento);

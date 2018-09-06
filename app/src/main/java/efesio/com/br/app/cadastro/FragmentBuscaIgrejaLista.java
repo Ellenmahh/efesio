@@ -53,7 +53,7 @@ public class FragmentBuscaIgrejaLista extends Fragment {
                     onSelect.onSelect(adapter.getItem(position));
 
                     RuntimeValues.setNomeIgreja(adapter.getItem(position).getNomeIgreja());
-                    RuntimeValues.setFotoIgreja(adapter.getItem(position).getFoto());
+                    RuntimeValues.setFotoIgreja(adapter.getItem(position).getFotoIgreja());
                 }
             });
 

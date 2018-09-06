@@ -33,6 +33,7 @@ public class ViewPageAdapter extends PagerAdapter
     private List<String> images = new ArrayList<>();
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
+    NetworkImageView imageView;
 
 
     /**
@@ -86,10 +87,11 @@ public class ViewPageAdapter extends PagerAdapter
     public Object instantiateItem(ViewGroup container, final int position){
         layoutInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.custom_layout,null);
-        NetworkImageView imageView= view.findViewById(R.id.img_custom);
+        imageView= view.findViewById(R.id.img_custom);
 
         /**
          * carrega a imagem da url e mostra na imageview*/
+
         String imagem = images.get(position);
         imageView.setImageUrl(imagem, mImageLoader);
 
@@ -122,7 +124,7 @@ public class ViewPageAdapter extends PagerAdapter
 
     @Override
     public void onError(String tag, Exception e) {
-        Toast.makeText(context,"Erro ao carregar imagens", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context,"Erro ao carregar imagens", Toast.LENGTH_LONG).show();
         e.printStackTrace();
     }
 

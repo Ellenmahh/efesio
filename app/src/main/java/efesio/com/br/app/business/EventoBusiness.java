@@ -31,7 +31,7 @@ public class EventoBusiness extends AbstractBusiness<Evento> {
         return new Request<>(new TypeReference<List<Evento>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath())
-                .putParam("_idEmpresa",id)
+                .putParam("_idIgreja",id)
                 .putParam("dataIni", LocalDate.now().getYear() + LocalDate.now().getMonthOfYear() + LocalDate.now().getDayOfMonth())
                 .putParam("dataFim", LocalDate.now().getYear() + LocalDate.now().getMonthOfYear() + LocalDate.now().getDayOfMonth())
                 .setMethod(Request.Method.GET);

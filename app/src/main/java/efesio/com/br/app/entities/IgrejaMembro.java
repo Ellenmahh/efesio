@@ -6,10 +6,11 @@ public class IgrejaMembro {
     private String nome;
     private String email;
     private String cpf;
-    private String foto;
+    private String fotoIgreja;
     private String nomeIgreja;
     private Endereco enderecoIgreja;
     private int id;
+    private int idAssinante;
 
     public String getCpf() {
         return cpf;
@@ -43,12 +44,12 @@ public class IgrejaMembro {
         this.nome = nome;
     }
 
-    public String getFoto() {
-        return foto;
+    public String getFotoIgreja() {
+        return fotoIgreja;
     }
 
-    public void setFoto(String foto) {
-        this.foto = foto;
+    public void setFotoIgreja(String fotoIgreja) {
+        this.fotoIgreja = fotoIgreja;
     }
 
     public String getNomeIgreja() {
@@ -75,4 +76,11 @@ public class IgrejaMembro {
         this.pk = pk;
     }
 
+    public int getIdAssinante() {
+        return idAssinante;
+    }
+
+    public void setIdAssinante(int idAssinante) {
+        this.idAssinante = idAssinante;
+    }
 }

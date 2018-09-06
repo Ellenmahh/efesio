@@ -46,7 +46,6 @@ public class FragmentBuscaIgreja extends
             }
         });
 
-        cpf_membro.setText("123");
         return v;
     }
 
@@ -70,7 +69,7 @@ public class FragmentBuscaIgreja extends
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Erro ao buscar igreja, por favor tente mais tarde.");
+        alert("Nenhuma igreja encontrada com o CPF informado, verifique e tente novamente.");
         System.out.println(e.getMessage());
 //        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
     }
@@ -78,14 +77,13 @@ public class FragmentBuscaIgreja extends
     @Override
     public void onResult(String tag, NixResponse<List<IgrejaMembro>> res) {
         if (res.getEntity() == null || res.getEntity().size() == 0){
-            alert("Nenhuma igreja encontrada com o CPF informado.");
+            System.out.println("Nenhuma igreja encontrada com o CPF informado.");
 //            Toast.makeText(getContext(),"Nenhuma igreja encontrada",Toast.LENGTH_SHORT).show();
-            return;
         }
+        System.out.println("status busca "+res.getStatus());
         if (res.getStatus() != 200){
             alert("Erro ao buscar igreja, por favor tentar mais tarde.");
 //            Toast.makeText(getContext(),"Erro ao buscar",Toast.LENGTH_SHORT).show();
-            return;
         }
         List<IgrejaMembro> m =  res.getEntity();
         this.callback.callback(m);

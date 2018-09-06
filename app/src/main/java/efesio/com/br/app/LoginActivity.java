@@ -32,13 +32,10 @@ public class LoginActivity extends ActivityBase
 
         login = getIntent().getStringExtra("email");
 
-        if (login != null){
-            login_user.setText(login);
-        }else{
-            login_user.setText("estevao@email.com");
-        }
-        password_user.setText("123");
 
+        if (login != null) {
+            login_user.setText(login);
+        }
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,6 +52,7 @@ public class LoginActivity extends ActivityBase
     }
 
     private void login() {
+        RuntimeValues.setToken("null");
         if(login_user.getText().toString().isEmpty()){
             Snackbar.make(login_user, "Login inválido", Snackbar.LENGTH_LONG).show();
             return;
@@ -79,7 +77,9 @@ public class LoginActivity extends ActivityBase
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Ocorreu um erro que impediu seu login, tente novamente mais tarde."+e.getMessage());
+        alert("Ocorreu um erro que impediu seu login, tente novamente mais tarde.");
+        System.out.println("e.getMessage "+e.getMessage());
+
     }
 
     @Override
@@ -89,8 +89,13 @@ public class LoginActivity extends ActivityBase
         if (res.getStatus() != 201){
             alert(res.getMessage());
         }else{
-            RuntimeValues.setIdEmpresa(res.getEntity().getIdEmpresa());
+            RuntimeValues.setIdEmpresa(res.getEntity().getId());
+            RuntimeValues.setIdAssinante(res.getEntity().getIdAssinante());
             RuntimeValues.setEmail(res.getEntity().getEmail());
+            RuntimeValues.setFotoIgreja(res.getEntity().getFotoIgreja());
+            RuntimeValues.setNomeIgreja(res.getEntity().getNomeIgreja());
+            RuntimeValues.setNomeUser(res.getEntity().getNomeUser());
+            System.out.println("id assinante -- "+res.getEntity().getIdAssinante());
             open(MainActivity.class);
             finish();
         }

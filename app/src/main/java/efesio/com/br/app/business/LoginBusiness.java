@@ -19,7 +19,7 @@ public class LoginBusiness extends AbstractBusiness<Login> {
 
     @Override
     protected String getPath() {
-        return "membro/login";
+        return "membro/login/login";
     }
 
     @Override

@@ -7,6 +7,7 @@
     android:background="#000"
     android:orientation="vertical"
     android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:clickable="true"
     tools:context=".CadastroActivity">
     <ImageView
         android:layout_width="match_parent"
@@ -48,15 +49,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:paddingTop="30dp">
                 <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center">
-                    <EditText
-                        android:layout_width="match_parent"
+                    >
+                    <efesio.com.br.app.widgets.texts.CPFEditText
+                        android:layout_width="210dp"
                         android:layout_height="wrap_content"
                         android:drawableTint="@color/orange"
                         android:singleLine="true"
@@ -67,21 +67,15 @@
                         android:id="@+id/cpf_membro" />
 
                 </android.support.design.widget.TextInputLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    >
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:drawableRight="@android:drawable/ic_search_category_default"
-                        android:id="@+id/buscar"
-                        android:textAlignment="textEnd"
-                        android:textColor="@color/orange"
-                        android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/search48"
+                    android:id="@+id/buscar"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
 
-                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
 

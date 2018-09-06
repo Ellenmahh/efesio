@@ -38,7 +38,14 @@ public abstract class ActivityBase extends AppCompatActivity {
 
     public void addFragment(int viewId, Fragment f, String tag){
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(viewId, f, tag);
+        ft.add(viewId, f);
+        ft.commit();
+    }
+
+    public void replaceFragment(int viewId, Fragment f, String tag){
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(viewId, f);
+        ft.addToBackStack(tag+"-bs");
         ft.commit();
     }
 
@@ -49,12 +56,12 @@ public abstract class ActivityBase extends AppCompatActivity {
         }
     }
 
-    public void hideFragment(String tag){
-        Fragment prev = getSupportFragmentManager().findFragmentByTag(tag);
-        if(prev != null) {
-            prev.getView().setVisibility(View.GONE);
-        }
-    }
+//    public void hideFragment(String tag){
+//        Fragment prev = getSupportFragmentManager().findFragmentByTag(tag);
+//        if(prev != null) {
+//            prev.getView().setVisibility(View.GONE);
+//        }
+//    }
 
 //    public void setToolbar(Toolbar toolbar) {
 //        setToolbar(toolbar, getString(R.string.app_name));

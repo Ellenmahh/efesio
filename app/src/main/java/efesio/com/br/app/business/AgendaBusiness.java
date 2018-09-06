@@ -31,7 +31,7 @@ public class AgendaBusiness extends AbstractBusiness<Agenda> {
         return new Request<>(new TypeReference<List<Agenda>>(){}, getContext())
                 .setService(getService())
                 .setUri(getPath())
-                .putParam("_idEmpresa",id)
+                .putParam("_idIgreja",id)
                 .putParam("dataIni", date == null ? null : date.toString("yyyy-MM-dd"))
                 .putParam("dataFim", date == null ? null : date.toString("yyyy-MM-dd"))
                 .setMethod(Request.Method.GET);

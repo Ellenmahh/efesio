@@ -7,11 +7,13 @@ package efesio.com.br.app.util;
 
 public class RuntimeValues {
     private static String email;
+    private static String nomeUser;
     private static String imagem ;
     private static String token;
     private static String nomeIgreja;
     private static String fotoIgreja;
     private static int idEmpresa;
+    private static int idAssinante;
 
     public static String getEmail() {
         return email;
@@ -59,5 +61,21 @@ public class RuntimeValues {
 
     public static void setFotoIgreja(String fotoIgreja) {
         RuntimeValues.fotoIgreja = fotoIgreja;
+    }
+
+    public static String getNomeUser() {
+        return nomeUser;
+    }
+
+    public static void setNomeUser(String nomeUser) {
+        RuntimeValues.nomeUser = nomeUser;
+    }
+
+    public static int getIdAssinante() {
+        return idAssinante;
+    }
+
+    public static void setIdAssinante(int idAssinante) {
+        RuntimeValues.idAssinante = idAssinante;
     }
 }
