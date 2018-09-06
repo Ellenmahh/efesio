@@ -22,6 +22,7 @@ import efesio.com.br.app.util.Util;
 public class FragmentCadastro extends FragmentBase
         implements Request.OnResult<MembroLogin>, Request.OnError, Request.OnStart, Request.OnFinish{
 
+
     public interface OnCadastro {
         void onCadastro(MembroLogin itens);
     }

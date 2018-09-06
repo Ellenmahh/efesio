@@ -98,4 +98,5 @@ public abstract class FragmentBase extends Fragment {
         builder.create().show();
     }
 
+
 }

@@ -39,8 +39,8 @@ public class AgendaAdapter extends RecyclerView.Adapter  {
         Agenda itemAgenda = agenda.get(position);
         holder.titulo_ag.setText(itemAgenda.getTitulo());
         holder.descricao_ag.setText(itemAgenda.getDescricao());
-        holder.dia_agenda.setText(itemAgenda.getData().toString("dd"));
-        holder.mes_agenda.setText(itemAgenda.getData().toString("MMM").toUpperCase());
+        holder.dia_agenda.setText(itemAgenda.getDataInicio().toString("dd"));
+        holder.mes_agenda.setText(itemAgenda.getDataInicio().toString("MMM").toUpperCase());
         holder.hora_agenda.setText(itemAgenda.getHoraInicio() +" - " + itemAgenda.getHoraTermino());
     }
 

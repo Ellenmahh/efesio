@@ -19,6 +19,7 @@ import efesio.com.br.app.rest.Request;
 public class FragmentBuscaIgreja extends
         FragmentBase implements Request.OnResult<List<IgrejaMembro>>, Request.OnError, Request.OnStart, Request.OnFinish{
 
+
     public interface BuscaIgrejaCallback{
         void callback(List<IgrejaMembro> itens);
     }

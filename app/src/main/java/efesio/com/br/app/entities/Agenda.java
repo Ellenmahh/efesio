@@ -9,6 +9,8 @@ public class Agenda {
     private String descricao;
     private String horaInicio;
     private String horaTermino;
+    private LocalDate dataInicio;
+    private LocalDate dataTermino;
     private String Tipo;
 
     public String getTitulo() {
@@ -58,5 +60,21 @@ public class Agenda {
 
     public void setTipo(String tipo) {
         Tipo = tipo;
+    }
+
+    public LocalDate getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
     }
 }
