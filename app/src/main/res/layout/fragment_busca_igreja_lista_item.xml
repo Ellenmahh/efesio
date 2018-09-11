@@ -33,7 +33,7 @@
                                 <ImageView
                                     android:layout_width="70dp"
                                     android:layout_height="100dp"
-                                    android:src="@drawable/semfoto"
+                                    android:src="@drawable/profile_placeholder"
                                     android:id="@+id/img_membro"
                                     />
                                 <LinearLayout

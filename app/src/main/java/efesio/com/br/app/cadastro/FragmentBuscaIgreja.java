@@ -18,8 +18,6 @@ import efesio.com.br.app.rest.Request;
 
 public class FragmentBuscaIgreja extends
         FragmentBase implements Request.OnResult<List<IgrejaMembro>>, Request.OnError, Request.OnStart, Request.OnFinish{
-
-
     public interface BuscaIgrejaCallback{
         void callback(List<IgrejaMembro> itens);
     }
@@ -83,6 +81,7 @@ public class FragmentBuscaIgreja extends
         System.out.println("status busca "+res.getStatus());
         if (res.getStatus() != 200){
             alert("Erro ao buscar igreja, por favor tentar mais tarde.");
+            return;
 //            Toast.makeText(getContext(),"Erro ao buscar",Toast.LENGTH_SHORT).show();
         }
         List<IgrejaMembro> m =  res.getEntity();

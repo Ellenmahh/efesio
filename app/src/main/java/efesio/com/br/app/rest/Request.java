@@ -24,7 +24,7 @@ import efesio.com.br.app.rest.volley.VolleyRequest;
  * Created by otavi on 09/01/2017.
  */
 
-public class Request<T> implements Response.Listener<NixResponse<T>>, Response.ErrorListener, VolleyRequest.FinishedListener{
+public class Request<T> implements Response.Listener<NixResponse<T>>, Response.ErrorListener{
 
     public enum Method{
         POST, GET
@@ -220,13 +220,13 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
 
             if (method == Method.POST) {
                 if (getBody() != null) {
-                    request = new VolleyRequest<>(com.android.volley.Request.Method.POST, urlfinal, getBody(), this, this, this, tClass);
+                    request = new VolleyRequest<>(com.android.volley.Request.Method.POST, urlfinal, getBody(), this, this, tClass);
                 } else if (getParams() != null) {
-                    request = new VolleyRequest<>(com.android.volley.Request.Method.POST, urlfinal, getParams(), this, this, this, tClass);
+                    request = new VolleyRequest<>(com.android.volley.Request.Method.POST, urlfinal, getParams(), this, this, tClass);
                 }
             } else {
                 urlfinal += encodeParameters(getParams());
-                request = new VolleyRequest<>(com.android.volley.Request.Method.GET, urlfinal, this, this, this, tClass);
+                request = new VolleyRequest<>(com.android.volley.Request.Method.GET, urlfinal, this, this, tClass);
             }
             request.setTag(tag);
 
@@ -276,7 +276,9 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
             error.printStackTrace();
         }
 
-        onFinish(tag);
+        if (getOnFinish() != null) {
+            getOnFinish().onFinish(tag);
+        }
     }
 
     @Override
@@ -288,21 +290,17 @@ public class Request<T> implements Response.Listener<NixResponse<T>>, Response.E
             if (getOnResult() != null) {
                 getOnResult().onResult(tag, response);
             }
+
         }catch (Exception e){
             if (getOnError()!= null)
                 getOnError().onError(tag, e);
             else
                 e.printStackTrace();
         }
-    }
 
-    @Override
-    public void onFinish(String tag) {
-        if(BuildConfig.DEBUG) {
-            Log.i("Request ["+tag+"]", "Finished");
-        }
-        if (getOnFinish() != null)
+        if (getOnFinish() != null) {
             getOnFinish().onFinish(tag);
+        }
     }
 
     private String encodeParameters(Map<String, String> params) {

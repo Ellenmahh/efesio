@@ -73,7 +73,7 @@ public class EventoAdapter extends RecyclerView.Adapter {
             holder.imagem_evento.setImageUrl(Service.EFESIO.getStorage()+"efesio-bucket-evento-foto/"+itemEvento.getUrlFoto(), mImageLoader);
         }
         if (itemEvento.getUrlFoto() == null || itemEvento.getUrlFoto().isEmpty()){
-            holder.imagem_evento.setDefaultImageResId(R.drawable.semfoto);
+            holder.imagem_evento.setDefaultImageResId(R.drawable.profile_placeholder);
         }
 
         holder.verMais.setOnClickListener(new View.OnClickListener() {

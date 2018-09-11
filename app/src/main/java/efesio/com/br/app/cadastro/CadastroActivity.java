@@ -1,4 +1,4 @@
-package efesio.com.br.app;
+package efesio.com.br.app.cadastro;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,10 +8,9 @@ import android.support.v7.widget.Toolbar;
 
 import java.util.List;
 
+import efesio.com.br.app.LoginActivity;
+import efesio.com.br.app.R;
 import efesio.com.br.app.base.ActivityBase;
-import efesio.com.br.app.cadastro.FragmentBuscaIgreja;
-import efesio.com.br.app.cadastro.FragmentBuscaIgrejaLista;
-import efesio.com.br.app.cadastro.FragmentCadastro;
 import efesio.com.br.app.entities.IgrejaMembro;
 import efesio.com.br.app.entities.MembroLogin;
 import efesio.com.br.app.util.RuntimeValues;
@@ -19,6 +18,7 @@ import efesio.com.br.app.util.RuntimeValues;
 public class CadastroActivity extends ActivityBase implements FragmentBuscaIgreja.BuscaIgrejaCallback,
         FragmentBuscaIgrejaLista.BuscaIgrejaOnSelect, FragmentCadastro.OnCadastro {
     private Toolbar toolbarca;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,12 +26,9 @@ public class CadastroActivity extends ActivityBase implements FragmentBuscaIgrej
         toolbarca = findViewById(R.id.toolbarca);
         setSupportActionBar(toolbarca);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.view, FragmentBuscaIgreja.getInstance(this));
-        ft.commit();
-    }
 
+
+    }
 
     @Override
     public void callback(List<IgrejaMembro> itens) {

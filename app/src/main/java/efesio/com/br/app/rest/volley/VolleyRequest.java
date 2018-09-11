@@ -27,11 +27,6 @@ import efesio.com.br.app.util.RuntimeValues;
  */
 
 public class VolleyRequest<T> extends JsonRequest<NixResponse<T>> {
-    public interface FinishedListener {
-        /** Called when a response is finished. */
-        void onFinish(String tag);
-    }
-
 
     private static final int TIPO_JSON = 0;
     private static final int TIPO_PARAM = 1;
@@ -41,32 +36,42 @@ public class VolleyRequest<T> extends JsonRequest<NixResponse<T>> {
     private static final String PROTOCOL_CONTENT_TYPE_FORM = String.format("application/x-www-form-urlencoded; charset=%s", PROTOCOL_CHARSET);
 
     private HashMap<String, String> postParams;
-    private FinishedListener finishedListener;
     private String body;
     private int tipoReq;
     private TypeReference<T> tClass;
 
-    public VolleyRequest(int method, String url, String jsonRequest, Response.Listener<NixResponse<T>> listener, Response.ErrorListener errorListener, FinishedListener finishedListener, TypeReference<T> tClass) {
+    public VolleyRequest(int method,
+                         String url,
+                         String jsonRequest,
+                         final Response.Listener<NixResponse<T>> listener,
+                         final Response.ErrorListener errorListener,
+                         TypeReference<T> tClass) {
         super(method, url, jsonRequest, listener, errorListener);
         this.body =  jsonRequest;
         this.tipoReq = TIPO_JSON;
         this.tClass = tClass;
-        setFinishedListener(finishedListener);
     }
 
-    public VolleyRequest(int method, String url, HashMap<String, String> postParams, Response.Listener<NixResponse<T>> listener, Response.ErrorListener errorListener, FinishedListener finishedListener, TypeReference<T> tClass) {
+    public VolleyRequest(int method,
+                         String url,
+                         HashMap<String, String> postParams,
+                         final Response.Listener<NixResponse<T>> listener,
+                         final Response.ErrorListener errorListener,
+                         TypeReference<T> tClass) {
         super(method, url, null, listener, errorListener);
         this.postParams = postParams;
         this.tipoReq = TIPO_PARAM;
         this.tClass = tClass;
-        setFinishedListener(finishedListener);
     }
 
-    public VolleyRequest(int method, String url, Response.Listener<NixResponse<T>> listener, Response.ErrorListener errorListener, FinishedListener finishedListener, TypeReference<T> tClass) {
+    public VolleyRequest(int method,
+                         String url,
+                         final Response.Listener<NixResponse<T>> listener,
+                         final Response.ErrorListener errorListener,
+                         TypeReference<T> tClass) {
         super(method, url, null, listener, errorListener);
         this.tipoReq = TIPO_NULL;
         this.tClass = tClass;
-        setFinishedListener(finishedListener);
     }
 
 
@@ -152,13 +157,6 @@ public class VolleyRequest<T> extends JsonRequest<NixResponse<T>> {
         }
     }
 
-    @Override
-    protected void onFinish() {
-        super.onFinish();
-        if (getFinishedListener() != null)
-            getFinishedListener().onFinish((String)getTag());
-    }
-
     private byte[] encodeParameters(Map<String, String> params, String paramsEncoding) {
         StringBuilder encodedParams = new StringBuilder();
         try {
@@ -174,13 +172,5 @@ public class VolleyRequest<T> extends JsonRequest<NixResponse<T>> {
         } catch (UnsupportedEncodingException uee) {
             throw new RuntimeException("Encoding not supported: " + paramsEncoding, uee);
         }
-    }
-
-    public FinishedListener getFinishedListener() {
-        return finishedListener;
-    }
-
-    public void setFinishedListener(FinishedListener finishedListener) {
-        this.finishedListener = finishedListener;
     }
 }

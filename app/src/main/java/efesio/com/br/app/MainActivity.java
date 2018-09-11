@@ -1,6 +1,8 @@
 package efesio.com.br.app;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 
 import efesio.com.br.app.agenda.AgendaActivity;
@@ -29,15 +32,23 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     CircularNetworkImageView imageView_nav;
     TextView nome_igreja, nome_user;
+    NetworkImageView logo;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
-        Toolbar toolbar =  findViewById(R.id.toolbar);
+        String imgIgreja = Service.EFESIO.getStorage()+"efesio-bucket-logo/"+RuntimeValues.getFotoIgreja();
+        String imgUser = Service.EFESIO.getStorage()+"efesio-bucket-membro/"+RuntimeValues.getImagem();
+        toolbar =  findViewById(R.id.toolbar);
+        System.out.println("nome igreja --- " + RuntimeValues.getNomeIgreja());
+        if (RuntimeValues.getNomeIgreja() != null){
+            toolbar.setTitle(RuntimeValues.getNomeIgreja());
+        }
         setSupportActionBar(toolbar);
+        logo = findViewById(R.id.logo);
 
         DrawerLayout drawer =  findViewById(R.id.drawer_layout_nav);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,11 +74,15 @@ public class MainActivity extends AppCompatActivity
         nome_igreja = headerView.findViewById(R.id.nome_igreja);
         imageView_nav = headerView.findViewById(R.id.imageView_nav);
         nome_user = headerView.findViewById(R.id.nome_user);
-
+        logo.setImageUrl(imgIgreja,mImageLoader);
         nome_igreja.setText(RuntimeValues.getNomeIgreja());
         nome_user.setText("Bem vindo(a), "+RuntimeValues.getNomeUser());
-        System.out.println("imagem com url -- " + Service.EFESIO.getStorage()+"efesio-bucket-logo/"+RuntimeValues.getFotoIgreja());
-        imageView_nav.setImageUrl(Service.EFESIO.getStorage()+"efesio-bucket-logo/"+RuntimeValues.getFotoIgreja(), mImageLoader);
+        System.out.println("imagem com url -- " + imgIgreja);
+
+        if (RuntimeValues.getImagem() == null || RuntimeValues.getImagem().isEmpty()){
+            imageView_nav.setImageResource(R.drawable.noimage);
+        }
+        imageView_nav.setImageUrl(imgUser, mImageLoader);
 
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -98,9 +113,15 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         }else if (id == R.id.logout) {
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+
+            SharedPreferences preferences =getSharedPreferences("login", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.remove("email");
+            editor.remove("senha");
+            editor.apply();
+            Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-            finish() ; // This call is missing.
+
         } else if (id == R.id.aniversariantes) {
             Intent intent = new Intent(MainActivity.this, AniversarianteActivity.class);
             startActivity(intent);

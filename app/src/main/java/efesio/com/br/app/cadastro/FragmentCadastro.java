@@ -1,7 +1,9 @@
 package efesio.com.br.app.cadastro;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
+
+import efesio.com.br.app.CircularNetworkImageView;
 import efesio.com.br.app.R;
 import efesio.com.br.app.base.FragmentBase;
 import efesio.com.br.app.business.MembroLoginBusiness;
@@ -17,12 +24,14 @@ import efesio.com.br.app.entities.Membro;
 import efesio.com.br.app.entities.MembroLogin;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
+import efesio.com.br.app.rest.Service;
 import efesio.com.br.app.util.RuntimeValues;
 import efesio.com.br.app.util.Util;
 
 public class FragmentCadastro extends FragmentBase
         implements Request.OnResult<MembroLogin>, Request.OnError, Request.OnStart, Request.OnFinish{
-
+    private RequestQueue mRequestQueue;
+    private ImageLoader mImageLoader;
 
     public interface OnCadastro {
         void onCadastro(MembroLogin itens);
@@ -33,24 +42,38 @@ public class FragmentCadastro extends FragmentBase
     private EditText criar_email,criar_senha;
     private TextView txt_igreja, txt_nome_user;
     private Button btn_cadastrar;
-
+    private CircularNetworkImageView img_user;
 
     public static FragmentCadastro getInstance(IgrejaMembro item, OnCadastro onCadastro){
         FragmentCadastro f = new FragmentCadastro();
         f.onCadastro = onCadastro;
         f.item = item;
         return f;
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_cadastro, parent, false);
+        /**
+         * inicia a fila de requisições da voley*/
+        mRequestQueue = Volley.newRequestQueue(v.getContext());
+        mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
+            private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
+            public void putBitmap(String url, Bitmap bitmap) {
+                mCache.put(url, bitmap);
+            }
+            public Bitmap getBitmap(String url) {
+                return mCache.get(url);
+            }
+        });
+
         criar_email = v.findViewById(R.id.criar_email);
         criar_senha = v.findViewById(R.id.criar_senha);
         txt_igreja = v.findViewById(R.id.txt_igreja);
         txt_nome_user = v.findViewById(R.id.txt_nome_user);
         btn_cadastrar = v.findViewById(R.id.btn_cadastrar);
+        img_user = v.findViewById(R.id.img_user);
+        String imgIgreja = Service.EFESIO.getStorage()+"efesio-bucket-logo/"+RuntimeValues.getFotoIgreja();
 
         if (RuntimeValues.getEmail() != null){
             criar_senha.setText(item.getEmail());
@@ -58,8 +81,8 @@ public class FragmentCadastro extends FragmentBase
             criar_email.setText(item.getEmail());
         }
         txt_igreja.setText(item.getNomeIgreja());
-        txt_nome_user.setText("Seja Bem vindo(a),\n "+item.getNome()+"!");
-
+        txt_nome_user.setText(item.getNome());
+        img_user.setImageUrl(imgIgreja, mImageLoader);
         btn_cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,21 +122,23 @@ public class FragmentCadastro extends FragmentBase
     @Override
     public void onError(String tag, Exception e) {
         e.printStackTrace();
-        alert("Erro ao cadastrar usuário, por favor tente mais tarde.");
-        System.out.println(e.getMessage());
+        alert(e.getMessage());
+        System.out.println("e.getmessage -- "+e.getMessage());
+
 //        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResult(String tag, NixResponse<MembroLogin> res) {
         if (res.getStatus() != 201){
-            alert("Erro ao cadastrar usuário, por favor tente mais tarde.");
-            System.out.println(res.getMessage());
+            alert(res.getMessage());
+            System.out.println("res.getmessage -- "+res.getMessage());
 //            Toast.makeText(getContext(),"Erro ao cadastrar",Toast.LENGTH_SHORT).show();
             return;
         }
         final MembroLogin m =  res.getEntity();
-        alert("Parabéns!", "Você agora pode acessar o app e ficar por dentro das novidades sobre a sua igreja!", new DialogInterface.OnClickListener() {
+        alert("Parabéns!", "Você agora pode acessar o app e ficar por dentro das novidades sobre a sua igreja!",
+                new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FragmentCadastro.this.onCadastro.onCadastro(m);

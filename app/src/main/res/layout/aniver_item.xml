@@ -24,7 +24,8 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
+                    android:src="@drawable/noimage"
+                    />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -32,7 +33,7 @@
                     android:layout_gravity="center"
                     >
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#333333"
@@ -53,7 +54,7 @@
                         android:textStyle="bold"
                         android:textColor="#333333"
                         android:text="Data"
-                        android:drawableRight="@drawable/happybirthday"
+                        android:drawableLeft="@drawable/happybirthday"
                         android:id="@+id/dtNasc"
                         android:textAlignment="textStart"
                         android:layout_gravity="center_horizontal"

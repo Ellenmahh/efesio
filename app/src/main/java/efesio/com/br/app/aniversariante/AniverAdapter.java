@@ -69,7 +69,7 @@ public class AniverAdapter extends RecyclerView.Adapter {
         holder.dtNasc_membro.setText(date);
 
         if (item.getUrlFoto() == null || item.getUrlFoto().isEmpty()){
-            holder.img_membro.setDefaultImageResId(R.drawable.semfoto);
+            holder.img_membro.setImageResource(R.drawable.noimage);
 
         }
         /**

@@ -22,7 +22,6 @@ public class FeedFragment extends Fragment {
         feedSet = new FeedSet();
         feedAdapter = new FeedAdapter(feedSet);
         mLayoutManager = new LinearLayoutManager(this.getContext());
-
         mRecycleView =  v.findViewById(R.id.recyclerView);
         mRecycleView.setLayoutManager(mLayoutManager);
         mRecycleView.setAdapter(feedAdapter);

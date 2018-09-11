@@ -10,6 +10,7 @@ public class Login {
     private String nomeIgreja;
     private String fotoIgreja;
     private String nomeUser;
+    private String fotoUser;
 
     public String getEmail() {
         return email;
@@ -73,5 +74,13 @@ public class Login {
 
     public void setNomeUser(String nomeUser) {
         this.nomeUser = nomeUser;
+    }
+
+    public String getFotoUser() {
+        return fotoUser;
+    }
+
+    public void setFotoUser(String fotoUser) {
+        this.fotoUser = fotoUser;
     }
 }
