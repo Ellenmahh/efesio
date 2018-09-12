@@ -123,7 +123,6 @@ public class FragmentCadastro extends FragmentBase
     public void onError(String tag, Exception e) {
         e.printStackTrace();
         alert(e.getMessage());
-        System.out.println("e.getmessage -- "+e.getMessage());
 
 //        Toast.makeText(getContext(),"Erro: "+e.getMessage(),Toast.LENGTH_SHORT).show();
     }
@@ -132,7 +131,6 @@ public class FragmentCadastro extends FragmentBase
     public void onResult(String tag, NixResponse<MembroLogin> res) {
         if (res.getStatus() != 201){
             alert(res.getMessage());
-            System.out.println("res.getmessage -- "+res.getMessage());
 //            Toast.makeText(getContext(),"Erro ao cadastrar",Toast.LENGTH_SHORT).show();
             return;
         }

@@ -26,15 +26,17 @@ public class FeedItem {
     public FeedItem(){
     }
 
-    public FeedItem(int photoId, String legenda, Tipo tipo){
+    public FeedItem(int photoId, String legenda, Tipo tipo, int position){
         setPhotoId(photoId);
         setLegenda(legenda);
         setTipo(tipo);
+        setPosition(position);
     }
 
-    public Tipo tipo;
-    public int photoId;
-    public String legenda;
+    private Tipo tipo;
+    private int photoId;
+    private String legenda;
+    private int position;
 
     public int getPhotoId() {
         return photoId;
@@ -58,5 +60,13 @@ public class FeedItem {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

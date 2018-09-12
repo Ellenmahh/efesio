@@ -6,22 +6,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import efesio.com.br.app.R;
 import efesio.com.br.app.entities.FeedItem;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
-    private FeedSet mDataset;
+    private List<FeedItem> items = new ArrayList<>();
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public FeedAdapter(FeedSet album) {
-        mDataset = album;
+    public FeedAdapter() {
+        this.items.addAll(Arrays.asList(
+                new FeedItem(R.drawable.eventos, "Galeria", FeedItem.Tipo.GALERIA, 0),
+                new FeedItem(R.drawable.schedule, "Veja a agenda da igreja para este mês", FeedItem.Tipo.AGENDA, 1),
+                new FeedItem(R.drawable.events, "Veja os eventos da sua igreja", FeedItem.Tipo.EVENTOS, 2),
+                new FeedItem(R.drawable.aniver, "Veja os aniversariantes do mês !", FeedItem.Tipo.ANIVERSARIANTE ,3)
+        ));
     }
+
+
     @NonNull
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         int layout = 0;
-        FeedItem.Tipo tipo = FeedItem.Tipo.getByType(viewType);
+        final FeedItem.Tipo tipo = FeedItem.Tipo.getByType(viewType);
         if (tipo == null){
             throw new IllegalArgumentException("View Type cannot be null");
         }
@@ -30,26 +39,36 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
             case AGENDA:layout = R.layout.fragment_feed_item_agenda;break;
             case EVENTOS:layout = R.layout.fragment_feed_item_evento;break;
             case ANIVERSARIANTE:layout = R.layout.fragment_feed_item_aniver;break;
-
         }
 
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        return new FeedViewHolder(v, tipo);
+        return new FeedViewHolder(v, tipo , new FeedViewHolder.DisplayCallback() {
+            @Override
+            public void canDisplay(FeedItem item, boolean loaded) {
+                if(!loaded){
+                    items.remove(item.getPosition());
+                }
+//                else{
+//                    items.add(item.getPosition(), item);
+//                }
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
     public void onBindViewHolder(@NonNull FeedViewHolder viewHolder, int position) {
-        FeedItem feedItem = mDataset.getItem(position);
+        FeedItem feedItem = items.get(position);
         viewHolder.fill(feedItem);
     }
 
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return items.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return mDataset.getItem(position).getTipo().getType();
+        return items.get(position).getTipo().getType();
     }
 }

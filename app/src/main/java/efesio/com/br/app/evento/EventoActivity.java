@@ -12,7 +12,6 @@ import android.view.View;
 
 import java.util.List;
 
-import efesio.com.br.app.MainActivity;
 import efesio.com.br.app.R;
 import efesio.com.br.app.base.ActivityBase;
 import efesio.com.br.app.business.EventoBusiness;
@@ -83,15 +82,17 @@ public class EventoActivity extends ActivityBase
 
     @Override
     public void onResult(String tag, final NixResponse<List<Evento>> res) {
-        if (res.getEntity() == null || res.getEntity().size() == 0){
+        if (res.getEntity() == null) {
             alert("Nenhum evento encontrado");
-            open(MainActivity.class);
+            return;
         }
         if (res.getStatus() != 201){
             alert(res.getMessage());
+            return;
         }
         if (res.getEntity().size() == 0){
             alert("opssss... ","hão há eventos.");
+            return;
         }
         adapter.setItems(res.getEntity());
     }

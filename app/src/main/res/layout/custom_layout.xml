@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_marginTop="10dp"
     android:background="#000"
+    android:id="@+id/relative_galeria"
     android:layout_height="250dp">
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/img_custom"

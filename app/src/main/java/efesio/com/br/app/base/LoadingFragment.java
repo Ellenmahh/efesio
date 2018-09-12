@@ -17,7 +17,7 @@ import efesio.com.br.app.R;
 
 public class LoadingFragment extends DialogFragment {
 
-    static LoadingFragment newInstance() {
+    public static LoadingFragment newInstance() {
         LoadingFragment f = new LoadingFragment();
         return f;
     }

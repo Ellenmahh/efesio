@@ -108,7 +108,6 @@ public class AgendaActivity  extends ActivityBase
         listener.setOnItemClickListener(new ListClickListener.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                System.out.println("clicado -- "+res.getEntity().get(position));
                 List <String> x = new ArrayList<>();
                 x.add(String.valueOf(getIntent().putExtra("dia", String.valueOf(res.getEntity().get(position).getDataInicio().getDayOfMonth()))));
                 x.add(String.valueOf(getIntent().putExtra("mes", String.valueOf(res.getEntity().get(position).getDataInicio().toString("MMM").toUpperCase()))));

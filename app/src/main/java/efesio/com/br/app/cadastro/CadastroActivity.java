@@ -26,8 +26,6 @@ public class CadastroActivity extends ActivityBase implements FragmentBuscaIgrej
         toolbarca = findViewById(R.id.toolbarca);
         setSupportActionBar(toolbarca);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
     }
 
     @Override

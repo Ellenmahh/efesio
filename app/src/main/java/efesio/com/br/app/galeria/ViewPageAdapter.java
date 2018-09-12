@@ -3,6 +3,9 @@ package efesio.com.br.app.galeria;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.LruCache;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import efesio.com.br.app.R;
+import efesio.com.br.app.base.LoadingFragment;
 import efesio.com.br.app.business.GaleriaBusiness;
 import efesio.com.br.app.rest.NixResponse;
 import efesio.com.br.app.rest.Request;
@@ -28,20 +32,22 @@ import efesio.com.br.app.util.RuntimeValues;
 public class ViewPageAdapter extends PagerAdapter
         implements Request.OnResult<List<String>>, Request.OnError, Request.OnStart, Request.OnFinish {
 
+    public interface GaleriaCallback{
+        void onLoad(List<String> imagens);
+    }
+
     private Context context;
     private LayoutInflater layoutInflater;
     private List<String> images = new ArrayList<>();
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    NetworkImageView imageView;
-
-
+    private NetworkImageView imageView;
+    private GaleriaCallback callback;
     /**
      * inicia a fila de requisições da voley*/
-
-    public ViewPageAdapter(Context context){
-        this.context=context;
-
+    public ViewPageAdapter(Context context, GaleriaCallback callback){
+        this.context = context;
+        this.callback = callback;
         mRequestQueue = Volley.newRequestQueue(context);
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
             private final LruCache<String, Bitmap> mCache = new LruCache<String, Bitmap>(10);
@@ -52,8 +58,6 @@ public class ViewPageAdapter extends PagerAdapter
                 return mCache.get(url);
             }
         });
-
-/** inicia o carregador de imagens, chama a business*/
 
         new GaleriaBusiness(context)
                 .galeria(RuntimeValues.getIdEmpresa())
@@ -69,11 +73,10 @@ public class ViewPageAdapter extends PagerAdapter
         return images != null ? images.size() : 0;
     }
 
-    /**Atualiza a lista de fotos */
-
     public void setItems(List<String> items){
         this.images.clear();
         this.images.addAll(items);
+        this.callback.onLoad(items);
         this.notifyDataSetChanged();
     }
 
@@ -82,16 +85,11 @@ public class ViewPageAdapter extends PagerAdapter
         return view==object;
     }
 
-    /** é chamado toda vez que uma nova imagem aparece na lista*/
     @Override
     public Object instantiateItem(ViewGroup container, final int position){
         layoutInflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.custom_layout,null);
         imageView= view.findViewById(R.id.img_custom);
-
-        /**
-         * carrega a imagem da url e mostra na imageview*/
-
         String imagem = images.get(position);
         imageView.setImageUrl(imagem, mImageLoader);
 
@@ -108,7 +106,6 @@ public class ViewPageAdapter extends PagerAdapter
         return view;
     }
 
-
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         ViewPager vp = (ViewPager) container;
@@ -118,7 +115,7 @@ public class ViewPageAdapter extends PagerAdapter
 
     @Override
     public void onStart(String tag) {
-
+        loading(true);
 //        Toast.makeText(context,"Carregando imagens", Toast.LENGTH_SHORT).show();
     }
 
@@ -135,8 +132,21 @@ public class ViewPageAdapter extends PagerAdapter
 
     @Override
     public void onFinish(String tag) {
+        loading(false);
 //        Toast.makeText(context,"Imagens Carregadas", Toast.LENGTH_SHORT).show();
     }
 
-
+    public final void loading(boolean loading){
+        FragmentTransaction ft = ((FragmentActivity)context).getSupportFragmentManager().beginTransaction();
+        if(!loading) {
+            DialogFragment prev = (DialogFragment) ((FragmentActivity)context).getSupportFragmentManager().findFragmentByTag("loading_fragment");
+            if (prev != null) {
+                prev.dismiss();
+                ft.remove(prev);
+            }
+        }else{
+            ft.addToBackStack(null);
+            LoadingFragment.newInstance().show(ft, "loading_fragment");
+        }
+    }
 }

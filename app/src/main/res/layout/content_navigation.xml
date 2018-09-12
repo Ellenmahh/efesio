@@ -8,9 +8,8 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_navigation">
 
-   <fragment
+   <FrameLayout
        android:id="@+id/feed"
-       android:name="efesio.com.br.app.feed.FeedFragment"
        android:layout_width="match_parent"
        android:layout_height="match_parent"/>
 

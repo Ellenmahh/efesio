@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.util.LruCache;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import efesio.com.br.app.agenda.AgendaActivity;
 import efesio.com.br.app.aniversariante.AniversarianteActivity;
 import efesio.com.br.app.evento.EventoActivity;
+import efesio.com.br.app.feed.FeedFragment;
 import efesio.com.br.app.galeria.GaleriaActivity;
 import efesio.com.br.app.rest.Service;
 import efesio.com.br.app.util.RuntimeValues;
@@ -78,13 +81,16 @@ public class MainActivity extends AppCompatActivity
         nome_igreja.setText(RuntimeValues.getNomeIgreja());
         nome_user.setText("Bem vindo(a), "+RuntimeValues.getNomeUser());
         System.out.println("imagem com url -- " + imgIgreja);
-
         if (RuntimeValues.getImagem() == null || RuntimeValues.getImagem().isEmpty()){
             imageView_nav.setImageResource(R.drawable.noimage);
         }
         imageView_nav.setImageUrl(imgUser, mImageLoader);
-
         navigationView.setNavigationItemSelectedListener(this);
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.feed, FeedFragment.getInstance());
+        ft.commit();
     }
 
     @Override
@@ -96,12 +102,9 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_gallery) {
             Intent intent = new Intent(MainActivity.this, GaleriaActivity.class);
             startActivity(intent);
@@ -111,10 +114,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.eventos) {
             Intent intent = new Intent(MainActivity.this, EventoActivity.class);
             startActivity(intent);
-
         }else if (id == R.id.logout) {
-
-            SharedPreferences preferences =getSharedPreferences("login", Context.MODE_PRIVATE);
+            SharedPreferences preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
             editor.remove("email");
             editor.remove("senha");
@@ -126,11 +127,8 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, AniversarianteActivity.class);
             startActivity(intent);
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout_nav);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 }

@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import efesio.com.br.app.MainActivity;
 import efesio.com.br.app.R;
 import efesio.com.br.app.base.ActivityBase;
 import efesio.com.br.app.business.AniversarianteBusiness;
@@ -74,8 +73,7 @@ public class AniversarianteActivity extends ActivityBase
     @Override
     public void onResult(String tag, NixResponse<List<Aniversariante>> res) {
         if (res.getEntity() == null || res.getEntity().size() == 0){
-            open(MainActivity.class);
-            alert("Nenhum aniversariante encontrado");
+            alert("Nenhum aniversariante este mês");
         }
         if (res.getStatus() != 201){
             alert(res.getMessage());
