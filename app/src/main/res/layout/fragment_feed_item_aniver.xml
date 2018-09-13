@@ -37,13 +37,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:padding="8dp">
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:src="@drawable/aniver"
-                    android:id="@+id/imageAniver"
-                    android:layout_gravity="left"
-                    />
+
                 <TextView
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
@@ -53,6 +47,13 @@
                     android:layout_width="145dip"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"/>
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/aniver"
+                    android:id="@+id/imageAniver"
+                    android:layout_gravity="right"
+                    />
 
             </LinearLayout>
             <LinearLayout
@@ -66,9 +67,6 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/cake"
-                    android:drawablePadding="-100dp"
-                    android:paddingLeft="100dp"
                     android:text="VISUALIZAR"
                     android:background="@drawable/rectangle"
                     android:id="@+id/visualizar_aniver"

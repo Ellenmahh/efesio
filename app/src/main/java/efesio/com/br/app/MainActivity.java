@@ -32,27 +32,28 @@ import efesio.com.br.app.rest.Service;
 import efesio.com.br.app.util.RuntimeValues;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    CircularNetworkImageView imageView_nav;
-    TextView nome_igreja, nome_user;
-    NetworkImageView logo;
+        implements NavigationView.OnNavigationItemSelectedListener{
+
+    private CircularNetworkImageView imageView_nav;
+    private TextView nome_igreja, nome_user;
+    private NetworkImageView logo;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private Toolbar toolbar;
+    private  String imgIgreja;
+    private  String imgUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        String imgIgreja = Service.EFESIO.getStorage()+"efesio-bucket-logo/"+RuntimeValues.getFotoIgreja();
-        String imgUser = Service.EFESIO.getStorage()+"efesio-bucket-membro/"+RuntimeValues.getImagem();
+        imgIgreja = Service.EFESIO.getStorage()+"efesio-bucket-logo/"+RuntimeValues.getFotoIgreja();
+        imgUser = Service.EFESIO.getStorage()+"efesio-bucket-membro/"+RuntimeValues.getImagem();
         toolbar =  findViewById(R.id.toolbar);
-        System.out.println("nome igreja --- " + RuntimeValues.getNomeIgreja());
         if (RuntimeValues.getNomeIgreja() != null){
             toolbar.setTitle(RuntimeValues.getNomeIgreja());
         }
         setSupportActionBar(toolbar);
-        logo = findViewById(R.id.logo);
-
         DrawerLayout drawer =  findViewById(R.id.drawer_layout_nav);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -71,20 +72,27 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        logo = findViewById(R.id.logo);
+
         NavigationView navigationView =  findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
 
         nome_igreja = headerView.findViewById(R.id.nome_igreja);
         imageView_nav = headerView.findViewById(R.id.imageView_nav);
         nome_user = headerView.findViewById(R.id.nome_user);
+
+        if (RuntimeValues.getFotoIgreja() == null || RuntimeValues.getFotoIgreja().isEmpty()){
+            logo.setImageResource(R.drawable.favicon);
+        }
         logo.setImageUrl(imgIgreja,mImageLoader);
+
         nome_igreja.setText(RuntimeValues.getNomeIgreja());
         nome_user.setText("Bem vindo(a), "+RuntimeValues.getNomeUser());
-        System.out.println("imagem com url -- " + imgIgreja);
         if (RuntimeValues.getImagem() == null || RuntimeValues.getImagem().isEmpty()){
             imageView_nav.setImageResource(R.drawable.noimage);
         }
         imageView_nav.setImageUrl(imgUser, mImageLoader);
+
         navigationView.setNavigationItemSelectedListener(this);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -117,9 +125,11 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.logout) {
             SharedPreferences preferences = getSharedPreferences("login", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
+
             editor.remove("email");
             editor.remove("senha");
             editor.apply();
+
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
 

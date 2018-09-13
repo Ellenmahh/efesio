@@ -66,10 +66,8 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/event"
-                    android:drawablePadding="-100dp"
-                    android:paddingLeft="100dp"
                     android:text="VISUALIZAR"
+                    android:drawableTint="@color/orange"
                     android:background="@drawable/rectangle"
                     android:id="@+id/visualizar_evento"
                     android:textColor="@color/orange"
@@ -78,7 +76,4 @@
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-
-
 </FrameLayout>

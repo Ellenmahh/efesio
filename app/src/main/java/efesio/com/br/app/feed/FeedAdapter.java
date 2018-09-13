@@ -19,9 +19,9 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedViewHolder> {
     public FeedAdapter() {
         this.items.addAll(Arrays.asList(
                 new FeedItem(R.drawable.eventos, "Galeria", FeedItem.Tipo.GALERIA, 0),
-                new FeedItem(R.drawable.schedule, "Veja a agenda da igreja para este mês", FeedItem.Tipo.AGENDA, 1),
-                new FeedItem(R.drawable.events, "Veja os eventos da sua igreja", FeedItem.Tipo.EVENTOS, 2),
-                new FeedItem(R.drawable.aniver, "Veja os aniversariantes do mês !", FeedItem.Tipo.ANIVERSARIANTE ,3)
+                new FeedItem(R.drawable.schedule, "Agora você pode ver a agenda mensal e \n diária da sua igreja.", FeedItem.Tipo.AGENDA, 1),
+                new FeedItem(R.drawable.events, "Fique por dentro dos eventos deste mês!", FeedItem.Tipo.EVENTOS, 2),
+                new FeedItem(R.drawable.aniver, "Veja a lista de aniversariantes do mês.", FeedItem.Tipo.ANIVERSARIANTE ,3)
         ));
     }
 

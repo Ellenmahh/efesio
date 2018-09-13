@@ -67,9 +67,6 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/tasklist"
-                    android:drawablePadding="-100dp"
-                    android:paddingLeft="90dp"
                     android:text="VISUALIZAR"
                     android:background="@drawable/rectangle"
                     android:id="@+id/visualizar_agenda"

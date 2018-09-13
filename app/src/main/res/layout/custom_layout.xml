@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="40dp"
             android:src="@android:drawable/ic_menu_camera"
             android:textStyle="bold"
             android:layout_alignTop="@id/img_custom"

@@ -54,7 +54,7 @@ public class AgendaActivity  extends ActivityBase
         calendario.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                LocalDate d = new LocalDate(year, month, dayOfMonth);
+                LocalDate d = new LocalDate(year, month+1, dayOfMonth);
                 agenda(d);
             }
         });
@@ -68,9 +68,9 @@ public class AgendaActivity  extends ActivityBase
     }
 
     private void agenda(LocalDate data){
+        System.out.println("data agenda ------------------- "+data);
         new AgendaBusiness(this)
                 .agenda(data, RuntimeValues.getIdEmpresa())
-                .setTag(data == null ? "CARREGAR_BOLINHAS" : "LISTAR")
                 .setOnStart(this)
                 .setOnError(this)
                 .setOnResult(this)
@@ -80,7 +80,6 @@ public class AgendaActivity  extends ActivityBase
     @Override
     public void onStart(String tag) {
         loading(true);
-//        Toast.makeText(this, "Pesquisando ", Toast.LENGTH_LONG).show();
 
     }
     @Override
@@ -92,19 +91,12 @@ public class AgendaActivity  extends ActivityBase
     public void onResult(String tag, final NixResponse<List<Agenda>> res) {
         if (res.getStatus() != 201){
             alert(res.getMessage());
-//            Toast.makeText(this,  res.getMessage(), Toast.LENGTH_LONG).show();
         }
         adapter.setItems(res.getEntity());
-        if(tag.equals("CARREGAR_BOLINHAS")){
-//            for(Agenda a : res.getEntity()) {
-//                LocalDate data = a.getData();
-//                collapsibleCalendar.addEventTag(data.getYear(), data.getMonthOfYear()-1, data.getDayOfMonth());
-////                System.out.println(data.getYear()+" - "+ data.toString("MMM")+" - "+data.getDayOfMonth());
-//            }
-        }
-        if (res.getEntity().size() == 0 ){
-            alert("opsss... ", "Não há agenda para este mês.");
-        }
+//        if (res.getEntity().size() == 0 ){
+//            alert("opsss... ", "Não há agenda para este mês.");
+//        }
+
         listener.setOnItemClickListener(new ListClickListener.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
