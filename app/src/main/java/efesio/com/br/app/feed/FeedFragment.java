@@ -19,15 +19,12 @@ public class FeedFragment extends Fragment  implements SwipeRefreshLayout.OnRefr
     SwipeRefreshLayout swipeLayout;
 
     public static FeedFragment getInstance(){
-        System.out.println("Criou o feed");
         FeedFragment f = new FeedFragment();
         return f;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-
-        System.out.println("Criou a view do feed ");
 
         View v =  inflater.inflate(R.layout.fragment_feed, parent, false);
 

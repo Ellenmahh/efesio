@@ -12,9 +12,9 @@ import android.widget.Button;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
 import com.android.volley.toolbox.Volley;
 
+import efesio.com.br.app.CustomNetworkImageView;
 import efesio.com.br.app.R;
 
 public class GaleriaDialogFragment extends DialogFragment {
@@ -22,7 +22,7 @@ public class GaleriaDialogFragment extends DialogFragment {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     String imagem;
-    NetworkImageView imageView;
+    CustomNetworkImageView imageView;
     Button btn_fechar;
 
     @Override

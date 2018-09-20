@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/black">
 
-    <com.android.volley.toolbox.NetworkImageView
+    <efesio.com.br.app.CustomNetworkImageView
         android:id="@+id/image_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
